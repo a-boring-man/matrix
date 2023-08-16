@@ -26,6 +26,24 @@ where
 {
 }
 
+impl<K: Scalar> Scalar for Vector<K> {
+    fn add(self, other: Self) ->Self {
+        if self.v.len() != other.v.len() {
+            panic!("vector dimension doesn't match");
+        }
+
+        Vector { v: self.v }
+    }
+
+    fn mul(self, other: Self) ->Self {
+        
+    }
+
+    fn sub(self, other: Self) ->Self {
+        
+    }
+}
+
 #[allow(dead_code)]
 #[allow(non_snake_case)]
 impl<K: Scalar> Matrix<K> {
