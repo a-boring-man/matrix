@@ -1,5 +1,5 @@
 use std::ops::{Add, Sub, Mul};
-use std::fmt;
+use std::fmt::{self, write};
 
 #[allow(dead_code)]
 pub struct Matrix<K> {
@@ -52,16 +52,24 @@ impl<K: Scalar> Vector<K> {
 
 impl<K: Scalar> fmt::Display for Matrix<K> {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "[")?;
+        write!(f, "[ ")?;
         for r in 0..self.row {
-            write!(f, "[")?;
-            for c in 0..self.col {
-                let li = self.linear_index(r, c);
-                write!(f, "{}, ", self.data[li as usize])?;
+            match r == 0 {
+                true => write!(f, "[")?,
+                false => write!(f, "  [")?,
             }
-            writeln!(f, "]")?;
+            for c in 0..self.col {
+                match c != self.col - 1 {
+                    true => write!(f, "{}, ", self.data[self.linear_index(r, c) as usize])?,
+                    false => write!(f, "{}", self.data[self.linear_index(r, c) as usize])?,
+                }
+            }
+            match r != self.col - 1 {
+                true => writeln!(f, "]")?,
+                false => write!(f, "]")?,
+            }
         }
-        writeln!(f, "]")
+        writeln!(f, " ]")
     }
 }
 
@@ -70,7 +78,10 @@ impl<K: Scalar> fmt::Display for Vector<K> {
         write!(f, "[")?;
         let size = self.v.len();
         for i in 0..size {
-            write!(f, "{}, ", self.v[i])?;
+            match i != size - 1 {
+                true => write!(f, "{}, ", self.v[i])?,
+                false => write!(f, "{}", self.v[i])?,
+            }
         }
         writeln!(f, "]")
     }
