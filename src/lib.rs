@@ -1,2 +1,5 @@
 pub mod matrix;
-mod test;
+
+mod test{
+	mod utils;
+}

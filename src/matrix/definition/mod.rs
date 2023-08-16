@@ -1,15 +1,17 @@
 use std::ops::{Add, Sub, Mul};
-use std::fmt::{self, write};
+use std::fmt;
 
 #[allow(dead_code)]
-pub struct Matrix<K> {
+
+pub struct Matrix<K: Scalar> {
     pub data: Vec::<K>,
     pub col: u8,
     pub row: u8,
 }
 
 #[allow(dead_code)]
-pub struct Vector<K> {
+#[derive(Clone)]
+pub struct Vector<K: Scalar> {
     pub v: Vec::<K>,
 }
 
