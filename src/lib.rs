@@ -1,4 +1,2 @@
-mod matrix;
-
-
-
+pub mod matrix;
+mod test;

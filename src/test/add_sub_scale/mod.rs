@@ -1,10 +1,12 @@
+
 #[cfg(test)]
 mod tests {
-    use super::*;
+    
+    use crate::matrix::definition::{Matrix, Vector};
 
     #[test]
     fn it_works() {
-        let result = add(2, 2);
-        assert_eq!(result, 4);
+        let test_m: Matrix<u32> = Matrix {data: vec![1, 2, 3, 4], row: 2, col: 2};
+        println!("{}", test_m);
     }
 }
