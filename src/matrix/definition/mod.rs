@@ -1,8 +1,11 @@
 use std::ops::{Add, Sub, Mul};
 use std::fmt;
+use crate::matrix::add_sub_scale::add;
+
+// -------------------------- Basic implementation ------------------------
 
 #[allow(dead_code)]
-
+#[derive(Clone)]
 pub struct Matrix<K: Scalar> {
     pub data: Vec::<K>,
     pub col: u8,
@@ -15,6 +18,8 @@ pub struct Vector<K: Scalar> {
     pub v: Vec::<K>,
 }
 
+// ---------------------------- Scalar trait definition --------------------------
+
 pub trait Scalar :
     Add<Output = Self> + Sub<Output = Self> + Mul<Output = Self> + Clone + fmt::Display
 {
@@ -26,23 +31,15 @@ where
 {
 }
 
-impl<K: Scalar> Scalar for Vector<K> {
-    fn add(self, other: Self) ->Self {
-        if self.v.len() != other.v.len() {
-            panic!("vector dimension doesn't match");
-        }
+impl<K: Scalar> Add for Vector<K> {
+    type Output = Self;
 
-        Vector { v: self.v }
-    }
-
-    fn mul(self, other: Self) ->Self {
-        
-    }
-
-    fn sub(self, other: Self) ->Self {
-        
+    fn add(self, other: Self) -> Self {
+        self.add(other)
     }
 }
+
+// ------------------------------- Utils function --------------------------------
 
 #[allow(dead_code)]
 #[allow(non_snake_case)]
@@ -69,6 +66,8 @@ impl<K: Scalar> Vector<K> {
         }
     }
 }
+
+// ----------------------------------- Display function ---------------------------------
 
 impl<K: Scalar> fmt::Display for Matrix<K> {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

@@ -1,2 +1,2 @@
 pub mod definition;
-mod add_sub_scale;
+pub mod add_sub_scale;

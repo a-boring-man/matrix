@@ -13,21 +13,21 @@ impl<K : Scalar> Matrix<K>
         let tmp: Vec<K> = self.data.iter().map(|e| e.clone() * a.clone()).collect();
         self.data = tmp;
     }
-    fn add(&self, m: &Matrix<K>) -> Matrix<K> {
+    pub fn add(&self, m: &Matrix<K>) -> Matrix<K> {
         Matrix {
             data: self.data.iter().zip(m.data.iter()).map(|(a, b)| a.clone() + b.clone()).collect(),
             col: self.col,
             row: self.row,
         }
     }
-    fn sub(&self, m: &Matrix<K>) -> Matrix<K> {
+    pub fn sub(&self, m: &Matrix<K>) -> Matrix<K> {
         Matrix {
             data: self.data.iter().zip(m.data.iter()).map(|(a, b)| a.clone() - b.clone()).collect(),
             col: self.col,
             row: self.row,
         }
     }
-    fn scale(&self, a: K) -> Matrix<K> {
+    pub fn scale(&self, a: K) -> Matrix<K> {
         Matrix {
             data: self.data.iter().map(|e| e.clone() * a.clone()).collect(),
             col: self.col,
@@ -49,17 +49,20 @@ impl<K: Scalar> Vector<K>
         let tmp: Vec<K> = self.v.iter().map(|e| e.clone() * a.clone()).collect();
         self.v = tmp;
     }
-    fn add(&mut self, v: Vector<K>) -> Vector<K> {
+    pub fn add(&mut self, v: Vector<K>) -> Vector<K> {
+        if self.v.len() != v.v.len() {
+            panic!("");
+        }
         Vector {
             v: self.v.iter().zip(v.v.iter()).map(|(a, b)| a.clone() + b.clone()).collect(),
         }
     }
-    fn sub(&mut self, v: Vector<K>) -> Vector<K> {
+    pub fn sub(&mut self, v: Vector<K>) -> Vector<K> {
         Vector {
             v: self.v.iter().zip(v.v.iter()).map(|(a, b)| a.clone() - b.clone()).collect(),
         }
     }
-    fn scale(&mut self, a: K) -> Vector<K> {
+    pub fn scale(&mut self, a: K) -> Vector<K> {
         Vector {
             v: self.v.iter().map(|e| e.clone() * a.clone()).collect(),
         }   
