@@ -114,9 +114,13 @@ impl<K: Scalar> From<Vec<K>> for Vector<K> {
     }
 }
 
-impl<K: Scalar> From<Vec<K>> for Matrix<K> {
-    fn from(value: Vec<K>) -> Self {
-        
+impl<K: Scalar> From<(Vec<K>, u8, u8)> for Matrix<K> {
+    fn from(value: (Vec<K>, u8, u8)) -> Self {
+        let (data, col, row) = value;
+        if (col * row) as usize != data.len() {
+            panic!("invalid matrix constrution");
+        }
+        Matrix { data, col, row }
     }
 }
 
