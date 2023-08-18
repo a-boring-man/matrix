@@ -52,10 +52,15 @@ impl<K : Scalar> Matrix<K>
 impl<K: Scalar> Vector<K>
 {
     fn self_add(&mut self, v: Vector<K>) {
-        if self.v.len()
+        if self.v.len() != v.v.len() {
+            panic!("dimension error on vector addition");
+        }
         self.v = self.v.iter().zip(v.v.iter()).map(|(a, b)| a.clone() + b.clone()).collect();
     }
     fn self_sub(&mut self, v: Vector<K>) {
+        if self.v.len() != v.v.len() {
+            panic!("dimension error on vector substraction");
+        }
         self.v = self.v.iter().zip(v.v.iter()).map(|(a, b)| a.clone() - b.clone()).collect();
     }
     fn self_scale(&mut self, a: K) {
@@ -64,13 +69,16 @@ impl<K: Scalar> Vector<K>
     }
     pub fn add(&mut self, v: Vector<K>) -> Vector<K> {
         if self.v.len() != v.v.len() {
-            panic!("");
+            panic!("dimension error on vector addition");
         }
         Vector {
             v: self.v.iter().zip(v.v.iter()).map(|(a, b)| a.clone() + b.clone()).collect(),
         }
     }
     pub fn sub(&mut self, v: Vector<K>) -> Vector<K> {
+        if self.v.len() != v.v.len() {
+            panic!("dimension error on vector substraction");
+        }
         Vector {
             v: self.v.iter().zip(v.v.iter()).map(|(a, b)| a.clone() - b.clone()).collect(),
         }

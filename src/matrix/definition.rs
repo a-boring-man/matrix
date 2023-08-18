@@ -34,7 +34,33 @@ impl<K: Scalar> Add for Vector<K> {
     type Output = Self;
 
     fn add(self, rhs: Self) -> Self::Output {
-        
+        if self.v.len() != rhs.v.len() {
+            panic!("dimension error on vector addition");
+        }
+        Vector {
+            v: self.v.iter().zip(rhs.v.iter()).map(|(a, b)| a.clone() + b.clone()).collect(),
+        }
+    }
+}
+
+impl<K: Scalar> Sub for Vector<K> {
+    type Output = Self;
+
+    fn sub(self, rhs: Self) -> Self::Output {
+        if self.v.len() != rhs.v.len() {
+            panic!("dimension error on vector substraction");
+        }
+        Vector {
+            v: self.v.iter().zip(rhs.v.iter()).map(|(a, b)| a.clone() - b.clone()).collect(),
+        }
+    }
+}
+
+impl<K: Scalar> Mul for Vector<K> {
+    type Output = Self;
+
+    fn mul(self, rhs: Self) -> Self::Output {
+        self
     }
 }
 
@@ -101,6 +127,6 @@ impl<K: Scalar> fmt::Display for Vector<K> {
                 false => write!(f, "{}", self.v[i])?,
             }
         }
-        writeln!(f, "]")
+        write!(f, "]")
     }
 }

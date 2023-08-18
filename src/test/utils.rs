@@ -11,7 +11,7 @@ mod tests {
         println!("{}", test_i32);
         let test_f64: Matrix<f64> = Matrix {data: vec![1.86956, 2.555, 3.976, 4.0008], row: 2, col: 2};
         println!("{}", test_f64);
-        let test_vector_u32: Matrix<Vector<u32>> = Matrix {data: vec![Vector {v: vec![1, 2, 3, 4]}, Vector {v: vec![1, 2, 3, 4]}, Vector {v: vec![1, 2, 3, 4]}, Vector {v: vec![1, 2, 3, 4]}], row: 2, col: 2};
+        let test_vector_u32: Matrix<Vector<u32>> = Matrix {data: vec![Vector {v: vec![1, 2, 3, 4]}, Vector {v: vec![5, 6, 7, 8]}, Vector {v: vec![9, 10, 11, 12]}, Vector {v: vec![13, 14, 15, 16]}], row: 2, col: 2};
         println!("{}", test_vector_u32);
     }
 
