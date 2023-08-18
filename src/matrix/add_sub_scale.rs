@@ -4,9 +4,15 @@ use super::definition::{Scalar, Matrix, Vector};
 impl<K : Scalar> Matrix<K>
 {
     fn self_add(&mut self, m: &Matrix<K>) {
+        if self.row != m.row || self.col != m.col || self.data.len() != m.data.len() {
+            panic!("dimension error in matrix addition");
+        }
         self.data = self.data.iter().zip(m.data.iter()).map(|(a, b)| a.clone() + b.clone()).collect();
     }
     fn self_sub(&mut self, m: &Matrix<K>) {
+        if self.row != m.row || self.col != m.col || self.data.len() != m.data.len() {
+            panic!("dimension error in matrix substraction");
+        }
         self.data = self.data.iter().zip(m.data.iter()).map(|(a, b)| a.clone() - b.clone()).collect();
     }
     fn self_scale(&mut self, a: K) {
@@ -14,6 +20,9 @@ impl<K : Scalar> Matrix<K>
         self.data = tmp;
     }
     pub fn add(&self, m: &Matrix<K>) -> Matrix<K> {
+        if self.row != m.row || self.col != m.col || self.data.len() != m.data.len() {
+            panic!("dimension error in matrix addition");
+        }
         Matrix {
             data: self.data.iter().zip(m.data.iter()).map(|(a, b)| a.clone() + b.clone()).collect(),
             col: self.col,
@@ -21,6 +30,9 @@ impl<K : Scalar> Matrix<K>
         }
     }
     pub fn sub(&self, m: &Matrix<K>) -> Matrix<K> {
+        if self.row != m.row || self.col != m.col || self.data.len() != m.data.len() {
+            panic!("dimension error in matrix substraction");
+        }
         Matrix {
             data: self.data.iter().zip(m.data.iter()).map(|(a, b)| a.clone() - b.clone()).collect(),
             col: self.col,
@@ -40,6 +52,7 @@ impl<K : Scalar> Matrix<K>
 impl<K: Scalar> Vector<K>
 {
     fn self_add(&mut self, v: Vector<K>) {
+        if self.v.len()
         self.v = self.v.iter().zip(v.v.iter()).map(|(a, b)| a.clone() + b.clone()).collect();
     }
     fn self_sub(&mut self, v: Vector<K>) {

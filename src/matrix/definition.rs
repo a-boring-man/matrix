@@ -30,6 +30,14 @@ where
 {
 }
 
+impl<K: Scalar> Add for Vector<K> {
+    type Output = Self;
+
+    fn add(self, rhs: Self) -> Self::Output {
+        
+    }
+}
+
 // ------------------------------- Utils function --------------------------------
 
 #[allow(dead_code)]
