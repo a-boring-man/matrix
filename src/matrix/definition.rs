@@ -108,6 +108,18 @@ impl<K: Scalar> Mul for Matrix<K> {
     }
 }
 
+impl<K: Scalar> From<Vec<K>> for Vector<K> {
+    fn from(value: Vec<K>) -> Self {
+        Vector { v: value }
+    }
+}
+
+impl<K: Scalar> From<Vec<K>> for Matrix<K> {
+    fn from(value: Vec<K>) -> Self {
+        
+    }
+}
+
 // ------------------------------- Utils function --------------------------------
 
 #[allow(dead_code)]
