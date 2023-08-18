@@ -27,5 +27,43 @@ mod tests {
         println!("{}", test_mf);
     }
 
-    
+    #[test]
+    fn matrix_square_test() {
+        let m_not_squar1: Matrix<f64> = Matrix {data: vec![2.43, 234.35, 235.663], col: 3, row: 1};
+        let m_not_squar2: Matrix<f64> = Matrix {data: vec![2.43, 234.35, 235.663, 35.263, 36.0, 763.2], col: 2, row: 3};
+        let m_squar: Matrix<f64> = Matrix {data: vec![2.43, 234.35, 235.663, 42.0], col: 2, row: 2};
+        assert!(!m_not_squar1.is_square());
+        assert!(!m_not_squar2.is_square());
+        assert!(m_squar.is_square());
+    }
+
+    #[test]
+    fn transform_into_vector() {
+        let m1: Matrix<f64> = Matrix { data: vec![1.0, 2.312, 3.4124, 4.51], col: 2, row: 2 };
+        let m2: Matrix<Vector<u32>> = Matrix { data: vec![Vector {v: vec![1, 2, 3, 4]}, Vector {v: vec![5, 6, 7, 8]}], col: 2, row: 1 };
+        let v1: Vector<f64> = Vector { v: vec![1.0, 2.312, 3.4124, 4.51] };
+        let v2: Vector<Vector<u32>> = Vector { v: vec![Vector {v: vec![1, 2, 3, 4]}, Vector {v: vec![5, 6, 7, 8]}] };
+        assert_eq!(m1.transform_into_Vector(), v1);
+        assert_eq!(m2.transform_into_Vector(), v2);
+    }
+
+    #[test]
+    fn linear_index() {
+        let m1 = Matrix {data: vec![1, 2, 3, 4, 5, 6, 7, 8, 9], col: 3, row: 3};
+        assert_eq!(m1.linear_index(0, 0), 0);
+        assert_eq!(m1.linear_index(0, 1), 1);
+        assert_eq!(m1.linear_index(0, 2), 2);
+        assert_eq!(m1.linear_index(1, 0), 3);
+        assert_eq!(m1.linear_index(1, 1), 4);
+        assert_eq!(m1.linear_index(1, 2), 5);
+        assert_eq!(m1.linear_index(2, 0), 6);
+        assert_eq!(m1.linear_index(2, 1), 7);
+        assert_eq!(m1.linear_index(2, 2), 8);
+    }
+
+    #[test]
+    fn transform_into_matrix() {
+        
+    }
+
 }

@@ -5,6 +5,8 @@ use std::fmt;
 
 #[allow(dead_code)]
 #[derive(Clone)]
+#[derive(PartialEq)]
+#[derive(Debug)]
 pub struct Matrix<K: Scalar> {
     pub data: Vec::<K>,
     pub col: u8,
@@ -13,6 +15,8 @@ pub struct Matrix<K: Scalar> {
 
 #[allow(dead_code)]
 #[derive(Clone)]
+#[derive(PartialEq)]
+#[derive(Debug)]
 pub struct Vector<K: Scalar> {
     pub v: Vec::<K>,
 }
