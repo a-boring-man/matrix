@@ -1,6 +1,5 @@
 use std::ops::{Add, Sub, Mul};
 use std::fmt;
-use crate::matrix::add_sub_scale::add;
 
 // -------------------------- Basic implementation ------------------------
 
@@ -29,14 +28,6 @@ impl<T> Scalar for T
 where
     T: Add<Output = T> + Sub<Output = T> + Mul<Output = T> + Clone + fmt::Display
 {
-}
-
-impl<K: Scalar> Add for Vector<K> {
-    type Output = Self;
-
-    fn add(self, other: Self) -> Self {
-        self.add(other)
-    }
 }
 
 // ------------------------------- Utils function --------------------------------

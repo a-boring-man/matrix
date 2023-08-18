@@ -2,7 +2,7 @@
 #[cfg(test)]
 mod tests {
     
-    use crate::matrix::definition::{Matrix, Vector};
+    use crate::matrix::definition::*;
 
     #[test]
     fn matrix_printing_test() {
