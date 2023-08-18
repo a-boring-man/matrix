@@ -30,6 +30,8 @@ where
 {
 }
 
+// ----------------------------- Scalar traits impl ----------------------------
+
 impl<K: Scalar> Add for Vector<K> {
     type Output = Self;
 
@@ -57,6 +59,44 @@ impl<K: Scalar> Sub for Vector<K> {
 }
 
 impl<K: Scalar> Mul for Vector<K> {
+    type Output = Self;
+
+    fn mul(self, rhs: Self) -> Self::Output {
+        self
+    }
+}
+
+impl<K: Scalar> Add for Matrix<K> {
+    type Output = Self;
+
+    fn add(self, rhs: Self) -> Self::Output {
+        if self.row != rhs.row || self.col != rhs.col || self.data.len() != rhs.data.len() {
+            panic!("dimension error in matrix addition");
+        }
+        Matrix {
+            data: self.data.iter().zip(rhs.data.iter()).map(|(a, b)| a.clone() + b.clone()).collect(),
+            col: self.col,
+            row: self.row,
+        }
+    }
+}
+
+impl<K: Scalar> Sub for Matrix<K> {
+    type Output = Self;
+
+    fn sub(self, rhs: Self) -> Self::Output {
+        if self.row != rhs.row || self.col != rhs.col || self.data.len() != rhs.data.len() {
+            panic!("dimension error in matrix substraction");
+        }
+        Matrix {
+            data: self.data.iter().zip(rhs.data.iter()).map(|(a, b)| a.clone() - b.clone()).collect(),
+            col: self.col,
+            row: self.row,
+        }
+    }
+}
+
+impl<K: Scalar> Mul for Matrix<K> {
     type Output = Self;
 
     fn mul(self, rhs: Self) -> Self::Output {
