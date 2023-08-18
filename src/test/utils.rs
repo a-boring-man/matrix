@@ -63,7 +63,11 @@ mod tests {
 
     #[test]
     fn transform_into_matrix() {
-        
+        let v = Vector {v: vec![1, 2, 3, 4, 5, 6, 7, 8]};
+        let ml = Matrix { data: vec![1, 2, 3, 4, 5, 6, 7, 8], row: 1, col: 8};
+        let mnl = Matrix { data: vec![1, 2, 3, 4, 5, 6, 7, 8], row: 8, col: 1};
+        assert_eq!(v.transform_into_matrix(true), ml);
+        assert_eq!(v.transform_into_matrix(false), mnl);
     }
 
 }
