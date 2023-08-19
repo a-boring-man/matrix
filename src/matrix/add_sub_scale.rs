@@ -4,13 +4,13 @@ use super::definition::{Scalar, Matrix, Vector};
 impl<K : Scalar> Matrix<K>
 {
     pub fn self_add(&mut self, m: &Matrix<K>) {
-        if self.row != m.row || self.col != m.col || self.data.len() != m.data.len() {
+        if !self.is_of_matching_dimension(m) {
             panic!("dimension error in matrix addition");}
         self.data = self.data.iter().zip(m.data.iter()).map(|(a, b)| a.clone() + b.clone()).collect();
     }
 
     pub fn self_sub(&mut self, m: &Matrix<K>) {
-        if self.row != m.row || self.col != m.col || self.data.len() != m.data.len() {
+        if !self.is_of_matching_dimension(m) {
             panic!("dimension error in matrix substraction");}
         self.data = self.data.iter().zip(m.data.iter()).map(|(a, b)| a.clone() - b.clone()).collect();
     }
@@ -21,31 +21,31 @@ impl<K : Scalar> Matrix<K>
     }
 
     pub fn add(&self, m: &Matrix<K>) -> Matrix<K> {
-        if self.row != m.row || self.col != m.col || self.data.len() != m.data.len() {
+        if !self.is_of_matching_dimension(m) {
             panic!("dimension error in matrix addition");}
-        Matrix {
-            data: self.data.iter().zip(m.data.iter()).map(|(a, b)| a.clone() + b.clone()).collect(),
-            col: self.col,
-            row: self.row,
-        }
+        let (col, row) = self.get_shape();
+        Matrix::from((
+            self.data.iter().zip(m.data.iter()).map(|(a, b)| a.clone() + b.clone()).collect(), 
+            col, 
+            row))
     }
 
     pub fn sub(&self, m: &Matrix<K>) -> Matrix<K> {
-        if self.row != m.row || self.col != m.col || self.data.len() != m.data.len() {
+        if !self.is_of_matching_dimension(m) {
             panic!("dimension error in matrix substraction");}
-        Matrix {
-            data: self.data.iter().zip(m.data.iter()).map(|(a, b)| a.clone() - b.clone()).collect(),
-            col: self.col,
-            row: self.row,
-        }
+        let (col, row) = self.get_shape();
+        Matrix::from((
+            self.data.iter().zip(m.data.iter()).map(|(a, b)| a.clone() - b.clone()).collect(), 
+            col, 
+            row))
     }
 
     pub fn scale(&self, a: &K) -> Matrix<K> {
-        Matrix {
-            data: self.data.iter().map(|e| e.clone() * a.clone()).collect(),
-            col: self.col,
-            row: self.row,
-        }
+        let (col, row) = self.get_shape();
+        Matrix::from((
+            self.data.iter().map(|e| e.clone() * a.clone()).collect(), 
+            col, 
+            row))
     }
 }
 

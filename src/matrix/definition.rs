@@ -9,8 +9,8 @@ use std::fmt;
 #[derive(Debug)]
 pub struct Matrix<K: Scalar> {
     pub data: Vec::<K>,
-    pub col: u8,
-    pub row: u8,
+    col: u8,
+    row: u8,
 }
 
 #[allow(dead_code)]
@@ -124,6 +124,24 @@ impl<K: Scalar> From<(Vec<K>, u8, u8)> for Matrix<K> {
     }
 }
 
+impl<K: Scalar> IntoIterator for Matrix<K> {
+    type Item = K;
+    type IntoIter = std::vec::IntoIter<K>;
+
+    fn into_iter(self) -> Self::IntoIter {
+        self.data.into_iter()
+    }
+}
+
+impl<K: Scalar> IntoIterator for Vector<K> {
+    type Item = K;
+    type IntoIter = std::vec::IntoIter<K>;
+
+    fn into_iter(self) -> Self::IntoIter {
+        self.v.into_iter()
+    }
+}
+
 // ------------------------------- Utils function --------------------------------
 
 #[allow(dead_code)]
@@ -140,6 +158,19 @@ impl<K: Scalar> Matrix<K> {
     pub fn linear_index(&self, r: u8, c: u8) -> u16 {
         (r * self.col + c).into()
     }
+    /// return a tuple (column, row)
+    pub fn get_shape(&self) -> (u8, u8) {
+        (self.col, self.row)
+    }
+
+    pub fn is_of_matching_dimension(&self, other: &Matrix<K>) -> bool {
+        self.row == other.row && self.col == other.col && self.data.len() == other.data.len()
+    }
+
+    pub fn iter_mut(&mut self) -> std::slice::IterMut<K> {
+        self.data.iter_mut()
+    }
+
 }
 
 #[allow(dead_code)]
