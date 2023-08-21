@@ -5,4 +5,5 @@ mod test{
 	mod add_sub_scale;
 	mod linear_combination;
 	mod linear_interpolation;
+	mod dot;
 }
