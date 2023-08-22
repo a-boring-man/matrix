@@ -7,4 +7,5 @@ mod test{
 	mod linear_interpolation;
 	mod dot;
 	mod norm;
+	mod cosine;
 }
