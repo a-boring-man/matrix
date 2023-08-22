@@ -5,3 +5,4 @@ pub mod linear_interpolation;
 pub mod dot;
 pub mod norm;
 pub mod cosine;
+pub mod cross_product;
