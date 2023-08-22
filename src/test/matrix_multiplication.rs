@@ -2,7 +2,7 @@
 mod test {
     use assert_approx_eq::assert_approx_eq;
 
-    use crate::matrix::definition::Matrix;
+    use crate::matrix::definition::{Matrix, Vector};
 
 	#[test]
 	fn matrix_matrix_multiplication() {
@@ -13,5 +13,12 @@ mod test {
 		for i in 0..result.data.len() {
 			assert_approx_eq!(expect_result.data[i] as f64, result.data[i] as f64);
 		}
+	}
+
+	#[test]
+	fn matrix_vector_multiplication() {
+		let m1 = Matrix::from((vec![1, 2, 3, 4], 2, 2));
+		let v1 = Vector::from(vec![4, 2]);
+		assert_eq!(Vector::from(vec![8, 20]), m1.mul_vec(&v1));
 	}
 }
