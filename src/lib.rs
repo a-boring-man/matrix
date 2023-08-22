@@ -8,4 +8,5 @@ mod test{
 	mod dot;
 	mod norm;
 	mod cosine;
+	mod cross_product;
 }
