@@ -6,4 +6,5 @@ mod test{
 	mod linear_combination;
 	mod linear_interpolation;
 	mod dot;
+	mod norm;
 }
