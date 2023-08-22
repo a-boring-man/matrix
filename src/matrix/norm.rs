@@ -31,8 +31,8 @@ impl<K: Scalar + Normable> Vector<K> {
 			}
 		}
 		if big.norm() >= smole.norm(){
-			return big.clone();
+			return big.clone().norm();
 		}
-		smole.clone()
+		smole.clone().norm()
 	}
 }
