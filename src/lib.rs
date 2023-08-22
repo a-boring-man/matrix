@@ -9,4 +9,5 @@ mod test{
 	mod norm;
 	mod cosine;
 	mod cross_product;
+	mod matrix_multiplication;
 }

@@ -20,7 +20,7 @@ impl<K: Scalar + Default + AddAssign> Matrix<K> where for<'a> &'a K: Mul<&'a K, 
 		Vector { v: tmp_vec }
 	}
 
-	pub fn mul_mat(&self, mat: Matrix<K>) -> Matrix<K> {
+	pub fn mul_mat(&self, mat: &Matrix<K>) -> Matrix<K> {
 		let (nbr_col1, nbr_row1) = self.get_shape();
 		let (nbr_col2, nbr_row2) = mat.get_shape();
 		if nbr_col1 != nbr_row2 || nbr_col1 == 0 {
@@ -36,6 +36,6 @@ impl<K: Scalar + Default + AddAssign> Matrix<K> where for<'a> &'a K: Mul<&'a K, 
 				tmp_vec.push(tmp_val);
 			}
 		}
-		Matrix::from((tmp_vec, nbr_col1, nbr_row2))
+		Matrix::from((tmp_vec, nbr_col2, nbr_row1))
 	}
 }
