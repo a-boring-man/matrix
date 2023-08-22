@@ -9,3 +9,4 @@ A 42 school has posted a Common Core project with the goal of creating a generic
 ## State
 
 Still under development.
+About 1/4 done.
