@@ -13,4 +13,5 @@ mod test{
 	mod trace;
 	mod transpose;
 	mod reduced_row_echelon;
+	mod determinant;
 }

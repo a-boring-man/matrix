@@ -10,3 +10,4 @@ pub mod matrix_multiplication;
 pub mod trace;
 pub mod transpose;
 pub mod reduced_row_echelon;
+pub mod determinant;
