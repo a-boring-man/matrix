@@ -8,3 +8,4 @@ pub mod cosine;
 pub mod cross_product;
 pub mod matrix_multiplication;
 pub mod trace;
+pub mod transpose;

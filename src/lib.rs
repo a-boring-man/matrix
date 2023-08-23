@@ -10,4 +10,6 @@ mod test{
 	mod cosine;
 	mod cross_product;
 	mod matrix_multiplication;
+	mod trace;
+	mod transpose;
 }
