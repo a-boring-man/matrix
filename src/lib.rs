@@ -12,4 +12,5 @@ mod test{
 	mod matrix_multiplication;
 	mod trace;
 	mod transpose;
+	mod reduced_row_echelon;
 }

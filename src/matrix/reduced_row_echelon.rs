@@ -2,7 +2,7 @@ use super::definition::{Scalar, Matrix};
 use num_traits::identities::One;
 use std::ops::Mul;
 
-impl<K: Scalar + Default + One + for<'a> std::ops::Div<&'a K, Output = K> + for <'a> std::ops::MulAssign<&'a K> + for<'a> std::ops::AddAssign<&'a K> + std::cmp::PartialEq> Matrix<K> where for <'a> &'a K: Mul<&'a K, Output = K> {
+impl<K: Scalar + Default + One + for<'a> std::ops::SubAssign<&'a K> + for<'a> std::ops::Div<&'a K, Output = K> + for <'a> std::ops::MulAssign<&'a K> + for<'a> std::ops::AddAssign<&'a K> + std::cmp::PartialEq> Matrix<K> where for <'a> &'a K: Mul<&'a K, Output = K> {
 
 	fn row_swap(&mut self, r1: usize, r2: usize) {
 		let (nbr_col, _) = self.get_shape();
@@ -37,7 +37,7 @@ impl<K: Scalar + Default + One + for<'a> std::ops::Div<&'a K, Output = K> + for 
 		let (nbr_col, _) = self.get_shape();
 		for c in 0..nbr_col {
 			let i1 = self.linear_index(r as u8, c) as usize;
-			self.data[i1] += &vec[c as usize];
+			self.data[i1] -= &vec[c as usize];
 		}
 	}
 
@@ -50,6 +50,7 @@ impl<K: Scalar + Default + One + for<'a> std::ops::Div<&'a K, Output = K> + for 
 		let mut lead = 0;
 
 		for r in 0..nbr_row {
+			println!("result inter {}", result);
 			// if at the end exit
 			if lead >= nbr_col {
 				break;
