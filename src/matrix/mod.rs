@@ -9,3 +9,4 @@ pub mod cross_product;
 pub mod matrix_multiplication;
 pub mod trace;
 pub mod transpose;
+pub mod reduced_row_echelon;
