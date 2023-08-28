@@ -1,23 +1,27 @@
 use super::definition::{Scalar, Matrix, Vector};
+use std::ops::{Add, Sub, Mul};
 
 #[allow(dead_code)]
-impl<K : Scalar> Matrix<K>
+impl<K : Scalar> Matrix<K> where for<'a> &'a mut K: Add<&'a K>, for<'a> &'a mut K: Sub<&'a K>, for<'a> &'a mut K: Mul<&'a K>, for<'a> &'a K: Add<&'a K, Output = K>, for<'a> &'a K: Sub<&'a K, Output = K>, for<'a> &'a K: Mul<&'a K, Output = K>
 {
     pub fn self_add(&mut self, m: &Matrix<K>) {
         if !self.is_of_matching_dimension(m) {
             panic!("dimension error in matrix addition");}
-        self.data = self.data.iter().zip(m.data.iter()).map(|(a, b)| a.clone() + b.clone()).collect();
+        self.iter_mut().zip(m.iter()).map(|(a, b)| a + b).collect::<Vec<_>>();
+        //self.data = self.data.iter().zip(m.data.iter()).map(|(a, b)| a.clone() + b.clone()).collect();
     }
 
     pub fn self_sub(&mut self, m: &Matrix<K>) {
         if !self.is_of_matching_dimension(m) {
             panic!("dimension error in matrix substraction");}
-        self.data = self.data.iter().zip(m.data.iter()).map(|(a, b)| a.clone() - b.clone()).collect();
+        self.iter_mut().zip(m.iter()).map(|(a, b)| a - b).collect::<Vec<_>>();
+        //self.data = self.data.iter().zip(m.data.iter()).map(|(a, b)| a.clone() - b.clone()).collect();
     }
 
     pub fn self_scale(&mut self, a: &K) {
-        let tmp: Vec<K> = self.data.iter().map(|e| e.clone() * a.clone()).collect();
-        self.data = tmp;
+        self.iter_mut().map(|e| e * a).collect::<Vec<_>>();
+        // let tmp: Vec<K> = self.data.iter().map(|e| e.clone() * a.clone()).collect();
+        // self.data = tmp;
     }
 
     pub fn add(&self, m: &Matrix<K>) -> Matrix<K> {
@@ -25,7 +29,7 @@ impl<K : Scalar> Matrix<K>
             panic!("dimension error in matrix addition");}
         let (col, row) = self.get_shape();
         Matrix::from((
-            self.data.iter().zip(m.data.iter()).map(|(a, b)| a.clone() + b.clone()).collect(), 
+            self.iter().zip(m.iter()).map(|(a, b)| a + b).collect::<Vec<_>>(), 
             col, 
             row))
     }
@@ -35,7 +39,7 @@ impl<K : Scalar> Matrix<K>
             panic!("dimension error in matrix substraction");}
         let (col, row) = self.get_shape();
         Matrix::from((
-            self.data.iter().zip(m.data.iter()).map(|(a, b)| a.clone() - b.clone()).collect(), 
+            self.iter().zip(m.iter()).map(|(a, b)| a - b).collect::<Vec<_>>(), 
             col, 
             row))
     }
@@ -43,7 +47,7 @@ impl<K : Scalar> Matrix<K>
     pub fn scale(&self, a: &K) -> Matrix<K> {
         let (col, row) = self.get_shape();
         Matrix::from((
-            self.data.iter().map(|e| e.clone() * a.clone()).collect(), 
+            self.iter().map(|e| e * a).collect::<Vec<_>>(), 
             col, 
             row))
     }

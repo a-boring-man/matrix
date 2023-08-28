@@ -21,10 +21,26 @@ pub struct Vector<K: Scalar> {
     pub v: Vec::<K>,
 }
 
+pub struct MatrixIterator<'a, K: Scalar> {
+    matrix: &'a Matrix<K>,
+    current_row: u8,
+    current_col: u8,
+}
+
 // ---------------------------- Scalar trait definition --------------------------
 
 pub trait Scalar :
-    Add<Output = Self> + Sub<Output = Self> + Mul<Output = Self> + Clone + Sized + fmt::Display
+    Add<Output = Self>
+    + Sub<Output = Self>
+    + Mul<Output = Self>
+    + Clone + Sized
+    + fmt::Display where 
+    for<'a> &'a mut Self: Add<&'a Self>,
+    for<'a> &'a mut Self: Sub<&'a Self>,
+    for<'a> &'a mut Self: Mul<&'a Self>,
+    for<'a> &'a Self: Add<&'a Self, Output = Self>,
+    for<'a> &'a Self: Sub<&'a Self, Output = Self>,
+    for<'a> &'a Self: Mul<&'a Self, Output = Self>
 {
 }
 
@@ -66,7 +82,17 @@ impl Normable for f32 {
 
 impl<T> Scalar for T
 where
-    T: Add<Output = T> + Sub<Output = T> + Mul<Output = T> + Clone + fmt::Display
+    T: Add<Output = T>
+    + Sub<Output = T>
+    + Mul<Output = T>
+    + Clone
+    + fmt::Display,
+    for<'a> &'a mut Self: Add<&'a Self>,
+    for<'a> &'a mut Self: Sub<&'a Self>,
+    for<'a> &'a mut Self: Mul<&'a Self>,
+    for<'a> &'a Self: Add<&'a Self, Output = Self>,
+    for<'a> &'a Self: Sub<&'a Self, Output = Self>,
+    for<'a> &'a Self: Mul<&'a Self, Output = Self>
 {
 }
 
@@ -208,6 +234,38 @@ impl<K: Scalar> IntoIterator for Vector<K> {
     }
 }
 
+impl<'a, K: Scalar> MatrixIterator<'a, K> {
+    pub fn new(matrix: &'a Matrix<K>) ->Self {
+        MatrixIterator {
+            matrix,
+            current_row: 0,
+            current_col: 0,
+        }
+    }
+}
+
+impl<'a, K: Scalar> Iterator for MatrixIterator<'a, K> {
+    type Item = &'a K;
+
+    fn next(&mut self) -> Option<Self::Item> {
+        if self.current_row < self.matrix.row {
+            let index = (self.current_row * self.matrix.col as u8 + self.current_row) as usize;
+            let element = &self.matrix.data[index];
+
+            self.current_col += 1;
+            if self.current_col >= self.matrix.col {
+                self.current_col = 0;
+                self.current_row += 1;
+            }
+
+            Some(element)
+        }
+        else {
+            None
+        }
+    }
+}
+
 // ------------------------------- Utils function --------------------------------
 
 #[allow(dead_code)]
@@ -235,6 +293,10 @@ impl<K: Scalar> Matrix<K> {
 
     pub fn iter_mut(&mut self) -> std::slice::IterMut<K> {
         self.data.iter_mut()
+    }
+
+    pub fn iter(&self) -> MatrixIterator<'_, K> {
+        MatrixIterator::new(self)
     }
 
 }
