@@ -8,9 +8,9 @@ use std::fmt;
 #[derive(PartialEq)]
 #[derive(Debug)]
 pub struct Matrix<K: Scalar> {
-    pub data: Vec::<K>,
-    col: u8,
-    row: u8,
+    pub(super) data: Vec::<K>,
+    pub(super) col: u8,
+    pub(super) row: u8,
 }
 
 #[allow(dead_code)]
@@ -34,13 +34,14 @@ pub trait Scalar :
     + Sub<Output = Self>
     + Mul<Output = Self>
     + Clone + Sized
-    + fmt::Display where 
-    for<'a> &'a mut Self: Add<&'a Self>,
-    for<'a> &'a mut Self: Sub<&'a Self>,
-    for<'a> &'a mut Self: Mul<&'a Self>,
-    for<'a> &'a Self: Add<&'a Self, Output = Self>,
-    for<'a> &'a Self: Sub<&'a Self, Output = Self>,
-    for<'a> &'a Self: Mul<&'a Self, Output = Self>
+    + fmt::Display
+    // where 
+    // for<'a> &'a mut Self: Add<&'a Self>,
+    // for<'a> &'a mut Self: Sub<&'a Self>,
+    // for<'a> &'a mut Self: Mul<&'a Self>,
+    // for<'a> &'a Self: Add<&'a Self, Output = Self>,
+    // for<'a> &'a Self: Sub<&'a Self, Output = Self>,
+    // for<'a> &'a Self: Mul<&'a Self, Output = Self>
 {
 }
 
@@ -87,12 +88,12 @@ where
     + Mul<Output = T>
     + Clone
     + fmt::Display,
-    for<'a> &'a mut Self: Add<&'a Self>,
-    for<'a> &'a mut Self: Sub<&'a Self>,
-    for<'a> &'a mut Self: Mul<&'a Self>,
-    for<'a> &'a Self: Add<&'a Self, Output = Self>,
-    for<'a> &'a Self: Sub<&'a Self, Output = Self>,
-    for<'a> &'a Self: Mul<&'a Self, Output = Self>
+    // for<'a> &'a mut Self: Add<&'a Self>,
+    // for<'a> &'a mut Self: Sub<&'a Self>,
+    // for<'a> &'a mut Self: Mul<&'a Self>,
+    // for<'a> &'a Self: Add<&'a Self, Output = Self>,
+    // for<'a> &'a Self: Sub<&'a Self, Output = Self>,
+    // for<'a> &'a Self: Mul<&'a Self, Output = Self>
 {
 }
 
@@ -159,7 +160,7 @@ impl<K: Scalar> Mul for &Vector<K> {
     }
 }
 
-impl<K: Scalar> Add for Matrix<K> {
+impl<K: Scalar> Add<Matrix<K>> for Matrix<K> {
     type Output = Self;
 
     fn add(self, rhs: Self) -> Self::Output {
@@ -167,7 +168,21 @@ impl<K: Scalar> Add for Matrix<K> {
             panic!("dimension error in matrix addition");
         }
         Matrix {
-            data: self.data.iter().zip(rhs.data.iter()).map(|(a, b)| a.clone() + b.clone()).collect(),
+            data: self.iter().zip(rhs.iter()).map(|(a, b)| a.clone() + b.clone()).collect(),
+            col: self.col,
+            row: self.row,
+        }
+    }
+}
+impl<K: Scalar> Add<Matrix<K>> for &Matrix<K> {
+    type Output = Matrix<K>;
+
+    fn add(self, rhs: Matrix<K>) -> Self::Output {
+        if self.row != rhs.row || self.col != rhs.col || self.data.len() != rhs.data.len() || self.data.len() == 0 {
+            panic!("dimension error in matrix addition");
+        }
+        Matrix {
+            data: self.iter().zip(rhs.iter()).map(|(a, b)| a.clone() + b.clone()).collect(),
             col: self.col,
             row: self.row,
         }
@@ -197,15 +212,6 @@ impl<K: Scalar> Mul for Matrix<K> {
     }
 }
 
-impl<K: Scalar> From<Vec<K>> for Vector<K> {
-    fn from(value: Vec<K>) -> Self {
-        if value.len() == 0 {
-            panic!("zero length vector creation error");
-        }
-        Vector { v: value }
-    }
-}
-
 impl<K: Scalar> From<(Vec<K>, u8, u8)> for Matrix<K> {
     fn from(value: (Vec<K>, u8, u8)) -> Self {
         let (data, col, row) = value;
@@ -215,6 +221,17 @@ impl<K: Scalar> From<(Vec<K>, u8, u8)> for Matrix<K> {
         Matrix { data, col, row }
     }
 }
+
+impl<K: Scalar> From<Vec<K>> for Vector<K> {
+    fn from(value: Vec<K>) -> Self {
+        if value.len() == 0 {
+            panic!("zero length vector creation error");
+        }
+        Vector { v: value }
+    }
+}
+
+// -------------------------------- Iterator --------------------------------
 
 impl<K: Scalar> IntoIterator for Matrix<K> {
     type Item = K;
@@ -266,9 +283,19 @@ impl<'a, K: Scalar> Iterator for MatrixIterator<'a, K> {
     }
 }
 
+impl<K: Scalar> Matrix<K> {
+    
+        pub fn iter_mut(&mut self) -> std::slice::IterMut<K> {
+            self.data.iter_mut()
+        }
+    
+        pub fn iter(&self) -> MatrixIterator<'_, K> {
+            MatrixIterator::new(self)
+        }
+}
+
 // ------------------------------- Utils function --------------------------------
 
-#[allow(dead_code)]
 #[allow(non_snake_case)]
 impl<K: Scalar> Matrix<K> {
     pub fn is_square(&self) -> bool {
@@ -291,23 +318,22 @@ impl<K: Scalar> Matrix<K> {
         self.row == other.row && self.col == other.col && self.data.len() == other.data.len()
     }
 
-    pub fn iter_mut(&mut self) -> std::slice::IterMut<K> {
-        self.data.iter_mut()
-    }
-
-    pub fn iter(&self) -> MatrixIterator<'_, K> {
-        MatrixIterator::new(self)
+    pub fn len(&self) -> usize {
+        self.data.len()
     }
 
 }
 
-#[allow(dead_code)]
 impl<K: Scalar> Vector<K> {
     pub fn transform_into_matrix(&self, linear: bool) -> Matrix<K> {
         match linear {
             true => Matrix {data: self.v.clone(), col: self.v.len() as u8 , row: 1},
             false => Matrix {data: self.v.clone(), col: 1, row: self.v.len() as u8 }
         }
+    }
+
+    pub fn len(&self) -> usize {
+        self.v.len()
     }
 }
 
