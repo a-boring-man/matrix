@@ -49,15 +49,15 @@ mod tests {
         let mut v1 = Vector {v: vec![1.5, 2.5, 3.5, 4.5]};
         let mut v2 = Vector {v: vec![5.5, 6.5, 7.5, 8.5]};
         let mut mv1 = Matrix::from((vec![Vector{v: vec![1.0, 2.0, 3.0, 4.0]}, Vector{v: vec![5.0, 6.0, 7.0, 8.0]}], 2, 1));
-        m1.self_scale(&2);
+        m1.self_scale(2);
         assert_eq!(m1, Matrix::from((vec![2, 4, 6, 8], 2, 2)));
-        m2.self_scale(&-3);
+        m2.self_scale(-3);
         assert_eq!(m2, Matrix::from((vec![-15, -18, -21, -24], 2, 2)));
         v1.self_scale(&2.0);
         assert_eq!(v1, Vector {v: vec![3.0, 5.0, 7.0, 9.0]});
         v2.self_scale(&-1.5);
         assert_eq!(v2, Vector {v: vec![-8.25, -9.75, -11.25, -12.75]});
-        mv1.self_scale(&Vector {v: vec![1.0, 2.0, 3.0, 4.0]});
+        mv1.self_scale(Vector {v: vec![1.0, 2.0, 3.0, 4.0]});
         assert_eq!(mv1, Matrix::from((vec![Vector {v: vec![1.0, 2.0, 3.0, 4.0]}, Vector {v: vec![5.0, 6.0, 7.0, 8.0]}], 2, 1 )));
     }
 
@@ -98,11 +98,11 @@ mod tests {
         let v1 = Vector {v: vec![1.5, 2.5, 3.5, 4.5]};
         let v2 = Vector {v: vec![5.5, 6.5, 7.5, 8.5]};
         let mv1 = Matrix::from((vec![Vector{v: vec![1.0, 2.0, 3.0, 4.0]}, Vector{v: vec![5.0, 6.0, 7.0, 8.0]}], 2, 1));
-        assert_eq!(m1.scale(&2), Matrix::from((vec![2, 4, 6, 8], 2, 2)));
-        assert_eq!(m2.scale(&-3), Matrix::from((vec![-15, -18, -21, -24], 2, 2)));
+        assert_eq!(m1.scale(2), Matrix::from((vec![2, 4, 6, 8], 2, 2)));
+        assert_eq!(m2.scale(-3), Matrix::from((vec![-15, -18, -21, -24], 2, 2)));
         assert_eq!(v1.scale(&2.0), Vector {v: vec![3.0, 5.0, 7.0, 9.0]});
         assert_eq!(v2.scale(&-1.5), Vector {v: vec![-8.25, -9.75, -11.25, -12.75]});
-        assert_eq!(mv1.scale(&Vector {v: vec![1.0, 2.0, 3.0, 4.0]}), Matrix::from((vec![Vector {v: vec![1.0, 2.0, 3.0, 4.0]}, Vector {v: vec![5.0, 6.0, 7.0, 8.0]}], 2, 1 )));
+        assert_eq!(mv1.scale(Vector {v: vec![1.0, 2.0, 3.0, 4.0]}), Matrix::from((vec![Vector {v: vec![1.0, 2.0, 3.0, 4.0]}, Vector {v: vec![5.0, 6.0, 7.0, 8.0]}], 2, 1 )));
     }
 
 }

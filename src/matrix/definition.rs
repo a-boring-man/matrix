@@ -8,9 +8,9 @@ use std::fmt;
 #[derive(PartialEq)]
 #[derive(Debug)]
 pub struct Matrix<K: Scalar> {
-    pub(super) data: Vec::<K>,
-    pub(super) col: u8,
-    pub(super) row: u8,
+    pub(in crate) data: Vec::<K>,
+    pub(in crate) col: u8,
+    pub(in crate) row: u8,
 }
 
 #[allow(dead_code)]
