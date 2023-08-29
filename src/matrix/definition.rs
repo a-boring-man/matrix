@@ -1,30 +1,30 @@
 use std::ops::{Add, Sub, Mul};
 use std::fmt;
+use std::path::Iter;
 
 // -------------------------- Basic implementation ------------------------
 
-#[allow(dead_code)]
-#[derive(Clone)]
-#[derive(PartialEq)]
-#[derive(Debug)]
+#[derive(Clone, PartialEq, Debug)]
 pub struct Matrix<K: Scalar> {
     pub(in crate) data: Vec::<K>,
     pub(in crate) col: u8,
     pub(in crate) row: u8,
 }
 
-#[allow(dead_code)]
-#[derive(Clone)]
-#[derive(PartialEq)]
-#[derive(Debug)]
+#[derive(Clone, PartialEq, Debug)]
 pub struct Vector<K: Scalar> {
-    pub v: Vec::<K>,
+    pub(in crate) v: Vec::<K>,
 }
 
 pub struct MatrixIterator<'a, K: Scalar> {
     matrix: &'a Matrix<K>,
     current_row: u8,
     current_col: u8,
+}
+
+pub struct VectorIterator<'a, K: Scalar> {
+    vector: &'a Vector<K>,
+    current_index: usize,
 }
 
 // ---------------------------- Scalar trait definition --------------------------
@@ -261,6 +261,15 @@ impl<'a, K: Scalar> MatrixIterator<'a, K> {
     }
 }
 
+impl<'a, K: Scalar> VectorIterator<'a, K> {
+    pub fn new(vector: &'a Vector<K>) -> Self {
+        VectorIterator {
+            vector,
+            current_index: 0,
+        }
+    }
+}
+
 impl<'a, K: Scalar> Iterator for MatrixIterator<'a, K> {
     type Item = &'a K;
 
@@ -283,41 +292,71 @@ impl<'a, K: Scalar> Iterator for MatrixIterator<'a, K> {
     }
 }
 
+impl<'a, K: Scalar> Iterator for VectorIterator<'a, K> {
+    type Item = &'a K;
+
+    fn next(&mut self) -> Option<Self::Item> {
+        if self.current_index < self.vector.len() {
+            let index = self.current_index;
+            let element = &self.vector.v[index];
+
+            self.current_index += 1;
+
+            Some(element)
+        }
+        else {
+            None
+        }
+    }
+}
+
 impl<K: Scalar> Matrix<K> {
     
-        pub fn iter_mut(&mut self) -> std::slice::IterMut<K> {
-            self.data.iter_mut()
-        }
-    
-        pub fn iter(&self) -> MatrixIterator<'_, K> {
-            MatrixIterator::new(self)
-        }
+    pub fn iter_mut(&mut self) -> std::slice::IterMut<K> {
+        self.data.iter_mut()
+    }
+
+    pub fn iter(&self) -> MatrixIterator<'_, K> {
+        MatrixIterator::new(self)
+    }
+}
+
+impl<K: Scalar> Vector<K> {
+
+    pub fn iter_mut(&mut self) -> std::slice::IterMut<K> {
+        self.v.iter_mut()
+    }
+
+    pub fn iter(&self) -> VectorIterator<'_, K> {
+        VectorIterator::new(self)
+    }
 }
 
 // ------------------------------- Utils function --------------------------------
 
 #[allow(non_snake_case)]
 impl<K: Scalar> Matrix<K> {
+    /// return true if the matrix is square false otherwise
     pub fn is_square(&self) -> bool {
         self.col == self.row
     }
-
+    /// transform a matrix into a vector containing the same number of element
     pub fn transform_into_Vector(&self) -> Vector<K> {
         Vector { v: self.data.clone() }
     }
-
-    pub fn linear_index(&self, r: u8, c: u8) -> u16 {
-        (r * self.col + c).into()
+    /// given a column and a row in this order determin the linear index use to acces the underlying data
+    pub fn linear_index(&self, c: u8, r: u8) -> u16 {
+        r as u16 * self.col as u16 + c as u16
     }
     /// return a tuple (column, row)
     pub fn get_shape(&self) -> (u8, u8) {
         (self.col, self.row)
     }
-
+    /// return true if two matrix are of the same dimension false other wise
     pub fn is_of_matching_dimension(&self, other: &Matrix<K>) -> bool {
         self.row == other.row && self.col == other.col && self.data.len() == other.data.len()
     }
-
+    /// return the length of the vector containing the data
     pub fn len(&self) -> usize {
         self.data.len()
     }
@@ -325,15 +364,27 @@ impl<K: Scalar> Matrix<K> {
 }
 
 impl<K: Scalar> Vector<K> {
+    /// transform a vector into a matrix with an linear flag for a linear matrix transformation
     pub fn transform_into_matrix(&self, linear: bool) -> Matrix<K> {
+        if self.v.len() == 0 {
+            panic!("no dimension in vector to matrix conversion");
+        }
         match linear {
             true => Matrix {data: self.v.clone(), col: self.v.len() as u8 , row: 1},
             false => Matrix {data: self.v.clone(), col: 1, row: self.v.len() as u8 }
         }
     }
-
+    /// return the length of the underlying vector
     pub fn len(&self) -> usize {
         self.v.len()
+    }
+    /// a function to get a reference to the element at index index inside the vector
+    pub fn get_elm(&self, index: usize) -> &K {
+        self.v.get(index).unwrap()
+    }
+    /// a function to get a mutable reference to the element at index index inside the vector
+    pub fn get_elm_mut(&mut self, index: usize) -> &mut K {
+        self.v.get_mut(index).unwrap()
     }
 }
 
