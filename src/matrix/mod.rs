@@ -3,6 +3,7 @@ pub mod linear_interpolation;
 
 pub mod basic_definition {
 	pub mod definition;
+	pub mod error;
 	pub mod display;
 	pub mod trait_definition;
 	pub mod utils;
@@ -17,6 +18,7 @@ pub mod matrix_impl {
 	pub mod reduced_row_echelon;
 	pub mod trace;
 	pub mod transpose;
+	pub mod inverse;
 }
 
 pub mod vector_impl {
