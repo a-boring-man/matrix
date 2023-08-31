@@ -1,6 +1,6 @@
-use super::{definition::Vector, trait_definition::Scalar};
-
 use std::ops::Mul;
+
+use crate::matrix::basic_definition::{trait_definition::Scalar, definition::Vector};
 
 impl<K: Scalar> Vector<K> where for<'a> &'a K: Mul<&'a K, Output = K>{
 	pub fn cross_product(u: &Vector<K>, v: &Vector<K>) -> Vector<K> {

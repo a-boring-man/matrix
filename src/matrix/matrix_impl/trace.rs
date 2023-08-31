@@ -1,5 +1,6 @@
-use super::{definition::Matrix, trait_definition::Scalar};
 use std::ops::AddAssign;
+
+use crate::matrix::basic_definition::{trait_definition::Scalar, definition::Matrix};
 
 impl<K: Scalar + Default + AddAssign> Matrix<K> {
 	pub fn trace(&self) -> K {

@@ -1,6 +1,7 @@
-use super::{definition::Matrix, trait_definition::Scalar};
 
 use std::ops::Mul;
+
+use crate::matrix::basic_definition::{trait_definition::Scalar, definition::Matrix};
 
 impl<K: Scalar> Matrix<K> where for<'a> &'a K: Mul<&'a K, Output = K>{
 	pub fn determinant_2d(&self) -> K {

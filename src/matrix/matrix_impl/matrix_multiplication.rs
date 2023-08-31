@@ -1,8 +1,6 @@
-use std::ops::AddAssign;
-use std::ops::Mul;
+use std::ops::{AddAssign, Mul};
 
-use super::definition::{Matrix, Vector};
-use super::trait_definition::Scalar;
+use crate::matrix::basic_definition::{trait_definition::Scalar, definition::{Matrix, Vector}};
 
 impl<K: Scalar + Default + AddAssign> Matrix<K> where for<'a> &'a K: Mul<&'a K, Output = K> {
 	pub fn mul_vec(&self, vec: &Vector<K>) -> Vector<K> {

@@ -1,4 +1,4 @@
-use super::{definition::{Matrix, Vector}, trait_definition::Scalar};
+use super::basic_definition::{trait_definition::Scalar, definition::{Matrix, Vector}};
 
 impl<K: Scalar> Matrix<K> {
 	pub fn lerp(m1: &Matrix<K>, m2: &Matrix<K>, r: K) -> Matrix<K> {

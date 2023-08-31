@@ -1,19 +1,28 @@
-pub mod definition;
-pub mod trait_definition;
-pub mod utils;
-pub mod display;
-pub mod iterator_impl;
-pub mod scalar_impl_for_matrix;
-pub mod scalar_impl_for_vector;
 pub mod add_sub_scale;
-pub mod linear_combination;
 pub mod linear_interpolation;
-pub mod dot;
-pub mod norm;
-pub mod cosine;
-pub mod cross_product;
-pub mod matrix_multiplication;
-pub mod trace;
-pub mod transpose;
-pub mod reduced_row_echelon;
-pub mod determinant;
+
+pub mod basic_definition {
+	pub mod definition;
+	pub mod display;
+	pub mod trait_definition;
+	pub mod utils;
+	pub mod iterator_impl;
+	pub mod scalar_impl_for_matrix;
+	pub mod scalar_impl_for_vector;
+}
+
+pub mod matrix_impl {
+	pub mod determinant;
+	pub mod matrix_multiplication;
+	pub mod reduced_row_echelon;
+	pub mod trace;
+	pub mod transpose;
+}
+
+pub mod vector_impl {
+	pub mod cosine;
+	pub mod cross_product;
+	pub mod dot;
+	pub mod linear_combination;
+	pub mod norm;
+}

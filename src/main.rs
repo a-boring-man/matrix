@@ -1,4 +1,4 @@
-use matrix::matrix::definition::Matrix;
+use matrix::matrix::basic_definition::definition::Matrix;
 
 fn main() {
 	let m = Matrix::from((vec![1, 2, 3, 4], 2, 2));

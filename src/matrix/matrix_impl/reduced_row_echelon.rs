@@ -1,6 +1,8 @@
-use super::{definition::Matrix, trait_definition::Scalar};
 use num_traits::identities::One;
+
 use std::ops::Mul;
+
+use crate::matrix::basic_definition::{trait_definition::Scalar, definition::Matrix};
 
 impl<K: Scalar + Default + One + for<'a> std::ops::SubAssign<&'a K> + for<'a> std::ops::Div<&'a K, Output = K> + for <'a> std::ops::MulAssign<&'a K> + for<'a> std::ops::AddAssign<&'a K> + std::cmp::PartialEq> Matrix<K> where for <'a> &'a K: Mul<&'a K, Output = K> {
 
