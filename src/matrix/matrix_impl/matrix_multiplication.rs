@@ -4,7 +4,7 @@ use crate::matrix::basic_definition::{trait_definition::Scalar, definition::{Mat
 
 impl<K: Scalar + Default + AddAssign> Matrix<K> where for<'a> &'a K: Mul<&'a K, Output = K> {
 	pub fn mul_vec(&self, vec: &Vector<K>) -> Vector<K> {
-		let (nbr_col, nbr_row) = self.get_shape();
+		let (nbr_col, nbr_row, _) = self.get_shape();
 		if vec.v.len() != nbr_col as usize || vec.v.len() == 0 {
 			panic!("dimension error during matrix-vector multiplication")
 		}
@@ -20,8 +20,8 @@ impl<K: Scalar + Default + AddAssign> Matrix<K> where for<'a> &'a K: Mul<&'a K, 
 	}
 
 	pub fn mul_mat(&self, mat: &Matrix<K>) -> Matrix<K> {
-		let (nbr_col1, nbr_row1) = self.get_shape();
-		let (nbr_col2, nbr_row2) = mat.get_shape();
+		let (nbr_col1, nbr_row1, _) = self.get_shape();
+		let (nbr_col2, nbr_row2, _) = mat.get_shape();
 		if nbr_col1 != nbr_row2 || nbr_col1 == 0 {
 			panic!("dimension error during matrix-matrix multiplication")
 		}

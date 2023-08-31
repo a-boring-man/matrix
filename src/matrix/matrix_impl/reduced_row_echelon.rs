@@ -7,7 +7,7 @@ use crate::matrix::basic_definition::{trait_definition::Scalar, definition::Matr
 impl<K: Scalar + Default + One + for<'a> std::ops::SubAssign<&'a K> + for<'a> std::ops::Div<&'a K, Output = K> + for <'a> std::ops::MulAssign<&'a K> + for<'a> std::ops::AddAssign<&'a K> + std::cmp::PartialEq> Matrix<K> where for <'a> &'a K: Mul<&'a K, Output = K> {
 
 	fn row_swap(&mut self, r1: usize, r2: usize) {
-		let (nbr_col, _) = self.get_shape();
+		let (nbr_col, _, _) = self.get_shape();
 		for c in 0..nbr_col {
 			let swap = self.data[self.linear_index(c, r1 as u8) as usize].clone();
 			let tmp = self.data[self.linear_index(c, r2 as u8) as usize].clone();
@@ -19,7 +19,7 @@ impl<K: Scalar + Default + One + for<'a> std::ops::SubAssign<&'a K> + for<'a> st
 	}
 
 	fn row_self_scale_mul(&mut self, r: usize, s: &K) {
-		let (nbr_col, _) = self.get_shape();
+		let (nbr_col, _, _) = self.get_shape();
 		for c in 0..nbr_col {
 			let i1 = self.linear_index(c, r as u8) as usize;
 			self.data[i1] *= s;
@@ -27,7 +27,7 @@ impl<K: Scalar + Default + One + for<'a> std::ops::SubAssign<&'a K> + for<'a> st
 	}
 
 	fn row_scale_mul(& self, r: usize, s: K) -> Vec<K>{
-		let (nbr_col, _) = self.get_shape();
+		let (nbr_col, _, _) = self.get_shape();
 		let mut result: Vec<K> = Vec::with_capacity(nbr_col as usize);
 		for c in 0..nbr_col {
 			result.push(&self.data[self.linear_index(c, r as u8) as usize] * &s);
@@ -36,7 +36,7 @@ impl<K: Scalar + Default + One + for<'a> std::ops::SubAssign<&'a K> + for<'a> st
 	}
 
 	fn row_addition(&mut self, r: usize, vec: Vec<K>) {
-		let (nbr_col, _) = self.get_shape();
+		let (nbr_col, _, _) = self.get_shape();
 		for c in 0..nbr_col {
 			let i1 = self.linear_index(c, r as u8) as usize;
 			self.data[i1] -= &vec[c as usize];
@@ -48,7 +48,7 @@ impl<K: Scalar + Default + One + for<'a> std::ops::SubAssign<&'a K> + for<'a> st
 			panic!("zero dimension matrix RREF");
 		}
 		let mut result = self.clone();
-		let (nbr_col, nbr_row) = result.get_shape();
+		let (nbr_col, nbr_row, _) = result.get_shape();
 		let mut lead = 0;
 
 		for r in 0..nbr_row {

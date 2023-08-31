@@ -23,7 +23,7 @@ impl<K : Scalar + Display> Matrix<K>
     pub fn add(&self, m: &Matrix<K>) -> Matrix<K> {
         if !self.is_of_matching_dimension(m) || self.data.len() == 0 {
             panic!("dimension error in matrix addition");}
-        let (col, row) = self.get_shape();
+        let (col, row, _) = self.get_shape();
         Matrix::from((
             self.iter().zip(m.iter()).map(|(a, b)| *a + *b).collect::<Vec<_>>(), 
             col,
@@ -33,7 +33,7 @@ impl<K : Scalar + Display> Matrix<K>
     pub fn sub(&self, m: &Matrix<K>) -> Matrix<K> {
         if !self.is_of_matching_dimension(m) || self.data.len() == 0 {
             panic!("dimension error in matrix substraction");}
-        let (col, row) = self.get_shape();
+        let (col, row, _) = self.get_shape();
         Matrix::from((
             self.iter().zip(m.iter()).map(|(a, b)| *a - *b).collect::<Vec<_>>(), 
             col, 
@@ -41,7 +41,7 @@ impl<K : Scalar + Display> Matrix<K>
     }
 
     pub fn scale(&self, a: K) -> Matrix<K> {
-        let (col, row) = self.get_shape();
+        let (col, row, _) = self.get_shape();
         Matrix::from((
             self.iter().map(|e| e.clone() * a.clone()).collect::<Vec<_>>(), 
             col, 

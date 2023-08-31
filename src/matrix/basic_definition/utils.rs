@@ -17,8 +17,8 @@ impl<K: Scalar> Matrix<K> {
         r as u16 * self.col as u16 + c as u16
     }
     /// return a tuple (column, row)
-    pub fn get_shape(&self) -> (u8, u8) {
-        (self.col, self.row)
+    pub fn get_shape(&self) -> (u8, u8, usize) {
+        (self.col, self.row, self.data.len())
     }
     /// return true if two matrix are of the same dimension false other wise
     pub fn is_of_matching_dimension(&self, other: &Matrix<K>) -> bool {

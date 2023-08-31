@@ -6,6 +6,7 @@ pub enum MatrixError {
 	IsNotSquare,
 	IsSingular,
 	InvalidFormat,
+	NotInversible,
 }
 
 impl std::error::Error for MatrixError {}

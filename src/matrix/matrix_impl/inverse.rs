@@ -2,6 +2,10 @@ use crate::matrix::basic_definition::{trait_definition::Scalar, definition::Matr
 
 impl<K: Scalar> Matrix<K> {
 	pub fn inverse(&self) -> Result<Matrix<K>, MatrixError> {
-		if self.len() == 1 || !self.
+		let det = self.determinant()?;
+		if det == 0 {
+			return Err(MatrixError::NotInversible);
+		}
+		
 	}
 }

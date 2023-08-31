@@ -4,7 +4,7 @@ use crate::matrix::basic_definition::{trait_definition::Scalar, definition::Matr
 
 impl<K: Scalar + Default + AddAssign> Matrix<K> {
 	pub fn trace(&self) -> K {
-		let (nbr_col, _) = self.get_shape();
+		let (nbr_col, _, _) = self.get_shape();
 		if !self.is_square() || self.get_shape().0 == 0 {
 			panic!("matrix is not squared, couldn't compute trace");
 		}
