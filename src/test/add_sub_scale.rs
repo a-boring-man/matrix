@@ -1,8 +1,7 @@
 
 #[cfg(test)]
 mod tests {
-    
-    use crate::matrix::definition::*;
+    use crate::matrix::definition::{Matrix, Vector};
 
     #[test]
     fn self_add() {
@@ -53,9 +52,9 @@ mod tests {
         assert_eq!(m1, Matrix::from((vec![2, 4, 6, 8], 2, 2)));
         m2.self_scale(-3);
         assert_eq!(m2, Matrix::from((vec![-15, -18, -21, -24], 2, 2)));
-        v1.self_scale(&2.0);
+        v1.self_scale(2.0);
         assert_eq!(v1, Vector {v: vec![3.0, 5.0, 7.0, 9.0]});
-        v2.self_scale(&-1.5);
+        v2.self_scale(-1.5);
         assert_eq!(v2, Vector {v: vec![-8.25, -9.75, -11.25, -12.75]});
         mv1.self_scale(Vector {v: vec![1.0, 2.0, 3.0, 4.0]});
         assert_eq!(mv1, Matrix::from((vec![Vector {v: vec![1.0, 2.0, 3.0, 4.0]}, Vector {v: vec![5.0, 6.0, 7.0, 8.0]}], 2, 1 )));

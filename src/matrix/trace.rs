@@ -1,4 +1,4 @@
-use super::definition::{Scalar, Matrix};
+use super::{definition::Matrix, trait_definition::Scalar};
 use std::ops::AddAssign;
 
 impl<K: Scalar + Default + AddAssign> Matrix<K> {

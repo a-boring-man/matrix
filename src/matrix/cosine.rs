@@ -1,4 +1,4 @@
-use super::definition::{Scalar, Vector, Normable};
+use super::{definition::{Vector}, trait_definition::{Scalar, Normable}};
 
 impl<K: Scalar + Normable + std::ops::Div<Output = K>> Vector<K> {
 	pub fn angle_cos(u: &Vector<K>, v: &Vector<K>) -> K {

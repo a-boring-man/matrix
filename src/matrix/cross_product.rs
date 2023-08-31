@@ -1,4 +1,5 @@
-use super::definition::{Scalar, Vector};
+use super::{definition::Vector, trait_definition::Scalar};
+
 use std::ops::Mul;
 
 impl<K: Scalar> Vector<K> where for<'a> &'a K: Mul<&'a K, Output = K>{

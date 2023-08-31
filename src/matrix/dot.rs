@@ -1,4 +1,4 @@
-use super::definition::{Scalar, Vector};
+use super::{definition::Vector, trait_definition::Scalar};
 
 impl<K: Scalar + std::iter::Sum<<K as std::ops::Mul>::Output>> Vector<K> {
 	pub fn dot(&self, v: &Vector<K>) ->K {

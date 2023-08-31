@@ -1,4 +1,4 @@
-use super::definition::{Scalar, Matrix};
+use super::{definition::Matrix, trait_definition::Scalar};
 use num_traits::identities::One;
 use std::ops::Mul;
 
@@ -50,7 +50,6 @@ impl<K: Scalar + Default + One + for<'a> std::ops::SubAssign<&'a K> + for<'a> st
 		let mut lead = 0;
 
 		for r in 0..nbr_row {
-			println!("result inter {}", result);
 			// if at the end exit
 			if lead >= nbr_col {
 				break;

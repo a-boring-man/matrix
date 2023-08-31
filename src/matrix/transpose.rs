@@ -1,4 +1,4 @@
-use super::definition::{Scalar, Matrix};
+use super::{definition::Matrix, trait_definition::Scalar};
 
 impl<K: Scalar> Matrix<K> {
 	pub fn transpose(&self) -> Matrix<K> {

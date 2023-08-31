@@ -1,4 +1,4 @@
-use super::definition::{Scalar, Matrix, Vector};
+use super::{definition::{Matrix, Vector}, trait_definition::Scalar};
 
 impl<K : Scalar> Matrix<K> 
 {

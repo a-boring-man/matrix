@@ -1,4 +1,4 @@
-use super::definition::*;
+use super::{definition::Vector, trait_definition::Scalar};
 
 impl<K: Scalar> Vector<K> {
     pub fn linear_combination(u : &[Vector<K>], coefs: &[K]) -> Vector<K> {

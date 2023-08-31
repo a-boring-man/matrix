@@ -1,4 +1,4 @@
-use super::definition::{Scalar, Vector, Normable};
+use super::{definition::Vector, trait_definition::{Scalar, Normable}};
 
 impl<K: Scalar + Normable> Vector<K> {
 	pub fn norm_taxicab(&self) -> K {

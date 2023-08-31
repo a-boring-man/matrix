@@ -1,4 +1,10 @@
 pub mod definition;
+pub mod trait_definition;
+pub mod utils;
+pub mod display;
+pub mod iterator_impl;
+pub mod scalar_impl_for_matrix;
+pub mod scalar_impl_for_vector;
 pub mod add_sub_scale;
 pub mod linear_combination;
 pub mod linear_interpolation;
