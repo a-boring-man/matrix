@@ -59,7 +59,7 @@ impl<'a, K: Scalar> Iterator for MatrixIterator<'a, K> {
 
     fn next(&mut self) -> Option<Self::Item> {
         if self.current_row < self.matrix.row {
-            let index = (self.current_row * self.matrix.col as u8 + self.current_row) as usize;
+            let index = (self.current_row * self.matrix.col as u8 + self.current_col) as usize;
             let element = &self.matrix.data[index];
 
             self.current_col += 1;

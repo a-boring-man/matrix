@@ -9,7 +9,7 @@ impl<K: Scalar> Matrix<K> {
 		let mut result: Vec<K> = Vec::with_capacity(nbr_col as usize * nbr_row as usize);
 		for c in 0..nbr_col {
 			for r in 0..nbr_row {
-				result.push(self.data[self.linear_index(r, c) as usize].clone());
+				result.push(self.data[self.linear_index(c, r) as usize].clone());
 			}
 		}
 		Matrix::from((result, nbr_row, nbr_col))

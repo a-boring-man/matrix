@@ -1,17 +1,19 @@
+use std::fmt::Display;
+
 use super::basic_definition::{trait_definition::Scalar, definition::{Matrix, Vector}};
 
-impl<K : Scalar> Matrix<K> 
+impl<K : Scalar + Display> Matrix<K> 
 {
     pub fn self_add(&mut self, m: &Matrix<K>) {
         if !self.is_of_matching_dimension(m) || self.data.len() == 0 {
             panic!("dimension error in matrix addition");}
-        self.iter_mut().zip(m.iter()).for_each(|(a, b)| *a = a.clone() + b.clone());
+        self.iter_mut().zip(m.iter()).for_each(|(a, b)| {println!("test inside a : {}, b : {}", *a, *b);*a = *a + *b});
     }
 
     pub fn self_sub(&mut self, m: &Matrix<K>) {
         if !self.is_of_matching_dimension(m) || self.data.len() == 0 {
             panic!("dimension error in matrix substraction");}
-        self.iter_mut().zip(m.iter()).for_each(|(a, b)| *a = a.clone() + b.clone());
+        self.iter_mut().zip(m.iter()).for_each(|(a, b)| {println!("test inside a : {}, b : {}", *a, *b);*a = *a - *b});
     }
 
     pub fn self_scale(&mut self, a: K) {
@@ -23,7 +25,7 @@ impl<K : Scalar> Matrix<K>
             panic!("dimension error in matrix addition");}
         let (col, row) = self.get_shape();
         Matrix::from((
-            self.iter().zip(m.iter()).map(|(a, b)| a.clone() + b.clone()).collect::<Vec<_>>(), 
+            self.iter().zip(m.iter()).map(|(a, b)| *a + *b).collect::<Vec<_>>(), 
             col,
             row))
     }
@@ -33,7 +35,7 @@ impl<K : Scalar> Matrix<K>
             panic!("dimension error in matrix substraction");}
         let (col, row) = self.get_shape();
         Matrix::from((
-            self.iter().zip(m.iter()).map(|(a, b)| a.clone() - b.clone()).collect::<Vec<_>>(), 
+            self.iter().zip(m.iter()).map(|(a, b)| *a - *b).collect::<Vec<_>>(), 
             col, 
             row))
     }
@@ -52,13 +54,13 @@ impl<K: Scalar> Vector<K>
     pub fn self_add(&mut self, v: &Vector<K>) {
         if self.v.len() != v.v.len() {
             panic!("dimension error on vector addition");}
-        self.iter_mut().zip(v.iter()).for_each(|(a, b)| *a = a.clone() + b.clone());
+        self.iter_mut().zip(v.iter()).for_each(|(a, b)| *a = *a + *b);
     }
 
     pub fn self_sub(&mut self, v: &Vector<K>) {
         if self.v.len() != v.v.len() {
             panic!("dimension error on vector substraction");}
-            self.iter_mut().zip(v.iter()).for_each(|(a, b)| *a = a.clone() - b.clone());
+            self.iter_mut().zip(v.iter()).for_each(|(a, b)| *a = *a - *b);
     }
 
     pub fn self_scale(&mut self, a: K) {
@@ -69,7 +71,7 @@ impl<K: Scalar> Vector<K>
         if self.v.len() != v.v.len() || self.v.len() == 0 {
             panic!("dimension error on vector addition");}
         Vector::from(
-            self.iter().zip(v.iter()).map(|(a, b)| a.clone() + b.clone()).collect::<Vec<_>>(),
+            self.iter().zip(v.iter()).map(|(a, b)| *a + *b).collect::<Vec<_>>(),
         )
     }
 

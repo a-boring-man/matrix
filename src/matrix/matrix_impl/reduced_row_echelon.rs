@@ -9,10 +9,10 @@ impl<K: Scalar + Default + One + for<'a> std::ops::SubAssign<&'a K> + for<'a> st
 	fn row_swap(&mut self, r1: usize, r2: usize) {
 		let (nbr_col, _) = self.get_shape();
 		for c in 0..nbr_col {
-			let swap = self.data[self.linear_index(r1 as u8, c) as usize].clone();
-			let tmp = self.data[self.linear_index(r2 as u8, c) as usize].clone();
-			let i1 = self.linear_index(r1 as u8, c) as usize;
-			let i2 = self.linear_index(r2 as u8, c) as usize;
+			let swap = self.data[self.linear_index(c, r1 as u8) as usize].clone();
+			let tmp = self.data[self.linear_index(c, r2 as u8) as usize].clone();
+			let i1 = self.linear_index(c, r1 as u8) as usize;
+			let i2 = self.linear_index(c, r2 as u8) as usize;
 			self.data[i1] = tmp;
 			self.data[i2] = swap;
 		}
@@ -21,7 +21,7 @@ impl<K: Scalar + Default + One + for<'a> std::ops::SubAssign<&'a K> + for<'a> st
 	fn row_self_scale_mul(&mut self, r: usize, s: &K) {
 		let (nbr_col, _) = self.get_shape();
 		for c in 0..nbr_col {
-			let i1 = self.linear_index(r as u8, c) as usize;
+			let i1 = self.linear_index(c, r as u8) as usize;
 			self.data[i1] *= s;
 		}
 	}
@@ -30,7 +30,7 @@ impl<K: Scalar + Default + One + for<'a> std::ops::SubAssign<&'a K> + for<'a> st
 		let (nbr_col, _) = self.get_shape();
 		let mut result: Vec<K> = Vec::with_capacity(nbr_col as usize);
 		for c in 0..nbr_col {
-			result.push(&self.data[self.linear_index(r as u8, c) as usize] * &s);
+			result.push(&self.data[self.linear_index(c, r as u8) as usize] * &s);
 		}
 		result
 	}
@@ -38,7 +38,7 @@ impl<K: Scalar + Default + One + for<'a> std::ops::SubAssign<&'a K> + for<'a> st
 	fn row_addition(&mut self, r: usize, vec: Vec<K>) {
 		let (nbr_col, _) = self.get_shape();
 		for c in 0..nbr_col {
-			let i1 = self.linear_index(r as u8, c) as usize;
+			let i1 = self.linear_index(c, r as u8) as usize;
 			self.data[i1] -= &vec[c as usize];
 		}
 	}
@@ -60,7 +60,7 @@ impl<K: Scalar + Default + One + for<'a> std::ops::SubAssign<&'a K> + for<'a> st
 			let mut i = r;
 
 			// skip row with 0
-			while result.data[result.linear_index(i as u8, lead) as usize] == K::default() {
+			while result.data[result.linear_index(lead, i as u8) as usize] == K::default() {
 				i += 1;
 
 				// if no row where found
@@ -79,9 +79,9 @@ impl<K: Scalar + Default + One + for<'a> std::ops::SubAssign<&'a K> + for<'a> st
 			result.row_swap(r as usize, i as usize);
 
 			// if i find something
-			if result.data[result.linear_index(r as u8, lead) as usize] != K::default() {
+			if result.data[result.linear_index(lead, r as u8) as usize] != K::default() {
 				// the scalare by witch multiply the first row
-				let s: K = K::one() / &result.data[result.linear_index(r as u8, lead) as usize];
+				let s: K = K::one() / &result.data[result.linear_index(lead, r as u8) as usize];
 				// reduce the pivot to one
 				let mut tmp = result.clone();
 				tmp.row_self_scale_mul(r.into(), &s);
@@ -90,7 +90,7 @@ impl<K: Scalar + Default + One + for<'a> std::ops::SubAssign<&'a K> + for<'a> st
 			// nullifingm all the other row
 			for i in 0..nbr_row {
 				if i != r {
-					let s = result.data[result.linear_index(i, lead) as usize].clone();
+					let s = result.data[result.linear_index(lead, i) as usize].clone();
 					let scaled_row = result.row_scale_mul(r as usize, s);
 					result.row_addition(i as usize, scaled_row);
 				}

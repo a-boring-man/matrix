@@ -43,13 +43,13 @@ mod tests {
     fn linear_index() {
         let m1 = Matrix::from((vec![1, 2, 3, 4, 5, 6, 7, 8, 9], 3, 3));
         assert_eq!(m1.linear_index(0, 0), 0);
-        assert_eq!(m1.linear_index(0, 1), 1);
-        assert_eq!(m1.linear_index(0, 2), 2);
-        assert_eq!(m1.linear_index(1, 0), 3);
+        assert_eq!(m1.linear_index(1, 0), 1);
+        assert_eq!(m1.linear_index(2, 0), 2);
+        assert_eq!(m1.linear_index(0, 1), 3);
         assert_eq!(m1.linear_index(1, 1), 4);
-        assert_eq!(m1.linear_index(1, 2), 5);
-        assert_eq!(m1.linear_index(2, 0), 6);
-        assert_eq!(m1.linear_index(2, 1), 7);
+        assert_eq!(m1.linear_index(2, 1), 5);
+        assert_eq!(m1.linear_index(0, 2), 6);
+        assert_eq!(m1.linear_index(1, 2), 7);
         assert_eq!(m1.linear_index(2, 2), 8);
     }
 
