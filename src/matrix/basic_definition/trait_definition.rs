@@ -6,7 +6,7 @@ pub trait Scalar :
     Add<Output = Self>
     + Sub<Output = Self>
     + Mul<Output = Self>
-    + Clone + Sized
+    + Clone + Sized + Copy
 {
 }
 
@@ -52,5 +52,6 @@ where
     + Sub<Output = T>
     + Mul<Output = T>
     + Clone
+    + Copy
 {
 }

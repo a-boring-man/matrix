@@ -1,6 +1,6 @@
 #[cfg(test)]
 mod test {
-    use crate::matrix::definition::Matrix;
+    use crate::matrix::basic_definition::definition::Matrix;
 
 	#[test]
 	fn trace() {

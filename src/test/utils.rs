@@ -1,7 +1,6 @@
 #[cfg(test)]
 mod tests {
-    
-    use crate::matrix::definition::*;
+    use crate::matrix::basic_definition::definition::{Matrix, Vector};
 
     #[test]
     fn matrix_printing_test() {
@@ -11,10 +10,6 @@ mod tests {
         println!("{}", test_i32);
         let test_f64: Matrix<f64> = Matrix::from((vec![1.86956, 2.555, 3.976, 4.0008], 2, 2));
         println!("{}", test_f64);
-        let test_vector_u32: Matrix<Vector<u32>> = Matrix::from((vec![Vector {v: vec![1, 2, 3, 4]}, Vector {v: vec![5, 6, 7, 8]}, Vector {v: vec![9, 10, 11, 12]}, Vector {v: vec![13, 14, 15, 16]}], 2, 2));
-        println!("{}", test_vector_u32);
-        let ultimate: Matrix<Vector<Matrix<i32>>> = Matrix::from((vec![Vector {v: vec![Matrix::from((vec![-1, 2, 3, 4], 2, 2)), Matrix::from((vec![1, -2, 3, 4], 2, 2)), Matrix::from((vec![1, 2, -3, 4], 2, 2)), Matrix::from((vec![1, 2, 3, -4], 2, 2))]}, Vector {v: vec![Matrix::from((vec![-1, 2, 3, 4], 2, 2)), Matrix::from((vec![-1, -2, 3, 4], 2, 2)), Matrix::from((vec![-1, 2, -3, 4], 2, 2)), Matrix::from((vec![-1, 2, 3, -4], 2, 2))]}, Vector {v: vec![Matrix::from((vec![-1, -2, 3, 4], 2, 2)), Matrix::from((vec![1, -2, -3, 4], 2, 2)), Matrix::from((vec![1, 2, -3, 4], 2, 2)), Matrix::from((vec![1, 2, -3, -4], 2, 2))]}, Vector {v: vec![Matrix::from((vec![-1, 2, 3, -4], 2, 2)), Matrix::from((vec![1, -2, 3, -4], 2, 2)), Matrix::from((vec![1, 2, -3, -4], 2, 2)), Matrix::from((vec![1, 2, 3, -4], 2, 2))]}], 2, 2));
-        println!("{}", ultimate);
     }
 
     #[test]
@@ -40,11 +35,8 @@ mod tests {
     #[test]
     fn transform_into_vector() {
         let m1: Matrix<f64> = Matrix::from((vec![1.0, 2.312, 3.4124, 4.51], 2, 2));
-        let m2: Matrix<Vector<u32>> = Matrix::from((vec![Vector {v: vec![1, 2, 3, 4]}, Vector {v: vec![5, 6, 7, 8]}], 2, 1));
         let v1: Vector<f64> = Vector { v: vec![1.0, 2.312, 3.4124, 4.51] };
-        let v2: Vector<Vector<u32>> = Vector { v: vec![Vector {v: vec![1, 2, 3, 4]}, Vector {v: vec![5, 6, 7, 8]}] };
         assert_eq!(m1.transform_into_Vector(), v1);
-        assert_eq!(m2.transform_into_Vector(), v2);
     }
 
     #[test]

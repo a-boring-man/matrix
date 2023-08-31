@@ -1,6 +1,6 @@
 #[cfg(test)]
 mod test {
-    use crate::matrix::definition::Vector;
+    use crate::matrix::basic_definition::definition::Vector;
 
 	#[test]
 	fn cross_product() {

@@ -2,8 +2,8 @@
 mod test {
     use assert_approx_eq::assert_approx_eq;
 
-    use crate::matrix::definition::Vector;
-
+    use crate::matrix::basic_definition::definition::Vector;
+	
 	#[test]
 	fn norm_taxicab() {
 		let v1 = Vector::from(vec![0.0, 0.0, 0.0]);

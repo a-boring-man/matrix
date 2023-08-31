@@ -2,8 +2,7 @@
 mod test {
     use assert_approx_eq::assert_approx_eq;
 
-    use crate::matrix::definition::{Matrix, Vector};
-
+    use crate::matrix::basic_definition::definition::{Matrix, Vector};
 	#[test]
 	fn matrix_matrix_multiplication() {
 		let m1 = Matrix::from((vec![3303.0, 45345.0, 34.0, 4.542, 0.254, 453.0, 37.0, 453.0, 65.0, 6.0, 766.0, 54.0, 452.0, 354.0, 65.0],3 ,5 ));

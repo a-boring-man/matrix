@@ -1,6 +1,6 @@
 #[cfg(test)]
 mod tests {
-    use crate::matrix::definition::*;
+    use crate::matrix::basic_definition::definition::Vector;
 
     #[test]
     fn linear_combination() {

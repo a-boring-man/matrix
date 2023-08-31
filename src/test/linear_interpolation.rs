@@ -1,8 +1,9 @@
 #[cfg(test)]
 mod test {
 
-	use crate::matrix::definition::{Vector, Matrix};
 	use assert_approx_eq::assert_approx_eq;
+
+	use crate::matrix::basic_definition::definition::{Vector, Matrix};
 
 	#[test]
 	fn linear_interpolation() {
