@@ -18,6 +18,7 @@ impl Display for MatrixError {
 			MatrixError::InvalidFormat => write!(f, "Wrong format"),
 			MatrixError::IsNotSquare => write!(f, "matrix is not square"),
 			MatrixError::IsSingular => write!(f, "matrix is singular"),
+			MatrixError::NotInversible => write!(f, "matrix is not inversible"),
 		}
 	}
 }

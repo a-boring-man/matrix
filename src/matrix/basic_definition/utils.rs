@@ -1,3 +1,5 @@
+use num_traits::identities::One;
+
 use super::{trait_definition::Scalar, definition::{Matrix, Vector}};
 
 // ------------------------------- Utils function --------------------------------
@@ -28,7 +30,24 @@ impl<K: Scalar> Matrix<K> {
     pub fn len(&self) -> usize {
         self.data.len()
     }
-
+    /// return a identity matrix of type i32 and of size size
+    pub fn identity(size: u8) -> Matrix<i32> {
+        if size < 1 {
+            panic!("invalide format");
+        }
+        let mut vec = Vec::with_capacity(size.pow(2) as usize);
+        for r in 0..size {
+            for c in 0..size {
+                if c == r {
+                    vec.push(1);
+                }
+                else {
+                    vec.push(0);
+                }
+            }
+        }
+        Matrix { data: vec, col: size, row: size }
+    }
 }
 
 impl<K: Scalar> Vector<K> {

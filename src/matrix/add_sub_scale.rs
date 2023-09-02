@@ -7,13 +7,13 @@ impl<K : Scalar + Display> Matrix<K>
     pub fn self_add(&mut self, m: &Matrix<K>) {
         if !self.is_of_matching_dimension(m) || self.data.len() == 0 {
             panic!("dimension error in matrix addition");}
-        self.iter_mut().zip(m.iter()).for_each(|(a, b)| {println!("test inside a : {}, b : {}", *a, *b);*a = *a + *b});
+        self.iter_mut().zip(m.iter()).for_each(|(a, b)| *a = *a + *b);
     }
 
     pub fn self_sub(&mut self, m: &Matrix<K>) {
         if !self.is_of_matching_dimension(m) || self.data.len() == 0 {
             panic!("dimension error in matrix substraction");}
-        self.iter_mut().zip(m.iter()).for_each(|(a, b)| {println!("test inside a : {}, b : {}", *a, *b);*a = *a - *b});
+        self.iter_mut().zip(m.iter()).for_each(|(a, b)| *a = *a - *b);
     }
 
     pub fn self_scale(&mut self, a: K) {
