@@ -15,7 +15,7 @@ impl<K: Scalar> Matrix<K> {
 	}
 
 	fn determinant_2d(&self) -> K {
-		self.data[0] * self.data[2] - self.data[1] * self.data[3]
+		self.data[0] * self.data[3] - self.data[1] * self.data[2]
 	}
 
 	fn determinant_3d(&self) -> K {
