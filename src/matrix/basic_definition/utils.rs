@@ -1,5 +1,3 @@
-use num_traits::identities::One;
-
 use super::{trait_definition::Scalar, definition::{Matrix, Vector}};
 
 // ------------------------------- Utils function --------------------------------
