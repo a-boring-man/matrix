@@ -20,6 +20,7 @@ pub mod matrix_impl {
 	pub mod transpose;
 	pub mod inverse;
 	pub mod rank;
+	pub mod projection_matrix;
 }
 
 pub mod vector_impl {

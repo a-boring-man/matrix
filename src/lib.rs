@@ -16,4 +16,5 @@ mod test{
 	mod determinant;
 	mod inverse;
 	mod rank;
+	mod projection;
 }
