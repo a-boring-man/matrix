@@ -15,4 +15,5 @@ mod test{
 	mod reduced_row_echelon;
 	mod determinant;
 	mod inverse;
+	mod rank;
 }

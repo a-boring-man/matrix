@@ -19,6 +19,7 @@ pub mod matrix_impl {
 	pub mod trace;
 	pub mod transpose;
 	pub mod inverse;
+	pub mod rank;
 }
 
 pub mod vector_impl {
