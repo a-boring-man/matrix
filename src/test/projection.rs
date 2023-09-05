@@ -4,7 +4,7 @@ mod test {
 
 	#[test]
 	fn projection() {
-		let m1 = Matrix::<f32>::projection(1.7, 0.6, 0.0001, 100.);
+		let m1 = Matrix::<f32>::projection(1.7, 0.6, 0.00001, 100.);
 		println!("projection : {}", m1);
 	}
 }
