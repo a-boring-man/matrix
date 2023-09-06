@@ -1,4 +1,4 @@
-use super::{trait_definition::Scalar, definition::{Matrix, Vector}};
+use super::{trait_definition::Scalar, definition::{Matrix, Vector}, complex::Complex};
 
 use core::fmt;
 
@@ -38,5 +38,11 @@ impl<K: Scalar + fmt::Display> fmt::Display for Vector<K> {
             }
         }
         write!(f, "]")
+    }
+}
+
+impl fmt::Display for Complex {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "Real: {}, Imaginary: {}", self.re, self.im)
     }
 }

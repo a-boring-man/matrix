@@ -48,6 +48,16 @@ impl<K: Scalar> Matrix<K> {
     }
 }
 
+impl<K: Scalar> From<(Vec<K>, u8, u8)> for Matrix<K> {
+    fn from(value: (Vec<K>, u8, u8)) -> Self {
+        let (data, col, row) = value;
+        if (col * row) as usize != data.len() || data.len() == 0 {
+            panic!("invalid matrix constrution");
+        }
+        Matrix { data, col, row }
+    }
+}
+
 impl<K: Scalar> Vector<K> {
     /// transform a vector into a matrix with an linear flag for a linear matrix transformation
     pub fn transform_into_matrix(&self, linear: bool) -> Matrix<K> {
@@ -70,5 +80,14 @@ impl<K: Scalar> Vector<K> {
     /// a function to get a mutable reference to the element at index index inside the vector
     pub fn get_elm_mut(&mut self, index: usize) -> &mut K {
         self.v.get_mut(index).unwrap()
+    }
+}
+
+impl<K: Scalar> From<Vec<K>> for Vector<K> {
+    fn from(value: Vec<K>) -> Self {
+        if value.len() == 0 {
+            panic!("zero length vector creation error");
+        }
+        Vector { v: value }
     }
 }

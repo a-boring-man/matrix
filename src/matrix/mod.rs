@@ -8,8 +8,7 @@ pub mod basic_definition {
 	pub mod trait_definition;
 	pub mod utils;
 	pub mod iterator_impl;
-	pub mod scalar_impl_for_matrix;
-	pub mod scalar_impl_for_vector;
+	pub mod complex;
 }
 
 pub mod matrix_impl {

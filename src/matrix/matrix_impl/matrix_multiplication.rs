@@ -35,6 +35,6 @@ impl<K: Scalar + Default + AddAssign> Matrix<K> where for<'a> &'a K: Mul<&'a K, 
 				tmp_vec.push(tmp_val);
 			}
 		}
-		Matrix::from((tmp_vec, nbr_col2, nbr_row1))
+		Matrix {data: tmp_vec, col: nbr_col2, row: nbr_row1}
 	}
 }

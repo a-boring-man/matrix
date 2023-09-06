@@ -24,28 +24,31 @@ impl<K : Scalar + Display> Matrix<K>
         if !self.is_of_matching_dimension(m) || self.data.len() == 0 {
             panic!("dimension error in matrix addition");}
         let (col, row, _) = self.get_shape();
-        Matrix::from((
-            self.iter().zip(m.iter()).map(|(a, b)| *a + *b).collect::<Vec<_>>(), 
+        Matrix {
+            data: self.iter().zip(m.iter()).map(|(a, b)| *a + *b).collect::<Vec<_>>(), 
             col,
-            row))
+            row
+        }
     }
 
     pub fn sub(&self, m: &Matrix<K>) -> Matrix<K> {
         if !self.is_of_matching_dimension(m) || self.data.len() == 0 {
             panic!("dimension error in matrix substraction");}
         let (col, row, _) = self.get_shape();
-        Matrix::from((
-            self.iter().zip(m.iter()).map(|(a, b)| *a - *b).collect::<Vec<_>>(), 
+        Matrix {
+            data: self.iter().zip(m.iter()).map(|(a, b)| *a - *b).collect::<Vec<_>>(), 
             col, 
-            row))
+            row
+        }
     }
 
     pub fn scale(&self, a: K) -> Matrix<K> {
         let (col, row, _) = self.get_shape();
-        Matrix::from((
-            self.iter().map(|e| e.clone() * a.clone()).collect::<Vec<_>>(), 
+        Matrix {
+            data: self.iter().map(|e| e.clone() * a.clone()).collect::<Vec<_>>(), 
             col, 
-            row))
+            row
+        }
     }
 }
 
@@ -70,22 +73,22 @@ impl<K: Scalar> Vector<K>
     pub fn add(&self, v: &Vector<K>) -> Vector<K> {
         if self.v.len() != v.v.len() || self.v.len() == 0 {
             panic!("dimension error on vector addition");}
-        Vector::from(
-            self.iter().zip(v.iter()).map(|(a, b)| *a + *b).collect::<Vec<_>>(),
-        )
+        Vector {
+            v: self.iter().zip(v.iter()).map(|(a, b)| *a + *b).collect::<Vec<_>>(),
+        }
     }
 
     pub fn sub(&self, v: &Vector<K>) -> Vector<K> {
         if self.v.len() != v.v.len() {
             panic!("dimension error on vector substraction");}
-        Vector::from(
-            self.iter().zip(v.iter()).map(|(a, b)| a.clone() - b.clone()).collect::<Vec<_>>(),
-        )
+        Vector {
+            v: self.iter().zip(v.iter()).map(|(a, b)| a.clone() - b.clone()).collect::<Vec<_>>(),
+        }
     }
 
     pub fn scale(&self, a: &K) -> Vector<K> {
-        Vector::from(
-            self.iter().map(|e| e.clone() * a.clone()).collect::<Vec<_>>(),
-        )  
+        Vector {
+            v: self.iter().map(|e| e.clone() * a.clone()).collect::<Vec<_>>(),
+        } 
     }
 }

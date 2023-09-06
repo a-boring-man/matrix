@@ -12,6 +12,10 @@ impl<K: Scalar> Matrix<K> {
 				result.push(self.data[self.linear_index(c, r) as usize].clone());
 			}
 		}
-		Matrix::from((result, nbr_row, nbr_col))
+		Matrix {
+			data: result,
+			col: nbr_row, 
+			row: nbr_col
+		}
 	}
 }
