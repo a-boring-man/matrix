@@ -12,7 +12,7 @@ impl<K: Scalar + Normable> Vector<K> {
 		if self.v.len() <= 0 {
 			panic!("vector len was zero in norm calculation");
 		}
-		let tmp: K = self.v.iter().map(|a| a.square() ).sum();
+		let tmp: K = self.v.iter().map(|a| a.norm().square() ).sum();
 		tmp.square_root()
 	}
 
