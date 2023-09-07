@@ -30,5 +30,6 @@ mod test {
 		assert_eq!(Complex{re: 7., im : 0.}, Vector::from(vec![Complex{re : 2., im: 5.}, Complex{re: -2., im: 4.}]).norm_euclidean());
 		assert_eq!(Complex{re: 52., im: -27.}, v9.dot_complex(&v10));
 		assert_approx_eq!(52. * (107 as f32).sqrt() / 749., Vector::angle_cos_complex(&v9, &v10).re);
+		assert_approx_eq!(-27. * (107 as f32).sqrt() / 749., Vector::angle_cos_complex(&v9, &v10).im);
 	}
 } 
