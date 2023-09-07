@@ -1,14 +1,30 @@
-use super::trait_definition::Complexe;
+use num_traits::Pow;
 
-#[derive(Copy, Clone, PartialEq, Debug, Default)]
+use super::trait_definition::{Complexe, Normable};
+
+#[derive(Copy, Clone, PartialEq, Debug, Default, PartialOrd)]
 pub struct Complex {
 	pub(crate) re: f32,
 	pub(crate) im: f32,
 }
 
-impl Complexe for Complex{
+impl Complexe for Complex {
 	fn conjugate(&self) -> Self {
 		Complex { re: self.re, im: -self.im }
+	}
+}
+
+impl Normable for Complex {
+	fn norm(&self) -> Self {
+		Complex { re: (self.re * self.re + self.im * self.im).sqrt(), im: 0. }
+	}
+
+	fn square(&self) -> Self {
+		*self * *self
+	}
+
+	fn square_root(&self) -> Self {
+		Complex { re: self.re.sqrt(), im: self.im.sqrt() }
 	}
 }
 

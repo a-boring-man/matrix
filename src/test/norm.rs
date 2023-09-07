@@ -2,13 +2,14 @@
 mod test {
     use assert_approx_eq::assert_approx_eq;
 
-    use crate::matrix::basic_definition::definition::Vector;
+    use crate::matrix::basic_definition::{definition::Vector, complex::Complex};
 	
 	#[test]
 	fn norm_taxicab() {
 		let v1 = Vector::from(vec![0.0, 0.0, 0.0]);
 		let v2 = Vector::from(vec![1.0, 2.0, 3.0]);
 		let v3 = Vector::from(vec![-1.0, -2.0]);
+		let v4 = Vector::from(vec![Complex{}, Complex{}]);
 
 		assert_eq!(0.0, v1.norm_taxicab());
 		assert_eq!(6.0, v2.norm_taxicab());
