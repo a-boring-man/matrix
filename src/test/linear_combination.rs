@@ -1,6 +1,6 @@
 #[cfg(test)]
 mod tests {
-    use crate::matrix::basic_definition::definition::Vector;
+    use crate::matrix::basic_definition::{definition::Vector, complex::Complex};
 
     #[test]
     fn linear_combination() {
@@ -13,8 +13,11 @@ mod tests {
 
         let testoune = Vector::from(vec![1.0, 2.0, 3.0]);
 
+        let vc = Vector::from(vec![Complex{re: 1., im: 2.}, Complex{re: 2., im: 3.}, Complex{re: 3., im: 4.}]);
+
         assert_eq!(Vector::from(vec![10.0, -2.0, 0.5]), Vector::linear_combination(&[e1, e2, e3], &[10.0, -2.0, 0.5]));
         assert_eq!(Vector::from(vec![10.0, 0.0, 230.0]), Vector::linear_combination(&[v1, v2], &[10.0, -2.0]));
         assert_eq!(Vector::from(vec![10.0, 20.0, 30.0]), Vector::linear_combination(&[testoune], &[10.0]));
+        assert_eq!(Vector::from(vec![Complex{re: 0.5, im: 8.5}, Complex{re: 2.5, im: 13.5}, Complex{re: 4.5, im: 18.5}]), Vector::linear_combination(&[vc], &[Complex{re: 3.5, im: 1.5}]));
     }
 }
