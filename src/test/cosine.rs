@@ -2,7 +2,7 @@
 mod test {
     use assert_approx_eq::assert_approx_eq;
 
-    use crate::matrix::basic_definition::definition::Vector;
+    use crate::matrix::basic_definition::{definition::Vector, complex::Complex};
 
 	#[test]
 	fn cosine() {
@@ -23,5 +23,12 @@ mod test {
 		let v7 = Vector::from(vec![1.0, 2.0, 3.0]);
 		let v8 = Vector::from(vec![4.0, 5.0, 6.0]);
 		assert_approx_eq!(0.974631846, Vector::angle_cos(&v7, &v8) as f64);
+
+		let v9 = Vector::from(vec![Complex{re: 1., im: 4.}, Complex{re: 3., im: 9.}]);
+		let v10 = Vector::from(vec![Complex{re : 2., im: 5.}, Complex{re: -2., im: 4.}]);
+		assert_eq!(Complex{re: (107.0 as f32).sqrt(), im : 0.}, Vector::from(vec![Complex{re: 1., im: 4.}, Complex{re: 3., im: 9.}]).norm_euclidean());
+		assert_eq!(Complex{re: 7., im : 0.}, Vector::from(vec![Complex{re : 2., im: 5.}, Complex{re: -2., im: 4.}]).norm_euclidean());
+		assert_eq!(Complex{re: 52., im: -27.}, v9.dot_complex(&v10));
+		assert_approx_eq!(52. * (107 as f32).sqrt() / 749., Vector::angle_cos_complex(&v9, &v10).re);
 	}
-}
+} 

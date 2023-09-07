@@ -61,6 +61,18 @@ impl std::ops::Mul for Complex {
 	}
 }
 
+impl std::ops::Div for Complex {
+	type Output =  Self;
+
+	fn div(self, rhs: Self) -> Self::Output {
+		let deno = rhs.norm().re.pow(2);
+		Complex {
+			re: (self * rhs.conjugate()).re / deno,
+			im: (self * rhs.conjugate()).im / deno,
+		}
+	}
+}
+
 impl std::iter::Sum<Complex> for Complex {
 	fn sum<I: Iterator<Item = Complex>>(iter: I) -> Self
 	where
