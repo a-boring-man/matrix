@@ -18,6 +18,10 @@ pub trait Normable :
     fn square_root(&self) -> Self;
 }
 
+pub trait Complexe {
+    fn conjugate(&self) -> Self;
+}
+
 impl Normable for f64 {
     fn norm(&self) -> Self {
         self.abs()
