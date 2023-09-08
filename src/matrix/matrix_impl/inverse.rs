@@ -1,10 +1,8 @@
-use std::ops::Mul;
-
 use num_traits::One;
 
 use crate::matrix::basic_definition::{trait_definition::Scalar, definition::Matrix, error::MatrixError};
 
-impl<K: Scalar + Default + std::cmp::PartialEq + std::convert::From<i32> + One + for<'a> std::ops::SubAssign<&'a K> + for<'a> std::ops::Div<&'a K, Output = K> + for <'a> std::ops::MulAssign<&'a K> + for<'a> std::ops::AddAssign<&'a K>> Matrix<K> where for <'a> &'a K: Mul<&'a K, Output = K> {
+impl<K: Scalar + Default + std::convert::From<i32> + One> Matrix<K> {
 	pub fn inverse(&self) -> Result<Matrix<K>, MatrixError> {
 		let det = self.determinant()?;
 		if det == K::default() {

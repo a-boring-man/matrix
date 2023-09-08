@@ -88,6 +88,12 @@ impl One for Complex {
 	}
 }
 
+impl std::convert::From<i32> for Complex {
+	fn from(value: i32) -> Self {
+		Complex { re: value as f32, im: 0. }
+	}
+}
+
 impl std::iter::Sum<Complex> for Complex {
 	fn sum<I: Iterator<Item = Complex>>(iter: I) -> Self
 	where
