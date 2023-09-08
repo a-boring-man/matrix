@@ -1,10 +1,8 @@
 use num_traits::identities::One;
 
-use std::ops::Mul;
-
 use crate::matrix::basic_definition::{trait_definition::Scalar, definition::Matrix};
 
-impl<K: Scalar + Default + One + for<'a> std::ops::SubAssign<&'a K> + for<'a> std::ops::Div<&'a K, Output = K> + for <'a> std::ops::MulAssign<&'a K> + for<'a> std::ops::AddAssign<&'a K> + std::cmp::PartialEq> Matrix<K> where for <'a> &'a K: Mul<&'a K, Output = K> {
+impl<K: Scalar + Default + One> Matrix<K> {
 
 	fn row_swap(&mut self, r1: usize, r2: usize) {
 		let (nbr_col, _, _) = self.get_shape();
@@ -18,19 +16,19 @@ impl<K: Scalar + Default + One + for<'a> std::ops::SubAssign<&'a K> + for<'a> st
 		}
 	}
 
-	fn row_self_scale_mul(&mut self, r: usize, s: &K) {
+	fn row_self_scale_mul(&mut self, r: usize, s: K) {
 		let (nbr_col, _, _) = self.get_shape();
 		for c in 0..nbr_col {
 			let i1 = self.linear_index(c, r as u8) as usize;
-			self.data[i1] *= s;
+			self.data[i1] = self.data[i1] * s;
 		}
 	}
 
-	fn row_scale_mul(& self, r: usize, s: K) -> Vec<K>{
+	fn row_scale_mul(&self, r: usize, s: K) -> Vec<K>{
 		let (nbr_col, _, _) = self.get_shape();
 		let mut result: Vec<K> = Vec::with_capacity(nbr_col as usize);
 		for c in 0..nbr_col {
-			result.push(&self.data[self.linear_index(c, r as u8) as usize] * &s);
+			result.push(self.data[self.linear_index(c, r as u8) as usize] * s);
 		}
 		result
 	}
@@ -39,7 +37,7 @@ impl<K: Scalar + Default + One + for<'a> std::ops::SubAssign<&'a K> + for<'a> st
 		let (nbr_col, _, _) = self.get_shape();
 		for c in 0..nbr_col {
 			let i1 = self.linear_index(c, r as u8) as usize;
-			self.data[i1] -= &vec[c as usize];
+			self.data[i1] = self.data[i1] - vec[c as usize];
 		}
 	}
 
@@ -81,10 +79,10 @@ impl<K: Scalar + Default + One + for<'a> std::ops::SubAssign<&'a K> + for<'a> st
 			// if i find something
 			if result.data[result.linear_index(lead, r as u8) as usize] != K::default() {
 				// the scalare by witch multiply the first row
-				let s: K = K::one() / &result.data[result.linear_index(lead, r as u8) as usize];
+				let s: K = K::one() / result.data[result.linear_index(lead, r as u8) as usize];
 				// reduce the pivot to one
 				let mut tmp = result.clone();
-				tmp.row_self_scale_mul(r.into(), &s);
+				tmp.row_self_scale_mul(r.into(), s);
 				result = tmp;
 			}
 			// nullifingm all the other row

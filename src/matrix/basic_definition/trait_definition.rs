@@ -1,4 +1,4 @@
-use std::ops::{Add, Sub, Mul};
+use std::ops::{Add, Sub, Mul, Div};
 
 // ---------------------------- Scalar trait definition --------------------------
 
@@ -6,7 +6,8 @@ pub trait Scalar :
     Add<Output = Self>
     + Sub<Output = Self>
     + Mul<Output = Self>
-    + Clone + Sized + Copy
+    + Div<Output = Self>
+    + Clone + Sized + Copy + PartialEq
 {
 }
 
@@ -55,7 +56,9 @@ where
     T: Add<Output = T>
     + Sub<Output = T>
     + Mul<Output = T>
+    + Div<Output = T>
     + Clone
     + Copy
+    + PartialEq
 {
 }

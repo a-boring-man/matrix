@@ -1,5 +1,7 @@
 use num_traits::Pow;
 
+use num_traits::One;
+
 use super::trait_definition::{Complexe, Normable};
 
 #[derive(Copy, Clone, PartialEq, Debug, Default, PartialOrd)]
@@ -77,6 +79,12 @@ impl std::ops::AddAssign for Complex {
 	fn add_assign(&mut self, rhs: Self) {
 		self.re = self.re + rhs.re;
 		self.im = self.im + rhs.im;
+	}
+}
+
+impl One for Complex {
+	fn one() -> Self {
+		Complex { re: 1.0, im: 0. }
 	}
 }
 
