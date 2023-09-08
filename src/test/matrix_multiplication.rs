@@ -26,6 +26,9 @@ mod test {
 	fn matrix_vector_multiplication() {
 		let m1 = Matrix::from((vec![1, 2, 3, 4], 2, 2));
 		let v1 = Vector::from(vec![4, 2]);
+		let v2 = Vector::from(vec![Complex{re: 1., im: 3.}, Complex{re: 4., im: -3.5}]);
+		let m2 = Matrix::from((vec![Complex{re: 2., im: 0.}, Complex{re: 0., im: 0.}, Complex{re: 0., im: 0.}, Complex{re: 2., im: 0.}], 2, 2));
 		assert_eq!(Vector::from(vec![8, 20]), m1.mul_vec(&v1));
+		assert_eq!(Vector::from(vec![Complex{re: 2., im: 6.}, Complex{re: 8., im: -7.}]), m2.mul_vec(&v2));
 	}
 }
