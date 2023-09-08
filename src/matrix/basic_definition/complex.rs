@@ -73,6 +73,13 @@ impl std::ops::Div for Complex {
 	}
 }
 
+impl std::ops::AddAssign for Complex {
+	fn add_assign(&mut self, rhs: Self) {
+		self.re = self.re + rhs.re;
+		self.im = self.im + rhs.im;
+	}
+}
+
 impl std::iter::Sum<Complex> for Complex {
 	fn sum<I: Iterator<Item = Complex>>(iter: I) -> Self
 	where

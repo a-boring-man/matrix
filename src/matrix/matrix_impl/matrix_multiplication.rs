@@ -1,8 +1,8 @@
-use std::ops::{AddAssign, Mul};
+use std::ops::AddAssign;
 
 use crate::matrix::basic_definition::{trait_definition::Scalar, definition::{Matrix, Vector}};
 
-impl<K: Scalar + Default + AddAssign> Matrix<K> where for<'a> &'a K: Mul<&'a K, Output = K> {
+impl<K: Scalar + Default + AddAssign> Matrix<K> {
 	pub fn mul_vec(&self, vec: &Vector<K>) -> Vector<K> {
 		let (nbr_col, nbr_row, _) = self.get_shape();
 		if vec.v.len() != nbr_col as usize || vec.v.len() == 0 {
@@ -12,7 +12,7 @@ impl<K: Scalar + Default + AddAssign> Matrix<K> where for<'a> &'a K: Mul<&'a K, 
 		for r in 0..nbr_row {
 			let mut tmp_val = K::default();
 			for c in 0..nbr_col {
-				tmp_val += &vec.v[c as usize] * &self.data[self.linear_index(c, r) as usize];
+				tmp_val += vec.v[c as usize] * self.data[self.linear_index(c, r) as usize];
 			}
 			tmp_vec.push(tmp_val);
 		}
@@ -30,7 +30,7 @@ impl<K: Scalar + Default + AddAssign> Matrix<K> where for<'a> &'a K: Mul<&'a K, 
 			for c2 in 0..nbr_col2 {
 				let mut tmp_val = K::default();
 				for r2 in 0..nbr_row2 {
-					tmp_val += &self.data[self.linear_index(r2, r1) as usize] * &mat.data[mat.linear_index(c2, r2) as usize];
+					tmp_val += self.data[self.linear_index(r2, r1) as usize] * mat.data[mat.linear_index(c2, r2) as usize];
 				}
 				tmp_vec.push(tmp_val);
 			}
