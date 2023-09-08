@@ -14,8 +14,8 @@ impl<K: Scalar + fmt::Display> fmt::Display for Matrix<K> {
             }
             for c in 0..self.col {
                 match c != self.col - 1 {
-                    true => write!(f, "{}, ", self.data[self.linear_index(r, c) as usize])?,
-                    false => write!(f, "{}", self.data[self.linear_index(r, c) as usize])?,
+                    true => write!(f, "{}, ", self.data[self.linear_index(c, r) as usize])?,
+                    false => write!(f, "{}", self.data[self.linear_index(c, r) as usize])?,
                 }
             }
             match r != self.col - 1 {
