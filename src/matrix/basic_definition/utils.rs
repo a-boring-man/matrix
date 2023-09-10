@@ -1,4 +1,4 @@
-use super::{trait_definition::Scalar, definition::{Matrix, Vector}};
+use super::{trait_definition::Scalar, definition::{Matrix, Vector, matrix}};
 
 // ------------------------------- Utils function --------------------------------
 
@@ -89,5 +89,31 @@ impl<K: Scalar> From<Vec<K>> for Vector<K> {
             panic!("zero length vector creation error");
         }
         Vector { v: value }
+    }
+}
+
+impl<K, const R: usize, const C: usize> matrix<K, R, C> {
+    /// return true if the matrix is square false otherwise
+    pub fn is_square(&self) -> bool {
+        R == C
+    }
+    /// return a identity matrix of type i32 and of size size
+    pub fn identity() -> matrix<i32, R, C> {
+        let mut m = matrix {e: [[0; C]; R]};
+        for r in 0..R {
+            for c in 0..C {
+                if c == r {
+                    m.e[r][c] = 1;
+                }
+            }
+        }
+        m
+    }
+}
+
+impl<K: Default + Copy, const R: usize, const C: usize> matrix<K, R, C> {
+    /// return a new matrix
+    pub fn new() -> Self {
+        matrix { e: [[K::default(); C]; R] }
     }
 }
