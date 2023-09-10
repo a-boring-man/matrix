@@ -1,9 +1,8 @@
 use std::fmt::Display;
 
-use super::basic_definition::{trait_definition::Scalar, definition::{Matrix, Vector}};
+use super::basic_definition::{trait_definition::Scalar, definition::{Matrix, Vector, matrix}};
 
-impl<K : Scalar + Display> Matrix<K> 
-{
+impl<K : Scalar + Display> Matrix<K> {
     pub fn self_add(&mut self, m: &Matrix<K>) {
         if !self.is_of_matching_dimension(m) || self.data.len() == 0 {
             panic!("dimension error in matrix addition");}
@@ -51,6 +50,56 @@ impl<K : Scalar + Display> Matrix<K>
         }
     }
 }
+
+// impl<K: Scalar, const R: usize, const C: usize> matrix<K, R, C> {
+//     /// accumulate the value of other into self
+//     pub fn self_add(&mut self, other: &matrix<K, R, C>) {
+//         self.iter_mut().zip(other.iter()).for_each(|(vec1, vec2)| {
+//             vec1.zip(*vec2).for_each(|(v1, v2)| v1 = v1 + v2);
+//         })
+//     }
+
+//     pub fn self_sub(&mut self, m: &Matrix<K>) {
+//         if !self.is_of_matching_dimension(m) || self.data.len() == 0 {
+//             panic!("dimension error in matrix substraction");}
+//         self.iter_mut().zip(m.iter()).for_each(|(a, b)| *a = *a - *b);
+//     }
+
+//     pub fn self_scale(&mut self, a: K) {
+//         self.iter_mut().for_each(|e| *e = e.clone() * a.clone());
+//     }
+
+//     pub fn add(&self, m: &Matrix<K>) -> Matrix<K> {
+//         if !self.is_of_matching_dimension(m) || self.data.len() == 0 {
+//             panic!("dimension error in matrix addition");}
+//         let (col, row, _) = self.get_shape();
+//         Matrix {
+//             data: self.iter().zip(m.iter()).map(|(a, b)| *a + *b).collect::<Vec<_>>(), 
+//             col,
+//             row
+//         }
+//     }
+
+//     pub fn sub(&self, m: &Matrix<K>) -> Matrix<K> {
+//         if !self.is_of_matching_dimension(m) || self.data.len() == 0 {
+//             panic!("dimension error in matrix substraction");}
+//         let (col, row, _) = self.get_shape();
+//         Matrix {
+//             data: self.iter().zip(m.iter()).map(|(a, b)| *a - *b).collect::<Vec<_>>(), 
+//             col, 
+//             row
+//         }
+//     }
+
+//     pub fn scale(&self, a: K) -> Matrix<K> {
+//         let (col, row, _) = self.get_shape();
+//         Matrix {
+//             data: self.iter().map(|e| e.clone() * a.clone()).collect::<Vec<_>>(), 
+//             col, 
+//             row
+//         }
+//     }
+// }
 
 impl<K: Scalar> Vector<K>
 {
