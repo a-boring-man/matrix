@@ -1,4 +1,4 @@
-use super::{trait_definition::Scalar, definition::{Matrix, Vector}};
+use super::{trait_definition::Scalar, definition::{Matrix, Vector, matrix, vector}};
 
 // -------------------------------- Iterator --------------------------------
 
@@ -113,5 +113,24 @@ impl<K: Scalar> Vector<K> {
 
     pub fn iter(&self) -> VectorIterator<'_, K> {
         VectorIterator::new(self)
+    }
+}
+
+impl<K, const R: usize, const C: usize> matrix<K, R, C> {
+    pub fn iter_mut(&mut self) -> std::slice::IterMut<[K; C]> {
+        self.e.iter_mut()
+    }
+
+    pub fn iter(&self) -> std::slice::Iter<[K; C]> {
+        self.e.iter()
+    }
+}
+
+impl<K, const L: usize> vector<K, L> {
+    pub fn iter_mut(&mut self) -> std::slice::IterMut<K> {
+        self.e.iter_mut()
+    }
+    pub fn iter(&self) -> std::slice::Iter<K> {
+        self.e.iter()
     }
 }

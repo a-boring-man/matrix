@@ -1,4 +1,4 @@
-use std::fmt::Display;
+use std::fmt::{Display, write};
 
 #[derive(Debug)]
 pub enum MatrixError {
@@ -7,6 +7,23 @@ pub enum MatrixError {
 	IsSingular,
 	InvalidFormat,
 	NotInversible,
+}
+
+#[derive(Debug)]
+pub enum matrixError {
+	IsSingular,
+	NotInversible,
+}
+
+impl std::error::Error for matrixError {}
+
+impl Display for matrixError {
+	fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+		match self {
+			matrixError::IsSingular => write!(f, "matrix is singular"),
+			matrixError::NotInversible => write!(f, "matrix is not inversible"),
+		}
+	}
 }
 
 impl std::error::Error for MatrixError {}

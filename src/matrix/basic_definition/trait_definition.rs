@@ -7,7 +7,7 @@ pub trait Scalar :
     + Sub<Output = Self>
     + Mul<Output = Self>
     + Div<Output = Self>
-    + Clone + Sized + Copy + PartialEq
+    + Sized + Copy + PartialEq
 {
 }
 
@@ -57,7 +57,7 @@ where
     + Sub<Output = T>
     + Mul<Output = T>
     + Div<Output = T>
-    + Clone
+    + Sized
     + Copy
     + PartialEq
 {

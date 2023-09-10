@@ -1,4 +1,4 @@
-use super::{trait_definition::Scalar, definition::{Matrix, Vector}, complex::Complex};
+use super::{trait_definition::Scalar, definition::{Matrix, Vector, matrix}, complex::Complex};
 
 use core::fmt;
 
@@ -18,12 +18,41 @@ impl<K: Scalar + fmt::Display> fmt::Display for Matrix<K> {
                     false => write!(f, "{}", self.data[self.linear_index(c, r) as usize])?,
                 }
             }
-            match r != self.col - 1 {
+            match r != self.row - 1 {
                 true => writeln!(f, "]")?,
                 false => write!(f, "]")?,
             }
         }
         writeln!(f, " ]")
+    }
+}
+
+impl<K: fmt::Display, const R: usize, const C: usize> fmt::Display for matrix<K, R, C> {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "[ ")?;
+        for r in 0..R {
+            match r == 0 {
+                true => write!(f, "[")?,
+                false => write!(f, "  [")?,
+            }
+            for c in 0..C {
+                match c != C - 1 {
+                    true => write!(f, "{}, ", self.e[r][c])?,
+                    false => write!(f, "{}", self.e[r][c])?,
+                }
+            }
+            match R == 1 {
+                true => write!(f, "]")?,
+                false => {
+                    match r != R - 1 {
+                        true => writeln!(f, "]")?,
+                        false => write!(f, "]")?,
+                    }
+                },
+            }
+            
+        }
+        write!(f, " ]")
     }
 }
 
