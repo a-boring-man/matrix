@@ -11,11 +11,13 @@ pub struct Matrix<K: Scalar> {
     pub(in crate) row: u8,
 }
 
+#[allow(non_camel_case_types)]
 #[derive(Clone, PartialEq, Debug)]
 pub struct matrix<K, const R: usize, const C: usize> {
     pub e: [[K; C]; R],
 }
 
+#[allow(non_camel_case_types)]
 #[derive(Clone, PartialEq, Debug)]
 pub struct vector<K, const L: usize> {
     pub e: [K; L],

@@ -1,4 +1,4 @@
-use std::fmt::{Display, write};
+use std::fmt::Display;
 
 #[derive(Debug)]
 pub enum MatrixError {
@@ -9,6 +9,8 @@ pub enum MatrixError {
 	NotInversible,
 }
 
+
+#[allow(non_camel_case_types)]
 #[derive(Debug)]
 pub enum matrixError {
 	IsSingular,
