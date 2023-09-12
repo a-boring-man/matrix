@@ -1,4 +1,4 @@
-use super::{trait_definition::Scalar, definition::{Matrix, Vector, matrix}};
+use super::{trait_definition::Scalar, definition::{Matrix, Vector, matrix, vector}};
 
 // ------------------------------- Utils function --------------------------------
 
@@ -93,10 +93,6 @@ impl<K: Scalar> From<Vec<K>> for Vector<K> {
 }
 
 impl<K, const R: usize, const C: usize> matrix<K, R, C> {
-    /// return true if the matrix is square false otherwise
-    pub fn is_square(&self) -> bool {
-        R == C
-    }
     /// return a identity matrix of type i32 and of size size
     pub fn identity() -> matrix<i32, R, C> {
         let mut m = matrix {e: [[0; C]; R]};
@@ -112,8 +108,25 @@ impl<K, const R: usize, const C: usize> matrix<K, R, C> {
 }
 
 impl<K: Default + Copy, const R: usize, const C: usize> matrix<K, R, C> {
-    /// return a new matrix
+    /// Return a new matrix with K::default value
     pub fn new() -> Self {
         matrix { e: [[K::default(); C]; R] }
+    }
+}
+impl<K: Default + Copy, const L: usize> vector<K, L> {
+    /// Return a new vector with K::default value
+    pub fn new() -> Self {
+        vector { e: [K::default(); L] }
+    }
+}
+
+impl<K, const R: usize, const C: usize> From<[[K; C]; R]> for matrix<K, R, C> {
+    fn from(value: [[K; C]; R]) -> Self {
+        matrix { e: value }
+    }
+}
+impl<K, const L: usize> From<[K; L]> for vector<K, L> {
+    fn from(value: [K; L]) -> Self {
+        vector { e: value }
     }
 }

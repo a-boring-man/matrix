@@ -1,4 +1,4 @@
-use std::fmt::Display;
+use std::{fmt::Display, ops::{Add, Sub, Mul, AddAssign}};
 
 use super::basic_definition::{trait_definition::Scalar, definition::{Matrix, Vector, matrix}};
 
@@ -51,12 +51,12 @@ impl<K : Scalar + Display> Matrix<K> {
     }
 }
 
-impl<K: Scalar, const R: usize, const C: usize> matrix<K, R, C> {
-    /// Accumulate the value of other into self
-    pub fn self_add(&mut self, other: &matrix<K, R, C>) {
+impl<K: Add<Output = K> + Copy, const R: usize, const C: usize> AddAssign for matrix<K, R, C> {
+    
+    fn add_assign(&mut self, rhs: Self) {
         self
             .iter_mut()
-            .zip(other.iter())
+            .zip(rhs.iter())
             .for_each(|(vec1, vec2)| {
                 vec1
                     .iter_mut()
@@ -64,41 +64,19 @@ impl<K: Scalar, const R: usize, const C: usize> matrix<K, R, C> {
                     .for_each(|(v1, v2)| *v1 = *v1 + *v2);
         })
     }
-
-    // Return a matrix that contain all the element of self scaled by f
-    // pub fn scale(&self, f: K) -> matrix<K, R, C> {
-    //     type Output = Self;
-    //     fn mul(self, coef: S) -> Self::Output {
-    //         Matrix(self.0.map(|vec1| vec1.map(|v| v * coef)))
-    //     }
-    // }
 }
 
-impl<K: Scalar + Default, const R: usize, const C: usize> matrix<K, R, C> {
-    /// Create a new matrix witch is the result of the addition of each value of the two input
-    pub fn add(&self, other: &matrix<K, R, C>) -> matrix<K, R, C> {
-        let mut e = [[K::default(); C]; R];
-        for r in 0..R {
-            for c in 0..C {
-                unsafe {
-                    *e.get_unchecked_mut(r).get_unchecked_mut(c) = 
-                        *self.e.get_unchecked(r).get_unchecked(c) 
-                        + *other.e.get_unchecked(r).get_unchecked(c);
-                }
-            }
-        }
-        matrix { e }
-    }
+impl<K: Default + Copy + Add<Output = K>, const R: usize, const C: usize> Add for matrix<K, R, C> {
+    type Output = Self;
 
-    /// Create a new matrix witch is the result of the substraction of each value of the two input first minus second
-    pub fn sub(&self, other: &matrix<K, R, C>) -> matrix<K, R, C> {
+    fn add(self, rhs: Self) -> Self::Output {
         let mut e = [[K::default(); C]; R];
         for r in 0..R {
             for c in 0..C {
                 unsafe {
                     *e.get_unchecked_mut(r).get_unchecked_mut(c) = 
                         *self.e.get_unchecked(r).get_unchecked(c) 
-                        - *other.e.get_unchecked(r).get_unchecked(c);
+                        + *rhs.e.get_unchecked(r).get_unchecked(c);
                 }
             }
         }
@@ -106,29 +84,33 @@ impl<K: Scalar + Default, const R: usize, const C: usize> matrix<K, R, C> {
     }
 }
 
-    // pub fn self_sub(&mut self, m: &Matrix<K>) {
-    //     if !self.is_of_matching_dimension(m) || self.data.len() == 0 {
-    //         panic!("dimension error in matrix substraction");}
-    //     self.iter_mut().zip(m.iter()).for_each(|(a, b)| *a = *a - *b);
-    // }
+impl<K: Default + Copy + Sub<Output = K>, const R: usize, const C: usize> Sub for matrix<K, R, C> {
+    type Output = Self;
 
-    // pub fn self_scale(&mut self, a: K) {
-    //     self.iter_mut().for_each(|e| *e = e.clone() * a.clone());
-    // }
+    fn sub(self, rhs: Self) -> Self::Output {
+        let mut e = [[K::default(); C]; R];
+        for r in 0..R {
+            for c in 0..C {
+                unsafe {
+                    *e.get_unchecked_mut(r).get_unchecked_mut(c) = 
+                        *self.e.get_unchecked(r).get_unchecked(c) 
+                        - *rhs.e.get_unchecked(r).get_unchecked(c);
+                }
+            }
+        }
+        matrix { e }
+    }
+}
 
+impl<K: Default + Copy + Mul<Output = K>, const R: usize, const C: usize> Mul<K> for matrix<K, R, C> {
+    type Output = Self;
 
-    // pub fn sub(&self, m: &Matrix<K>) -> Matrix<K> {
-    //     if !self.is_of_matching_dimension(m) || self.data.len() == 0 {
-    //         panic!("dimension error in matrix substraction");}
-    //     let (col, row, _) = self.get_shape();
-    //     Matrix {
-    //         data: self.iter().zip(m.iter()).map(|(a, b)| *a - *b).collect::<Vec<_>>(), 
-    //         col, 
-    //         row
-    //     }
-    // }
-
-    
+    fn mul(self, rhs: K) -> Self::Output {
+        let mut e = [[K::default(); C]; R];
+        e.iter_mut().for_each(|row| row.iter_mut().for_each(|e| *e = *e * rhs));
+        matrix { e }
+    }
+}  
 
 impl<K: Scalar> Vector<K>
 {
