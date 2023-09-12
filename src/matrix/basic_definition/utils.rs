@@ -95,11 +95,11 @@ impl<K: Scalar> From<Vec<K>> for Vector<K> {
 impl<K, const R: usize, const C: usize> matrix<K, R, C> {
     /// return a identity matrix of type i32 and of size size
     pub fn identity() -> matrix<i32, R, C> {
-        let mut m = matrix {e: [[0; C]; R]};
+        let mut m = matrix([[0; C]; R]);
         for r in 0..R {
             for c in 0..C {
                 if c == r {
-                    m.e[r][c] = 1;
+                    m.0[r][c] = 1;
                 }
             }
         }
@@ -110,23 +110,23 @@ impl<K, const R: usize, const C: usize> matrix<K, R, C> {
 impl<K: Default + Copy, const R: usize, const C: usize> matrix<K, R, C> {
     /// Return a new matrix with K::default value
     pub fn new() -> Self {
-        matrix { e: [[K::default(); C]; R] }
+        matrix([[K::default(); C]; R])
     }
 }
 impl<K: Default + Copy, const L: usize> vector<K, L> {
     /// Return a new vector with K::default value
     pub fn new() -> Self {
-        vector { e: [K::default(); L] }
+        vector([K::default(); L])
     }
 }
 
 impl<K, const R: usize, const C: usize> From<[[K; C]; R]> for matrix<K, R, C> {
     fn from(value: [[K; C]; R]) -> Self {
-        matrix { e: value }
+        matrix(value)
     }
 }
 impl<K, const L: usize> From<[K; L]> for vector<K, L> {
     fn from(value: [K; L]) -> Self {
-        vector { e: value }
+        vector(value)
     }
 }

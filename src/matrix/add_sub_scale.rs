@@ -114,12 +114,12 @@ impl<K: Default + Copy + Add<Output = K>, const R: usize, const C: usize> Add fo
             for c in 0..C {
                 unsafe {
                     *e.get_unchecked_mut(r).get_unchecked_mut(c) = 
-                        *self.e.get_unchecked(r).get_unchecked(c) 
-                        + *rhs.e.get_unchecked(r).get_unchecked(c);
+                        *self.0.get_unchecked(r).get_unchecked(c) 
+                        + *rhs.0.get_unchecked(r).get_unchecked(c);
                 }
             }
         }
-        matrix { e }
+        matrix(e)
     }
 }
 impl<K: Default + Copy + Sub<Output = K>, const R: usize, const C: usize> Sub for matrix<K, R, C> {
@@ -131,12 +131,12 @@ impl<K: Default + Copy + Sub<Output = K>, const R: usize, const C: usize> Sub fo
             for c in 0..C {
                 unsafe {
                     *e.get_unchecked_mut(r).get_unchecked_mut(c) = 
-                        *self.e.get_unchecked(r).get_unchecked(c) 
-                        - *rhs.e.get_unchecked(r).get_unchecked(c);
+                        *self.0.get_unchecked(r).get_unchecked(c) 
+                        - *rhs.0.get_unchecked(r).get_unchecked(c);
                 }
             }
         }
-        matrix { e }
+        matrix(e)
     }
 }
 impl<K: Default + Copy + Mul<Output = K>, const R: usize, const C: usize> Mul<K> for matrix<K, R, C> {
@@ -145,7 +145,7 @@ impl<K: Default + Copy + Mul<Output = K>, const R: usize, const C: usize> Mul<K>
     fn mul(self, rhs: K) -> Self::Output {
         let mut e = [[K::default(); C]; R];
         e.iter_mut().for_each(|row| row.iter_mut().for_each(|e| *e = *e * rhs));
-        matrix { e }
+        matrix(e)
     }
 }
 
@@ -161,10 +161,10 @@ impl<K: Default + Copy + Add<Output = K>, const L: usize> Add for vector<K, L> {
         let mut e = [K::default(); L];
         for i in 0..L {
             unsafe {
-                *e.get_unchecked_mut(i) = *self.e.get_unchecked(i) + *rhs.e.get_unchecked(i);
+                *e.get_unchecked_mut(i) = *self.0.get_unchecked(i) + *rhs.0.get_unchecked(i);
             }
         }
-        vector { e }
+        vector(e)
     }
 }
 impl<K: Default + Copy + Sub<Output = K>, const L: usize> Sub for vector<K, L> {
@@ -174,10 +174,10 @@ impl<K: Default + Copy + Sub<Output = K>, const L: usize> Sub for vector<K, L> {
         let mut e = [K::default(); L];
         for i in 0..L {
             unsafe {
-                *e.get_unchecked_mut(i) = *self.e.get_unchecked(i) - *rhs.e.get_unchecked(i);
+                *e.get_unchecked_mut(i) = *self.0.get_unchecked(i) - *rhs.0.get_unchecked(i);
             }
         }
-        vector { e }
+        vector(e)
     }
 }
 impl<K: Default + Copy + Mul<Output = K>, const L: usize> Mul<K> for vector<K, L> {
@@ -186,6 +186,6 @@ impl<K: Default + Copy + Mul<Output = K>, const L: usize> Mul<K> for vector<K, L
     fn mul(self, rhs: K) -> Self::Output {
         let mut e = [K::default(); L];
         e.iter_mut().for_each(|e| *e = *e * rhs);
-        vector { e }
+        vector(e)
     }
 }

@@ -1,7 +1,7 @@
 
 #[cfg(test)]
 mod tests {
-    use crate::matrix::basic_definition::{definition::{Matrix, Vector}, complex::Complex};
+    use crate::matrix::basic_definition::{definition::{Matrix, Vector, matrix}, complex::Complex};
 
 
     #[test]
@@ -30,6 +30,10 @@ mod tests {
         assert_eq!(v3, Vector {v: vec![Complex {re: 6., im: 8.}, Complex {re: 8., im: 10.}, Complex {re: 10., im: 12.}, Complex {re: 12., im: 14.}]});
         v4.self_add(&v3);
         assert_eq!(v4, Vector {v: vec![Complex {re: 11., im: 14.}, Complex {re: 14., im: 17.}, Complex {re: 17., im: 20.}, Complex {re: 20., im: 23.}]});
+
+        let m1 = matrix([[1, 2], [3, 4]]);
+        
+
     }
 
     #[test]

@@ -36,9 +36,9 @@ impl<K: Scalar> IntoIterator for Vector<K> {
 }
 
 impl<'a, K: Scalar> MatrixIterator<'a, K> {
-    pub fn new(matrix: &'a Matrix<K>) ->Self {
+    pub fn new(m: &'a Matrix<K>) ->Self {
         MatrixIterator {
-            matrix,
+            matrix : m,
             current_row: 0,
             current_col: 0,
         }
@@ -46,9 +46,9 @@ impl<'a, K: Scalar> MatrixIterator<'a, K> {
 }
 
 impl<'a, K: Scalar> VectorIterator<'a, K> {
-    pub fn new(vector: &'a Vector<K>) -> Self {
+    pub fn new(v: &'a Vector<K>) -> Self {
         VectorIterator {
-            vector,
+            vector : v,
             current_index: 0,
         }
     }
@@ -118,19 +118,19 @@ impl<K: Scalar> Vector<K> {
 
 impl<K, const R: usize, const C: usize> matrix<K, R, C> {
     pub fn iter_mut(&mut self) -> std::slice::IterMut<[K; C]> {
-        self.e.iter_mut()
+        self.0.iter_mut()
     }
 
     pub fn iter(&self) -> std::slice::Iter<[K; C]> {
-        self.e.iter()
+        self.0.iter()
     }
 }
 
 impl<K, const L: usize> vector<K, L> {
     pub fn iter_mut(&mut self) -> std::slice::IterMut<K> {
-        self.e.iter_mut()
+        self.0.iter_mut()
     }
     pub fn iter(&self) -> std::slice::Iter<K> {
-        self.e.iter()
+        self.0.iter()
     }
 }

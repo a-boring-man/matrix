@@ -37,8 +37,8 @@ impl<K: fmt::Display, const R: usize, const C: usize> fmt::Display for matrix<K,
             }
             for c in 0..C {
                 match c != C - 1 {
-                    true => write!(f, "{}, ", self.e[r][c])?,
-                    false => write!(f, "{}", self.e[r][c])?,
+                    true => write!(f, "{}, ", self.0[r][c])?,
+                    false => write!(f, "{}", self.0[r][c])?,
                 }
             }
             match R == 1 {
@@ -75,8 +75,8 @@ impl<K: fmt::Display, const L: usize> fmt::Display for vector<K, L> {
         write!(f, "[")?;
         for index in 0..L {
             match index != L - 1 {
-                true => write!(f, "{}, ", self.e[index])?,
-                false => write!(f, "{}", self.e[index])?,
+                true => write!(f, "{}, ", self.0[index])?,
+                false => write!(f, "{}", self.0[index])?,
             }
         }
         write!(f, "]")
