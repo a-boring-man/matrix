@@ -144,7 +144,7 @@ impl<K: Default + Copy + Mul<Output = K>, const R: usize, const C: usize> Mul<K>
 
     fn mul(self, rhs: K) -> Self::Output {
         let mut e = [[K::default(); C]; R];
-        e.iter_mut().for_each(|row| row.iter_mut().for_each(|e| *e = *e * rhs));
+        e.iter_mut().zip(self.iter()).for_each(|(erow, selfrow)| erow.iter_mut().zip(selfrow.iter()).for_each(|(e, s)| *e = *s * rhs));
         matrix(e)
     }
 }

@@ -31,8 +31,28 @@ mod tests {
         v4.self_add(&v3);
         assert_eq!(v4, Vector {v: vec![Complex {re: 11., im: 14.}, Complex {re: 14., im: 17.}, Complex {re: 17., im: 20.}, Complex {re: 20., im: 23.}]});
 
+        let mut m1 = matrix
+
         let m1 = matrix([[1, 2], [3, 4]]);
-        
+        let m2 = matrix([[5, 6], [7, 8]]);
+        assert!(m1 + m2 == matrix([[6, 8], [10, 12]]));
+
+        let ma = matrix([[2, 4, 6], [8, 10, 12], [14, 16, 18]]);
+        let mb = matrix([[1, 3, 5], [7, 9, 11], [13, 15, 17]]);
+        assert!(ma + mb == matrix([[3, 7, 11], [15, 19, 23], [27, 31, 35]]));
+
+        let a = matrix([[2, 3], [1, 4]]);
+        let b = matrix([[5, 1], [2, 6]]);
+        assert!(a + b == matrix([[7, 4], [3, 10]]));
+
+        let x = matrix([[0, 1], [1, 0]]);
+        let y = matrix([[1, 0], [0, 1]]);
+        assert!(x + y == matrix([[1, 1], [1, 1]]));
+
+        let p = matrix([[1, 2, 3], [4, 5, 6]]);
+        let q = matrix([[6, 5, 4], [3, 2, 1]]);
+        assert!(p + q == matrix([[7, 7, 7], [7, 7, 7]]));
+
 
     }
 
@@ -62,6 +82,27 @@ mod tests {
         assert_eq!(v3, Vector {v: vec![Complex {re: -4., im: -4.}, Complex {re: -4., im: -4.}, Complex {re: -4., im: -4.}, Complex {re: -4., im: -4.}]});
         v4.self_sub(&v3);
         assert_eq!(v4, Vector {v: vec![Complex {re: 9., im: 10.}, Complex {re: 10., im: 11.}, Complex {re: 11., im: 12.}, Complex {re: 12., im: 13.}]});
+
+        let a = matrix([[2, 3], [1, 4]]);
+        let b = matrix([[5, 1], [2, 6]]);
+        assert!(a - b == matrix([[-3, 2], [-1, -2]]));
+
+        let x = matrix([[0, 1], [1, 0]]);
+        let y = matrix([[1, 0], [0, 1]]);
+        assert!(x - y == matrix([[-1, 1], [1, -1]]));
+
+        let p = matrix([[1, 2, 3], [4, 5, 6]]);
+        let q = matrix([[6, 5, 4], [3, 2, 1]]);
+        assert!(p - q == matrix([[-5, -3, -1], [1, 3, 5]]));
+
+        let m = matrix([[8, 7, 6], [5, 4, 3], [2, 1, 0]]);
+        let n = matrix([[1, 2, 3], [4, 5, 6], [7, 8, 9]]);
+        assert!(m - n == matrix([[7, 5, 3], [1, -1, -3], [-5, -7, -9]]));
+
+        let r = matrix([[10, 20], [30, 40]]);
+        let s = matrix([[5, 10], [15, 20]]);
+        assert!(r - s == matrix([[5, 10], [15, 20]]));
+
     }
 
     #[test]
@@ -90,6 +131,27 @@ mod tests {
         assert_eq!(v3, Vector {v: vec![Complex {re: -7., im: 6.}, Complex {re: -10., im: 11.}, Complex {re: -13., im: 16.}, Complex {re: -16., im: 21.}]});
         v4.self_scale(Complex { re: -6., im: 3.5 });
         assert_eq!(v4, Vector {v: vec![Complex {re: -51., im: -18.5}, Complex {re: -60.5, im: -21.}, Complex {re: -70., im: -23.5}, Complex {re: -79.5, im: -26.}]});
+
+        let a = matrix([[2, 3], [1, 4]]);
+        let s = 2;
+        assert_eq!(a * s, matrix([[4, 6], [2, 8]]));
+
+        let b = matrix([[5, 1], [2, 6]]);
+        let s = 3;
+        assert!(b * s == matrix([[15, 3], [6, 18]]));
+
+        let x = matrix([[0, 1], [1, 0]]);
+        let s = -1;
+        assert!(x * s == matrix([[0, -1], [-1, 0]]));
+
+        let y = matrix([[1, 2, 3], [4, 5, 6]]);
+        let s = 0;
+        assert!(y * s == matrix([[0, 0, 0], [0, 0, 0]]));
+
+        let z = matrix([[10., 20., 30.], [40., 50., 60.], [70., 80., 90.]]);
+        let s = 0.5;
+        assert!(z * s == matrix([[5.0, 10.0, 15.0], [20.0, 25.0, 30.0], [35.0, 40.0, 45.0]]));
+
     }
 
     #[test]
