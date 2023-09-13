@@ -2,7 +2,7 @@
 mod test {
     use assert_approx_eq::assert_approx_eq;
 
-    use crate::matrix::basic_definition::{definition::Matrix, complex::{Complex, self}};
+    use crate::matrix::basic_definition::{definition::Matrix, complex::Complex};
 
 	#[test]
 	fn reduced_row_echelon() {
@@ -19,12 +19,12 @@ mod test {
 			assert_approx_eq!(result.data[i as usize] as f64, expected.data[i as usize]);
 		}
 
-		let m4 = Matrix::from((vec![Complex{re: 1.,  3.}, Complex{re: 0.,  44.}, Complex{re: -23.,  0.}, Complex{re: 50.,  -4.6}, Complex{re: 3.,  42.}, Complex{re: -3.,  -4.2}], 3, 2));
-		let expected = Matrix::from((vec![Complex{re: 1.,  0.}, Complex{re: 0.,  0.}, Complex{re: 0.39687,  -0.05800}, Complex{re: 0.,  0.}, Complex{re: 1.,  0.}, Complex{re: -0.02574,  0.53570}], 3, 2));
+		let m4 = Matrix::from((vec![Complex( 1.,  3.), Complex( 0.,  44.), Complex( -23.,  0.), Complex( 50.,  -4.6), Complex( 3.,  42.), Complex( -3.,  -4.2)], 3, 2));
+		let expected = Matrix::from((vec![Complex( 1.,  0.), Complex( 0.,  0.), Complex( 0.39687,  -0.05800), Complex( 0.,  0.), Complex( 1.,  0.), Complex( -0.02574,  0.53570)], 3, 2));
 		let result = m4.row_echelon();
 		for i in 0..result.data.len() {
-			assert_approx_eq!(result.data[i as usize].re , expected.data[i as usize].re, 1e-3);
-			assert_approx_eq!(result.data[i as usize].im , expected.data[i as usize].im, 1e-3);
+			assert_approx_eq!(result.data[i as usize].0 , expected.data[i as usize].0, 1e-3);
+			assert_approx_eq!(result.data[i as usize].1 , expected.data[i as usize].1, 1e-3);
 		}
 	}
 }

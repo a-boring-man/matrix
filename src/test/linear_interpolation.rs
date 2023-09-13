@@ -9,8 +9,8 @@ mod test {
 	fn linear_interpolation() {
 		let v1 = Vector::from(vec![1.0, 4.0]);
 		let v2 = Vector::from(vec![5.0, 16.0]);
-		let v3 = Vector::from(vec![Complex{re: 1.0,  4.0}, Complex{re: -6.,  3.}]);
-		let v4 = Vector::from(vec![Complex{re: 5.,  2.}, Complex{re: 2.0,  5.0}]);
+		let v3 = Vector::from(vec![Complex( 1.0,  4.0), Complex( -6.,  3.)]);
+		let v4 = Vector::from(vec![Complex( 5.,  2.), Complex( 2.0,  5.0)]);
 
 		let m1 = Matrix::from((vec![10.0, -20.0, 4.0, -3.0], 2, 2));
 		let m2 = Matrix::from((vec![25.0, 42.0, 64.0, -7.0], 2, 2));
@@ -19,9 +19,9 @@ mod test {
 		assert_eq!(Vector::from(vec![1.0, 4.0]), Vector::lerp(&v1, &v2, &0.0));
 		assert_eq!(Vector::from(vec![5.0, 16.0]), Vector::lerp(&v1, &v2, &1.0));
 
-		assert_eq!(Vector::from(vec![Complex{re: 3.,  3.0}, Complex{re: -2.,  4.}]), Vector::lerp(&v3, &v4, &Complex{re: 0.5,  0.0}));
-		assert_eq!(Vector::from(vec![Complex{re: 1.0,  4.0}, Complex{re: -6.,  3.}]), Vector::lerp(&v3, &v4, &Complex{re: 0.0,  0.0}));
-		assert_eq!(Vector::from(vec![Complex{re: 5.,  2.}, Complex{re: 2.0,  5.0}]), Vector::lerp(&v3, &v4, &Complex{re: 1.0,  0.0}));
+		assert_eq!(Vector::from(vec![Complex( 3.,  3.0), Complex( -2.,  4.)]), Vector::lerp(&v3, &v4, &Complex( 0.5,  0.0)));
+		assert_eq!(Vector::from(vec![Complex( 1.0,  4.0), Complex( -6.,  3.)]), Vector::lerp(&v3, &v4, &Complex( 0.0,  0.0)));
+		assert_eq!(Vector::from(vec![Complex( 5.,  2.), Complex( 2.0,  5.0)]), Vector::lerp(&v3, &v4, &Complex( 1.0,  0.0)));
 
 		assert_eq!(Matrix::from((vec![10.0, -20.0, 4.0, -3.0], 2, 2)), Matrix::lerp(&m1, &m2, 0.0));
 		assert_eq!(Matrix::from((vec![25.0, 42.0, 64.0, -7.0], 2, 2)), Matrix::lerp(&m1, &m2, 1.0));

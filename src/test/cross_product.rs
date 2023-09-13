@@ -16,8 +16,8 @@ mod test {
 		let v1 = Vector::from(vec![-2.0, -5.0, 16.0]);
 		assert_eq!(Vector::from(vec![17.0, -58.0, -16.0]), Vector::cross_product(&u1, &v1));
 
-		let v9 = Vector::from(vec![Complex{re: 1.,  4.}, Complex{re: 3.,  9.}, Complex{re: 5.,  3.}]);
-		let v10 = Vector::from(vec![Complex{re : 2.,  5.}, Complex{re: -2.,  4.}, Complex{re: 4.,  7.}]);
-		assert_eq!(Vector::from(vec![Complex{re: -29.,  43.}, Complex{re: 19.,  8.}, Complex{re: 21.,  -37.}]), Vector::cross_product(&v9, &v10))
+		let v9 = Vector::from(vec![Complex( 1.,  4.), Complex( 3.,  9.), Complex( 5.,  3.)]);
+		let v10 = Vector::from(vec![Complex( 2.,  5.), Complex( -2.,  4.), Complex( 4.,  7.)]);
+		assert_eq!(Vector::from(vec![Complex( -29.,  43.), Complex( 19.,  8.), Complex( 21.,  -37.)]), Vector::cross_product(&v9, &v10));
 	}
 }

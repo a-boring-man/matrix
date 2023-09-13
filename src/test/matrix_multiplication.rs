@@ -12,13 +12,13 @@ mod test {
 		for i in 0..result.len() {
 			assert_approx_eq!(expect_result.data[i] as f64, result.data[i] as f64);
 		}
-		let m3 = Matrix::from((vec![Complex{re: 1.,  7.}, Complex{re: 55.,  5.}, Complex{re: 54.,  24.}, Complex{re: 5.1,  51.}, Complex{re: 56.,  0.}, Complex{re: 98.,  15.}, Complex{re: 58.12,  578.}, Complex{re: 42.,  5.}, Complex{re: 6.,  -3.}], 3, 3));
-		let m4 = Matrix::from((vec![Complex{re: 947.,  1.}, Complex{re: 35.5,  3.6}, Complex{re: 97.,  -25.}, Complex{re: 0.,  89.}, Complex{re: 0.,  47.}, Complex{re: 0.,  42.42}, Complex{re: 233.2,  0.}, Complex{re: 32.,  43.}, Complex{re: 0.,  32.}], 3, 3));
-		let expected_result = Matrix::from((vec![Complex{re: 13087.8,  17121.8}, Complex{re: 471.3,  5927.1}, Complex{re: -708.1,  4715.1}, Complex{re: 27632.3,  56784.1}, Complex{re: 2488.45,  9154.86}, Complex{re: 1289.7,  10331.02}, Complex{re: 55415.84,  550462.52}, Complex{re: 68.46,  22864.232}, Complex{re: 19971.54,  56586.64}], 3, 3));
+		let m3 = Matrix::from((vec![Complex( 1.,  7.), Complex( 55.,  5.), Complex( 54.,  24.), Complex( 5.1,  51.), Complex( 56.,  0.), Complex( 98.,  15.), Complex( 58.12,  578.), Complex( 42.,  5.), Complex( 6.,  -3.)], 3, 3));
+		let m4 = Matrix::from((vec![Complex( 947.,  1.), Complex( 35.5,  3.6), Complex( 97.,  -25.), Complex( 0.,  89.), Complex( 0.,  47.), Complex( 0.,  42.42), Complex( 233.2,  0.), Complex( 32.,  43.), Complex( 0.,  32.)], 3, 3));
+		let expected_result = Matrix::from((vec![Complex( 13087.8,  17121.8), Complex( 471.3,  5927.1), Complex( -708.1,  4715.1), Complex( 27632.3,  56784.1), Complex( 2488.45,  9154.86), Complex( 1289.7,  10331.02), Complex( 55415.84,  550462.52), Complex( 68.46,  22864.232), Complex( 19971.54,  56586.64)], 3, 3));
 		let result = m3.mul_mat(&m4);
 		for i in 0..result.len() {
-			assert_approx_eq!(expected_result.data[i].re as f64, result.data[i].re as f64, 1e-2);
-			assert_approx_eq!(expected_result.data[i].im as f64, result.data[i].im as f64, 1e-2);
+			assert_approx_eq!(expected_result.data[i].0 as f64, result.data[i].0 as f64, 1e-2);
+			assert_approx_eq!(expected_result.data[i].1 as f64, result.data[i].1 as f64, 1e-2);
 		}
 	}
 
@@ -26,9 +26,9 @@ mod test {
 	fn matrix_vector_multiplication() {
 		let m1 = Matrix::from((vec![1, 2, 3, 4], 2, 2));
 		let v1 = Vector::from(vec![4, 2]);
-		let v2 = Vector::from(vec![Complex{re: 1.,  3.}, Complex{re: 4.,  -3.5}]);
-		let m2 = Matrix::from((vec![Complex{re: 2.,  0.}, Complex{re: 0.,  0.}, Complex{re: 0.,  0.}, Complex{re: 2.,  0.}], 2, 2));
+		let v2 = Vector::from(vec![Complex( 1.,  3.), Complex( 4.,  -3.5)]);
+		let m2 = Matrix::from((vec![Complex( 2.,  0.), Complex( 0.,  0.), Complex( 0.,  0.), Complex( 2.,  0.)], 2, 2));
 		assert_eq!(Vector::from(vec![8, 20]), m1.mul_vec(&v1));
-		assert_eq!(Vector::from(vec![Complex{re: 2.,  6.}, Complex{re: 8.,  -7.}]), m2.mul_vec(&v2));
+		assert_eq!(Vector::from(vec![Complex( 2.,  6.), Complex( 8.,  -7.)]), m2.mul_vec(&v2));
 	}
 }
