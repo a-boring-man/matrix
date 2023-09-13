@@ -1,4 +1,6 @@
-use crate::matrix::basic_definition::{trait_definition::Scalar, definition::Vector};
+use std::ops::{Add, Mul};
+
+use crate::matrix::basic_definition::{trait_definition::Scalar, definition::{Vector, vector}};
 
 impl<K: Scalar> Vector<K> {
     pub fn linear_combination(u : &[Vector<K>], coefs: &[K]) -> Vector<K> {
@@ -12,4 +14,16 @@ impl<K: Scalar> Vector<K> {
         }
         return tmp_vec;
     }
+}
+
+pub fn linear_combination<K : Default + Copy + Add<Output = K> + Mul<Output = K>, const L: usize, const N: usize>
+    (vec: [vector<K, L>; N], coef: [K; N]) -> vector<K, L> {
+        
+        let mut result = vector::<K, L>::new();
+        for i in 0..N {
+            unsafe {
+                result += *vec.get_unchecked(i) * *coef.get_unchecked(i);
+            }
+        }
+        result
 }
