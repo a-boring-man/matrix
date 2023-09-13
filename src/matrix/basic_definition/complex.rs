@@ -5,20 +5,17 @@ use num_traits::One;
 use super::trait_definition::{Complexe, Normable};
 
 #[derive(Copy, Clone, PartialEq, Debug, Default, PartialOrd)]
-pub struct Complex {
-	pub(crate) re: f32,
-	pub(crate) im: f32,
-}
+pub struct Complex (pub f32,pub f32);
 
 impl Complexe for Complex {
 	fn conjugate(&self) -> Self {
-		Complex { re: self.re, im: -self.im }
+		Complex(self.0, -self.1)
 	}
 }
 
 impl Normable for Complex {
 	fn norm(&self) -> Self {
-		Complex { re: (self.re * self.re + self.im * self.im).sqrt(), im: 0. }
+		Complex((self.0 * self.0 + self.1 * self.1).sqrt(), 0.)
 	}
 
 	fn square(&self) -> Self {
@@ -26,7 +23,7 @@ impl Normable for Complex {
 	}
 
 	fn square_root(&self) -> Self {
-		Complex { re: self.re.sqrt(), im: self.im.sqrt() }
+		Complex( self.0.sqrt(), self.1.sqrt())
 	}
 }
 
@@ -34,10 +31,8 @@ impl std::ops::Add for Complex {
 	type Output = Self;
 
 	fn add(self, rhs: Self) -> Self::Output {
-		Complex {
-			re: self.re + rhs.re,
-			im: self.im + rhs.im
-		}
+		Complex( self.0 + rhs.0,
+			 self.1 + rhs.1 )
 	}
 }
 
@@ -45,10 +40,7 @@ impl std::ops::Sub for Complex {
 	type Output = Self;
 
 	fn sub(self, rhs: Self) -> Self::Output {
-		Complex{
-			re: self.re - rhs.re,
-			im: self.im - rhs.im,
-		}
+		Complex(self.0 - rhs.0, self.1 - rhs.1,)
 	}
 }
 
@@ -56,10 +48,8 @@ impl std::ops::Mul for Complex {
 	type Output = Self;
 
 	fn mul(self, rhs: Self) -> Self::Output {
-		Complex {
-			re: self.re * rhs.re - self.im * rhs.im,
-			im: self.re * rhs.im + self.im * rhs.re,
-		}
+		Complex( self.0 * rhs.0 - self.1 * rhs.1,
+			 self.0 * rhs.1 + self.1 * rhs.0)
 	}
 }
 
@@ -67,30 +57,34 @@ impl std::ops::Div for Complex {
 	type Output =  Self;
 
 	fn div(self, rhs: Self) -> Self::Output {
-		let deno = rhs.norm().re.pow(2);
-		Complex {
-			re: (self * rhs.conjugate()).re / deno,
-			im: (self * rhs.conjugate()).im / deno,
-		}
+		let deno = rhs.norm().0.pow(2);
+		Complex( (self * rhs.conjugate()).re / deno,
+			 (self * rhs.conjugate()).im / deno)
 	}
 }
 
 impl std::ops::AddAssign for Complex {
 	fn add_assign(&mut self, rhs: Self) {
-		self.re = self.re + rhs.re;
-		self.im = self.im + rhs.im;
+		self.0 = self.0 + rhs.0;
+		self.1 = self.1 + rhs.1;
 	}
 }
 
 impl One for Complex {
 	fn one() -> Self {
-		Complex { re: 1.0, im: 0. }
+		Complex( 1.0,  0. )
 	}
 }
 
 impl std::convert::From<i32> for Complex {
 	fn from(value: i32) -> Self {
-		Complex { re: value as f32, im: 0. }
+		Complex( value as f32,  0. )
+	}
+}
+
+impl From<(f32, f32)> for Complex {
+	fn from(value: (f32, f32)) -> Self {
+		Complex(value.0, value.1)
 	}
 }
 

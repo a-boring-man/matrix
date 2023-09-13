@@ -9,7 +9,7 @@ mod test {
 		let v1 = Vector::from(vec![0.0, 0.0, 0.0]);
 		let v2 = Vector::from(vec![1.0, 2.0, 3.0]);
 		let v3 = Vector::from(vec![-1.0, -2.0]);
-		let v4 = Vector::from(vec![Complex{re: 1., im: 4.}, Complex{re: 5., im: 3.}]);
+		let v4 = Vector::from(vec![Complex{re: 1.,  4.}, Complex{re: 5.,  3.}]);
 
 		assert_eq!(0.0, v1.norm_taxicab());
 		assert_eq!(6.0, v2.norm_taxicab());
@@ -22,7 +22,7 @@ mod test {
 		let v1 = Vector::from(vec![0.0, 0.0, 0.0]);
 		let v2 = Vector::from(vec![1.0, 2.0, 3.0]);
 		let v3 = Vector::from(vec![-1.0, -2.0]);
-		let v4 = Vector::from(vec![Complex{re: 1., im: 4.}, Complex{re: 5., im: 3.}]);
+		let v4 = Vector::from(vec![Complex{re: 1.,  4.}, Complex{re: 5.,  3.}]);
 
 		assert_eq!(0.0, v1.norm_euclidean());
 		assert_approx_eq!(3.74165738, v2.norm_euclidean() as f64);
@@ -35,7 +35,7 @@ mod test {
 		let v1 = Vector::from(vec![0.0, 0.0, 0.0]);
 		let v2 = Vector::from(vec![1.0, 2.0, 3.0]);
 		let v3 = Vector::from(vec![-1.0, -2.0]);
-		let v4 = Vector::from(vec![Complex{re: 1., im: 4.}, Complex{re: 5., im: 3.}]);
+		let v4 = Vector::from(vec![Complex{re: 1.,  4.}, Complex{re: 5.,  3.}]);
 
 		assert_eq!(0.0, v1.norm_supremum());
 		assert_eq!(3.0, v2.norm_supremum());

@@ -85,6 +85,6 @@ impl<K: fmt::Display, const L: usize> fmt::Display for vector<K, L> {
 
 impl fmt::Display for Complex {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "Real: {}, Imaginary: {}", self.re, self.im)
+        write!(f, "Real: {}, Imaginary: {}", self.0, self.1)
     }
 }

@@ -14,8 +14,8 @@ mod test {
         let expected_result = Matrix::from((vec![0.649425287, 0.097701149, -0.655172414, -0.781609195, -0.126436782, 0.965517241, 0.143678161, 0.074712644, -0.206896552], 3, 3));
         let result = m3.inverse().unwrap();
         result.iter().zip(expected_result.iter()).for_each(|(a, b)| assert_approx_eq!(*a, *b));
-        let m3 = Matrix::from((vec![Complex{re: 1., im: 2.}, Complex{re: 2., im: 3.}, Complex{re: 3., im: 4.}, Complex{re: 4., im: -5.}], 2, 2));
-        let expected_result = Matrix::from((vec![Complex{re: 75. / 298., im: -11. / 149.}, Complex{re: 1. / 298., im: -22. / 149.}, Complex{re: -1. / 149., im: -61. / 298.}, Complex{re: -2. / 149., im: 27. / 298.}], 2, 2));
+        let m3 = Matrix::from((vec![Complex{re: 1.,  2.}, Complex{re: 2.,  3.}, Complex{re: 3.,  4.}, Complex{re: 4.,  -5.}], 2, 2));
+        let expected_result = Matrix::from((vec![Complex{re: 75. / 298.,  -11. / 149.}, Complex{re: 1. / 298.,  -22. / 149.}, Complex{re: -1. / 149.,  -61. / 298.}, Complex{re: -2. / 149.,  27. / 298.}], 2, 2));
         let result = m3.inverse().unwrap();
         result.iter().zip(expected_result.iter()).for_each(|(a, b)| assert_approx_eq!((*a).re as f32, (*b).re as f32, 1e-2));
         result.iter().zip(expected_result.iter()).for_each(|(a, b)| assert_approx_eq!((*a).im as f32, (*b).im as f32, 1e-2));
