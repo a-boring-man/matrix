@@ -11,16 +11,24 @@ pub trait Scalar :
 {
 }
 
+impl<T> Scalar for T
+where
+    T: Add<Output = T>
+    + Sub<Output = T>
+    + Mul<Output = T>
+    + Div<Output = T>
+    + Sized
+    + Copy
+    + PartialEq
+{
+}
+
 pub trait Normable :
     std::iter::Sum + PartialOrd
 {
     fn norm(&self) -> Self;
     fn square(&self) -> Self;
     fn square_root(&self) -> Self;
-}
-
-pub trait Complexe {
-    fn conjugate(&self) -> Self;
 }
 
 impl Normable for f64 {
@@ -51,14 +59,14 @@ impl Normable for f32 {
     }
 }
 
-impl<T> Scalar for T
-where
-    T: Add<Output = T>
-    + Sub<Output = T>
-    + Mul<Output = T>
-    + Div<Output = T>
-    + Sized
-    + Copy
-    + PartialEq
-{
+pub trait Complexe {
+    fn conjugate(&self) -> Self;
+}
+
+pub trait CanDoaDotProduct<K> {
+    fn dot(&self, other: Self) -> K;
+}
+
+pub trait CanDoaDotProductComplex<K: Complexe> {
+    fn dot(&self, other: Self) -> K;
 }

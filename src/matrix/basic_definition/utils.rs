@@ -1,4 +1,4 @@
-use super::{trait_definition::Scalar, definition::{Matrix, Vector, matrix, vector}};
+use super::{trait_definition::{Scalar, CanDoaDotProduct}, definition::{Matrix, Vector, matrix, vector}};
 
 // ------------------------------- Utils function --------------------------------
 
