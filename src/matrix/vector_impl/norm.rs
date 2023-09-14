@@ -1,4 +1,10 @@
-use crate::matrix::basic_definition::{trait_definition::{Scalar, Normable}, definition::Vector};
+use crate::matrix::basic_definition::{trait_definition::{Scalar, Normable}, definition::{Vector, vector}};
+
+// impl<K: Normable, const L: usize> vector<K, L> {
+// 	pub fn norm_taxicab(&self) -> K {
+
+// 	}
+// }
 
 impl<K: Scalar + Normable> Vector<K> {
 	pub fn norm_taxicab(&self) -> K {

@@ -179,6 +179,12 @@ mod tests {
         let p = matrix([[1, 2, 3], [4, 5, 6]]);
         let q = matrix([[6, 5, 4], [3, 2, 1]]);
         assert!(p + q == matrix([[7, 7, 7], [7, 7, 7]]));
+
+        let test = matrix([[0; 0], [0; 0]]);
+        let test2 = matrix([[0; 0], [0; 0]]);
+        println!("coucou");
+        println!("{}", test + test2);
+        println!("salut");
     }
 
     #[test]
