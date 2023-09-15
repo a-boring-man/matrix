@@ -14,16 +14,10 @@ impl<K: Scalar + Complexe + std::iter::Sum<<K as std::ops::Mul>::Output>> Vector
 	}
 }
 
-impl<K: Copy + Add<Output = K> + Mul<Output = K>, const L: usize> CanDoaDotProduct<K> for vector<K, L> {
+impl<K: Copy + Default + Add<Output = K> + Mul<Output = K>, const L: usize> CanDoaDotProduct<K> for vector<K, L> {
     fn dot(&self, other: Self) -> K {
-        if L == 0 {
-			panic!("vector must not be of 0 dimension");
-		}
-		let mut result: K;
-		unsafe {
-			result = *self.0.get_unchecked(0) * *other.0.get_unchecked(0);
-		}
-		for i in 1..L {
+		let mut result: K = K::default();
+		for i in 0..L {
 			unsafe {
 				result = result + *self.0.get_unchecked(i) * *other.0.get_unchecked(i);
 			}
@@ -32,16 +26,10 @@ impl<K: Copy + Add<Output = K> + Mul<Output = K>, const L: usize> CanDoaDotProdu
     }
 }
 
-impl<K: Copy + Complexe + Add<Output = K> + Mul<Output = K>, const L: usize> CanDoaDotProductComplex<K> for vector<K, L> {
+impl<K: Copy + Default + Complexe + Add<Output = K> + Mul<Output = K>, const L: usize> CanDoaDotProductComplex<K> for vector<K, L> {
     fn dot(&self, other: Self) -> K {
-        if L == 0 {
-			panic!("vector must not be of 0 dimension");
-		}
-		let mut result: K;
-		unsafe {
-			result = *self.0.get_unchecked(0) * other.0.get_unchecked(0).conjugate();
-		}
-		for i in 1..L {
+		let mut result: K = K::default();
+		for i in 0..L {
 			unsafe {
 				result = result + *self.0.get_unchecked(i) * other.0.get_unchecked(i).conjugate();
 			}
