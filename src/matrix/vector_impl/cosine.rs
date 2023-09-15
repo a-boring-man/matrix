@@ -11,3 +11,4 @@ impl<K: Scalar + Normable + Complexe + std::ops::Div<Output = K> + std::iter::Su
 		u.dot_complex(v) / (u.norm_euclidean() * v.norm_euclidean())
 	}
 }
+
