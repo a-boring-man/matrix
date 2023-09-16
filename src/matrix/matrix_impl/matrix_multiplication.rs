@@ -1,6 +1,6 @@
-use std::ops::AddAssign;
+use std::ops::{AddAssign, Mul, Add};
 
-use crate::matrix::basic_definition::{trait_definition::Scalar, definition::{Matrix, Vector}};
+use crate::matrix::basic_definition::{trait_definition::{Scalar, Complexe}, definition::{Matrix, Vector, vector, matrix}};
 
 impl<K: Scalar + Default + AddAssign> Matrix<K> {
 	pub fn mul_vec(&self, vec: &Vector<K>) -> Vector<K> {
@@ -38,3 +38,27 @@ impl<K: Scalar + Default + AddAssign> Matrix<K> {
 		Matrix {data: tmp_vec, col: nbr_col2, row: nbr_row1}
 	}
 }
+
+impl<K: Copy + Default + Complexe + Add<Output = K> + Mul<Output = K>, const R: usize, const C: usize> Mul<vector<K, C>> for matrix<K, R, C> {
+	type Output = vector<K, R>;
+
+	fn mul(self, rhs: vector<K, C>) -> Self::Output {
+		let mut result = vector::<K, R>::new();
+		for r in 0..R {
+			result.0[r] = vector(self.0[r]).dot(rhs);
+		}
+		result
+	}
+}
+
+// impl<K: Copy + Default + Complexe + Add<Output = K> + Mul<Output = K>, const R: usize, const C: usize, const C2: usize> Mul<matrix<K, C, C2>> for matrix<K, R, C> {
+// 	type Output = matrix<K, R, C2>;
+
+// 	fn mul(self, rhs: matrix<K, R, C2>) -> Self::Output {
+// 		let mut result = matrix::<K, R, C2>::new();
+// 		for r in 0..R {
+// 			result.0[r] = vector(self.0[r]).dot(rhs);
+// 		}
+// 		result
+// 	}
+// }
