@@ -1,5 +1,7 @@
 use std::ops::{Add, Sub, Mul, Div};
 
+use super::definition::vector;
+
 // ---------------------------- Scalar trait definition --------------------------
 
 pub trait Scalar :
@@ -63,10 +65,14 @@ pub trait Complexe {
     fn conjugate(&self) -> Self;
 }
 
-pub trait CanDoaDotProduct<K> {
-    fn dot(&self, other: Self) -> K;
-}
-
-pub trait CanDoaDotProductComplex<K: Complexe> {
-    fn dot(&self, other: Self) -> K;
+pub trait CanDoaDotProduct<K: Copy + Default + Mul<Output = K> + Add<Output = K>, const L: usize> {
+    fn dot(first: &vector<K, L>, other: vector<K, L>) -> K {
+        let mut result: K = K::default();
+		for i in 0..L {
+			unsafe {
+				result = result + *first.0.get_unchecked(i) * *other.0.get_unchecked(i);
+			}
+		}
+		result
+    }
 }

@@ -2,6 +2,7 @@ use num_traits::Pow;
 
 use num_traits::One;
 
+use super::trait_definition::CanDoaDotProduct;
 use super::trait_definition::{Complexe, Normable};
 
 #[derive(Copy, Clone, PartialEq, Debug, Default, PartialOrd)]
@@ -35,7 +36,6 @@ impl std::ops::Add for Complex {
 			 self.1 + rhs.1 )
 	}
 }
-
 impl std::ops::Sub for Complex {
 	type Output = Self;
 
@@ -43,7 +43,6 @@ impl std::ops::Sub for Complex {
 		Complex(self.0 - rhs.0, self.1 - rhs.1,)
 	}
 }
-
 impl std::ops::Mul for Complex {
 	type Output = Self;
 
@@ -52,7 +51,6 @@ impl std::ops::Mul for Complex {
 			 self.0 * rhs.1 + self.1 * rhs.0)
 	}
 }
-
 impl std::ops::Div for Complex {
 	type Output =  Self;
 
@@ -94,5 +92,17 @@ impl std::iter::Sum<Complex> for Complex {
 		I: Iterator<Item = Self>,
 	{
 		iter.fold(Self::default(), |acc, val| acc + val)
+	}
+}
+
+impl<const L: usize> CanDoaDotProduct<Complex, L> for Complex {
+	fn dot(first: &super::definition::vector<Complex, L>, other: super::definition::vector<Complex, L>) -> Complex {
+		let mut result: Complex = Complex::default();
+		for i in 0..L {
+			unsafe {
+				result = result + *first.0.get_unchecked(i) * other.0.get_unchecked(i).conjugate();
+			}
+		}
+		result
 	}
 }

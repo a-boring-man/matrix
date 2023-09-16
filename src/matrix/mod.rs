@@ -9,6 +9,7 @@ pub mod basic_definition {
 	pub mod utils;
 	pub mod iterator_impl;
 	pub mod complex;
+	pub mod complexe;
 }
 
 pub mod matrix_impl {
