@@ -14,6 +14,6 @@ impl<K: Scalar + Normable + Complexe + std::ops::Div<Output = K> + std::iter::Su
 	}
 }
 
-fn angle_cos<K: Complexe + Normable + Default + Copy + Add<Output = K> + Mul<Output = K> + Div<Output = K>, const L: usize> (v1: vector<K, L>, v2: vector<K, L>) -> K {
+fn _angle_cos<K: Complexe + Normable + Default + Copy + Add<Output = K> + Mul<Output = K> + Div<Output = K>, const L: usize> (v1: vector<K, L>, v2: vector<K, L>) -> K {
 	v1.dot(v2) / (v1.norm_euclidean() * v2.norm_euclidean())
 }
