@@ -97,3 +97,5 @@ impl<K: Scalar + Default + One> Matrix<K> {
 		result
 	}
 }
+
+// impl<K: Copy + Default, const R: usize, const C: usize>
