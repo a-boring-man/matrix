@@ -112,6 +112,18 @@ impl<K: Default + Copy, const R: usize, const C: usize> matrix<K, R, C> {
     pub fn new() -> Self {
         matrix([[K::default(); C]; R])
     }
+
+    /// Return the column vector of the specified column
+    pub fn isolate_column_vector(&self, column: usize) -> vector<K, R> {
+        if column >= C {
+            panic!("column index is greater than Matrix max column");
+        }
+        let mut result = vector::<K, R>::new();
+        for r in 0..R {
+            result.0[r] = self.0[r][column];
+        }
+        result
+    }
 }
 impl<K: Default + Copy, const L: usize> vector<K, L> {
     /// Return a new vector with K::default value
