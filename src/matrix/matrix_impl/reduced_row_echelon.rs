@@ -1,6 +1,6 @@
 use num_traits::identities::One;
 
-use crate::matrix::basic_definition::{trait_definition::Scalar, definition::Matrix};
+use crate::matrix::basic_definition::{trait_definition::Scalar, definition::{Matrix, matrix}};
 
 impl<K: Scalar + Default + One> Matrix<K> {
 
@@ -98,4 +98,12 @@ impl<K: Scalar + Default + One> Matrix<K> {
 	}
 }
 
-// impl<K: Copy + Default, const R: usize, const C: usize>
+impl<K: Copy + Default + One, const R: usize, const C: usize> matrix<K, R, C> {
+	fn find_best_first_row(&self) -> Option<usize> {
+		let mut max = K::default();
+		self.0.iter().enumerate().for_each(|(i, vec)| {
+			
+		})
+		None
+	}
+}
