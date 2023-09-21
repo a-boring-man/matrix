@@ -98,12 +98,25 @@ impl<K: Scalar + Default + One> Matrix<K> {
 	}
 }
 
-impl<K: Copy + Default + One, const R: usize, const C: usize> matrix<K, R, C> {
-	fn find_best_first_row(&self) -> Option<usize> {
-		let mut max = K::default();
-		self.0.iter().enumerate().for_each(|(i, vec)| {
-			
-		})
+impl<K: Copy + Default + One + PartialEq, const R: usize, const C: usize> matrix<K, R, C> {
+	fn find_best_first_row(&self, row:usize, col: usize) -> Option<usize> {
+		if col >= C || row >= R {
+			panic!("wrong column or row number in search first row")
+		}
+		let max = K::default();
+		for (i, vec) in self.0.iter().enumerate().skip(row) {
+			if vec[col] != max {
+				return Some(i);
+			}
+		}
 		None
+	}
+
+	fn row_swap(&mut self, row1: usize, row2: usize) {
+		for c in 0..C {
+			let tmp = self.0[row2][c];
+			self.0[row2][c] = self.0[row1][c];
+			self.0[row1][c] = tmp;
+		}
 	}
 }
