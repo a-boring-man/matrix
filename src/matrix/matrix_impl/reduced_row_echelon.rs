@@ -1,6 +1,8 @@
+use std::process::Output;
+use std::ops::Div;
 use num_traits::identities::One;
 
-use crate::matrix::basic_definition::{trait_definition::Scalar, definition::{Matrix, matrix}};
+use crate::matrix::basic_definition::{trait_definition::Scalar, definition::{Matrix, matrix, vector}};
 
 impl<K: Scalar + Default + One> Matrix<K> {
 
@@ -98,14 +100,14 @@ impl<K: Scalar + Default + One> Matrix<K> {
 	}
 }
 
-impl<K: Copy + Default + One + PartialEq, const R: usize, const C: usize> matrix<K, R, C> {
-	fn find_best_first_row(&self, row:usize, col: usize) -> Option<usize> {
-		if col >= C || row >= R {
+impl<K: Copy + Default + One + PartialEq + Div<Output = K>, const R: usize, const C: usize> matrix<K, R, C> {
+	fn find_best_first_row(&self, row:usize) -> Option<usize> {
+		if row >= R || row >= C {
 			panic!("wrong column or row number in search first row")
 		}
-		let max = K::default();
+		let zero = K::default();
 		for (i, vec) in self.0.iter().enumerate().skip(row) {
-			if vec[col] != max {
+			if vec[row] != zero {
 				return Some(i);
 			}
 		}
@@ -118,5 +120,25 @@ impl<K: Copy + Default + One + PartialEq, const R: usize, const C: usize> matrix
 			self.0[row2][c] = self.0[row1][c];
 			self.0[row1][c] = tmp;
 		}
+	}
+
+	fn row_echelon(&self) -> Self {
+		if C == 0 || R == 0 {
+			return *self;
+		}
+		let mut result = *self;
+
+		for r in 0..R {
+			if let Some(row1) = self.find_best_first_row(r) {
+				if row1 != r {
+					result.row_swap(row1, r);
+				}
+				result.0[r] = (vector::from(self.0[r]) * (K::one() / self.0[r][0])).0;
+			}
+			else {
+				continue;
+			}
+		}
+		result
 	}
 }
