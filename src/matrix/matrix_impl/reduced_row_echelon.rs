@@ -129,12 +129,22 @@ impl<K: Copy + Default + One + PartialEq + Div<Output = K>, const R: usize, cons
 		let mut result = *self;
 
 		for r in 0..R {
-			if let Some(row1) = self.find_best_first_row(r) {
+			if r >= C {
+				break;
+			}
+			if let Some(row1) = result.find_best_first_row(r) {
 				if row1 != r {
 					result.row_swap(row1, r);
 				}
-				result.0[r] = (vector::from(self.0[r]) * (K::one() / self.0[r][0])).0;
-				
+				result.0[r] = (vector::from(result.0[r]) * (K::one() / result.0[r][0])).0;
+				for r2 in 0..R {
+					if r2 != r {
+						result.0[r2] = (vector::from(result.0[r2]) * (K::one() / result.0[r][r2])).0;
+					}
+					else {
+						continue;
+					}
+				}	
 			}
 			else {
 				continue;
