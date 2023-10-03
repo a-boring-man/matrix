@@ -134,6 +134,7 @@ impl<K: Copy + Default + One + PartialEq + Div<Output = K>, const R: usize, cons
 					result.row_swap(row1, r);
 				}
 				result.0[r] = (vector::from(self.0[r]) * (K::one() / self.0[r][0])).0;
+				
 			}
 			else {
 				continue;
