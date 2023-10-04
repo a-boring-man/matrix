@@ -1,7 +1,7 @@
 
 #[cfg(test)]
 mod tests {
-    use crate::matrix::basic_definition::{definition::{Matrix, Vector, matrix}, complex::Complex};
+    use crate::matrix::basic_definition::{definition::{Matrix, Vector, matrix, vector}, complex::Complex};
 
 
     #[test]
@@ -37,8 +37,9 @@ mod tests {
         let mut m1 = matrix([[1, 2], [3, 4]]);
         m1 += matrix([[5, 6], [7, 8]]);
         assert_eq!(m1, matrix([[6, 8], [10, 12]]));
-
-        
+        let mut v1 = vector([1, 2]);
+        v1 += vector([3, 4]);
+        assert_eq!(v1, vector([4, 6]));
 
 
     }
@@ -139,6 +140,8 @@ mod tests {
         let s = 0.5;
         assert!(z * s == matrix([[5.0, 10.0, 15.0], [20.0, 25.0, 30.0], [35.0, 40.0, 45.0]]));
 
+        let a = vector([3, 4]);
+        assert_eq!(vector([6, 8]), a * 2);
     }
 
     #[test]

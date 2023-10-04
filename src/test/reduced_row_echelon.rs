@@ -27,7 +27,7 @@ mod test {
 			assert_approx_eq!(result.data[i as usize].1 , expected.data[i as usize].1, 1e-3);
 		}
 		let m5 = matrix([[8.0, 5.0, -2., 4., 28.], [4., 2.5, 20., 4., -4.], [8., 5., 1., 4., 17.]]);
-		let expected = matrix([[1., 0.625, 0., 0., -12.16667], [0., 0., 1., 0., -3.66667], [0., 0., 0., 1., 29.5]]);
+		let expected = matrix([[1., 0.625, 0., 0., -12.166666666666666], [0., 0., 1., 0., -3.6666666666666666666], [0., 0., 0., 1., 29.5]]);
 		let result = m5.row_echelon();
 		for r in 0..3 {
 			for c in 0..5 {

@@ -154,6 +154,7 @@ impl<K: Add<Output = K> + Copy, const L: usize> AddAssign for vector<K, L> {
         self.iter_mut().zip(rhs.iter()).for_each(|(v1, v2)| *v1 = *v1 + *v2);
     }
 }
+
 impl<K: Default + Copy + Add<Output = K>, const L: usize> Add for vector<K, L> {
     type Output = Self;
 
@@ -185,7 +186,7 @@ impl<K: Default + Copy + Mul<Output = K>, const L: usize> Mul<K> for vector<K, L
 
     fn mul(self, rhs: K) -> Self::Output {
         let mut e = [K::default(); L];
-        e.iter_mut().for_each(|e| *e = *e * rhs);
+        e.iter_mut().zip(self.iter()).for_each(|(e, s)| *e = *s * rhs);
         vector(e)
     }
 }
