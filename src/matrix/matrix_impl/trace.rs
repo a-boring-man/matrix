@@ -1,4 +1,5 @@
 use std::ops::{AddAssign, Add};
+use num_traits::identities::One;
 
 use crate::matrix::basic_definition::{trait_definition::Scalar, definition::{Matrix, matrix}};
 
@@ -17,10 +18,26 @@ impl<K: Scalar + Default + AddAssign> Matrix<K> {
 	}
 }
 
-impl<K: Copy + Default + Add<Output = K>, const R: usize> matrix<K, R, R> {
+/// return type default value if matrix is of 0th dimension
+impl<K: Copy + One + Default + Add<Output = K>, const R: usize> matrix<K, R, R> {
 	pub fn trace(&self) -> K {
-		let mut result = K::default();
-		result = self.0.iter().enumerate().fold(result, |acc, (i, v)| acc + v[i + 1]);
-		result
+		match R {
+			0 => {return K::default();}
+			_ => {
+				self.0.iter().enumerate().fold(self.0[0][0], |acc, (i, vec)| {
+					acc + vec[i]
+				})
+			}
+		}
+	}
+	pub fn tracex(&self) -> K {
+		match R {
+			0 => {return K::default();}
+			_ => {
+				self.0.iter().enumerate().fold(self.0[0][0], |acc, (i, vec)| {
+					acc * vec[i]
+				})
+			}
+		}
 	}
 }

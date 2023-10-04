@@ -1,6 +1,6 @@
 use crate::matrix::basic_definition::{trait_definition::Scalar, definition::{Matrix, matrix, vector}, error::MatrixError};
 use num_traits::identities::One;
-use std::ops::{Mul, Div, Sub, Neg};
+use std::ops::{Mul, Div, Sub, Neg, Add};
 
 impl<K: Scalar> Matrix<K> {
 
@@ -39,7 +39,7 @@ impl<K: Scalar> Matrix<K> {
 	}
 }
 
-impl<K: Default + Copy + One + PartialEq + Mul<Output = K> + Div<Output = K> + Sub<Output = K> + Neg<Output = K>, const R: usize> matrix<K, R, R> {
+impl<K: Default + Copy + One + PartialEq + Mul<Output = K> + Add<Output = K> + Div<Output = K> + Sub<Output = K> + Neg<Output = K>, const R: usize> matrix<K, R, R> {
 
 	pub fn determinant(&self) -> K {
 		let find_first_row = |m: &matrix<K, R, R>, row: usize, col: usize| -> Option<usize> {
@@ -60,7 +60,6 @@ impl<K: Default + Copy + One + PartialEq + Mul<Output = K> + Div<Output = K> + S
 		};
 
 		let mut copy = *self;
-		let mut det = K::default();
 		let mut r = 0;
 		let mut swap = false;
 		for c in 0..R {
@@ -83,6 +82,7 @@ impl<K: Default + Copy + One + PartialEq + Mul<Output = K> + Div<Output = K> + S
 				continue;
 			}
 		}
+		let mut det = copy.tracex();
 		if swap {
 			det = -det;
 		}

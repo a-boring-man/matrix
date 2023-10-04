@@ -1,6 +1,6 @@
 #[cfg(test)]
 mod test {
-    use crate::matrix::basic_definition::{definition::Matrix, complex::Complex};
+    use crate::matrix::basic_definition::{definition::{Matrix, matrix}, complex::Complex};
 
 	#[test]
 	fn determinant() {
@@ -15,5 +15,8 @@ mod test {
 
 		let m4 = Matrix::from((vec![Complex( 0.,  3.), Complex( 4.,  2.), Complex( -5.,  0.), Complex( 3.,  1.)], 2, 2));
 		assert_eq!(Complex( 17.,  19.), m4.determinant().unwrap());
+
+		let m5 = matrix([[1, 2], [3, 4]]);
+		assert_eq!(-2, m5.determinant());
 	}
 }
