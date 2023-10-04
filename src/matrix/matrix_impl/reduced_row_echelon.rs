@@ -1,5 +1,5 @@
-use std::process::Output;
-use std::ops::Div;
+use core::fmt;
+use std::ops::{Div, Sub};
 use num_traits::identities::One;
 
 use crate::matrix::basic_definition::{trait_definition::Scalar, definition::{Matrix, matrix, vector}};
@@ -100,11 +100,11 @@ impl<K: Scalar + Default + One> Matrix<K> {
 	}
 }
 
-impl<K: Copy + Default + One + PartialEq + Div<Output = K>, const R: usize, const C: usize> matrix<K, R, C> {
-	fn find_best_first_row(&self, row:usize) -> Option<usize> {
+impl<K: Copy + Default + One + PartialEq + Div<Output = K> + Sub<Output = K> + fmt::Display, const R: usize, const C: usize> matrix<K, R, C> {
+	fn find_best_first_row(&self, row: usize, col: usize) -> Option<usize> {
 		let zero = K::default();
 		for (i, vec) in self.0.iter().enumerate().skip(row) {
-			if vec[row] != zero {
+			if vec[col] != zero {
 				return Some(i);
 			}
 		}
@@ -125,23 +125,37 @@ impl<K: Copy + Default + One + PartialEq + Div<Output = K>, const R: usize, cons
 		}
 		let mut result = *self;
 
-		for r in 0..R {
-			if r >= C {
-				break;
-			}
-			if let Some(row1) = result.find_best_first_row(r) {
+		let mut r = 0;	
+		for c in 0..C {
+			if let Some(row1) = result.find_best_first_row(r, c) {
 				if row1 != r {
 					result.row_swap(row1, r);
 				}
-				result.0[r] = (vector::from(result.0[r]) * (K::one() / result.0[r][0])).0;
+				println!("row1 = {}", row1);
+				for i in 0..C {
+					print!("{}, ", result.0[r][i]);
+				}
+				println!();
+				println!("one {}", K::one());
+				println!("one {}", K::one() / result.0[r][c]);
+				for lol in 0..C {
+					print!("{}, ", result.0[r][lol] * (K::one() / result.0[r][c]));
+				}
+				println!();
+				result.0[r] = (vector::from(result.0[r]) * (K::one() / result.0[r][c])).0;
+				for i in 0..C {
+					print!("{}, ", result.0[r][i]);
+				}
+				println!();
 				for r2 in 0..R {
 					if r2 != r {
-						result.0[r2] = (vector::from(result.0[r2]) * (K::one() / result.0[r][r2])).0;
+						result.0[r2] = (vector::from(result.0[r2]) - vector::from(result.0[r]) * result.0[r2][c]).0;
 					}
 					else {
 						continue;
 					}
 				}	
+				r += 1;
 			}
 			else {
 				continue;

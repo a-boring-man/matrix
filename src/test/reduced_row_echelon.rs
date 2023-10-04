@@ -31,8 +31,10 @@ mod test {
 		let result = m5.row_echelon();
 		for r in 0..3 {
 			for c in 0..5 {
+				println!("{}", result.0[r][c]);
 				assert_approx_eq!(result.0[r][c] as f64, expected.0[r][c] as f64);
 			}
+			println!();
 		}
 	}
 }
