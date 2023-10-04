@@ -1,6 +1,7 @@
+use std::ops::{Sub, Mul, Div, Add, Neg};
 use num_traits::One;
 
-use crate::matrix::basic_definition::{trait_definition::Scalar, definition::Matrix, error::MatrixError};
+use crate::matrix::basic_definition::{trait_definition::Scalar, definition::{Matrix, matrix}, error::MatrixError};
 
 impl<K: Scalar + Default + std::convert::From<i32> + One> Matrix<K> {
 	pub fn inverse(&self) -> Result<Matrix<K>, MatrixError> {
@@ -38,5 +39,15 @@ impl<K: Scalar + Default + std::convert::From<i32> + One> Matrix<K> {
 			}
 		}
 		Matrix { data: new_vec, col: col / 2, row }
+	}
+}
+
+impl<K: Default + Copy + One + PartialEq + Add<Output = K> + Mul<Output = K> + Div<Output = K> + Sub<Output = K> + Neg<Output = K>, const R: usize>  matrix<K, R, R> {
+	pub fn inverse(&self) -> Option<Self> {
+		match self.determinant() {
+			K::default() => {}
+			_ => {}
+		}
+		Some(*self)
 	}
 }
