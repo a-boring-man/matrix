@@ -1,4 +1,6 @@
-use crate::matrix::basic_definition::{trait_definition::Scalar, definition::Matrix, error::MatrixError};
+use crate::matrix::basic_definition::{trait_definition::Scalar, definition::{Matrix, matrix, vector}, error::MatrixError};
+use num_traits::identities::One;
+use std::ops::{Mul, Div, Sub, Neg};
 
 impl<K: Scalar> Matrix<K> {
 
@@ -34,5 +36,56 @@ impl<K: Scalar> Matrix<K> {
 			(4, 4, 16) => Ok(Matrix::determinant_4d(self)),
 			_ => Err(MatrixError::InvalidFormat)
 		}
+	}
+}
+
+impl<K: Default + Copy + One + PartialEq + Mul<Output = K> + Div<Output = K> + Sub<Output = K> + Neg<Output = K>, const R: usize> matrix<K, R, R> {
+
+	pub fn determinant(&self) -> K {
+		let find_first_row = |m: &matrix<K, R, R>, row: usize, col: usize| -> Option<usize> {
+			for (i, vec) in m.0.iter().enumerate().skip(row) {
+				if vec[col] != K::default() {
+					return Some(i);
+				}
+			}
+			None
+		};
+
+		let row_swap = |m: &mut matrix<K, R, R>, r1: usize, r2: usize| {
+			for c in 0..R {
+				let tmp: K = m.0[r1][c];
+				m.0[r1][c] = m.0[r2][c];
+				m.0[r2][c] = tmp;
+			}
+		};
+
+		let mut copy = *self;
+		let mut det = K::default();
+		let mut r = 0;
+		let mut swap = false;
+		for c in 0..R {
+			if let Some(row1) = find_first_row(&copy, r, c) {
+				if row1 != r {
+					row_swap(&mut copy, row1, r);
+					swap = !swap;
+				}
+				for r2 in r..R {
+					if r2 != r {
+						copy.0[r2] = (vector::from(copy.0[r2]) - vector::from(copy.0[r]) * copy.0[r2][c]).0;
+					}
+					else {
+						continue;
+					}
+				}	
+				r += 1;
+			}
+			else {
+				continue;
+			}
+		}
+		if swap {
+			det = -det;
+		}
+		det
 	}
 }
