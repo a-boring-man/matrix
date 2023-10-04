@@ -71,7 +71,7 @@ impl<K: Default + Copy + One + PartialEq + Mul<Output = K> + Div<Output = K> + S
 				}
 				for r2 in r..R {
 					if r2 != r {
-						copy.0[r2] = (vector::from(copy.0[r2]) - vector::from(copy.0[r]) * copy.0[r2][c]).0;
+						copy.0[r2] = (vector::from(copy.0[r2]) - vector::from(copy.0[r]) * (copy.0[r2][c] / copy.0[r][c])).0;
 					}
 					else {
 						continue;
