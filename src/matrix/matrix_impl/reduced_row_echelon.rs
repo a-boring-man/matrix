@@ -131,22 +131,7 @@ impl<K: Copy + Default + One + PartialEq + Div<Output = K> + Sub<Output = K> + f
 				if row1 != r {
 					result.row_swap(row1, r);
 				}
-				println!("row1 = {}", row1);
-				for i in 0..C {
-					print!("{}, ", result.0[r][i]);
-				}
-				println!();
-				println!("one {}", K::one());
-				println!("one {}", K::one() / result.0[r][c]);
-				for lol in 0..C {
-					print!("{}, ", result.0[r][lol] * (K::one() / result.0[r][c]));
-				}
-				println!();
 				result.0[r] = (vector::from(result.0[r]) * (K::one() / result.0[r][c])).0;
-				for i in 0..C {
-					print!("{}, ", result.0[r][i]);
-				}
-				println!();
 				for r2 in 0..R {
 					if r2 != r {
 						result.0[r2] = (vector::from(result.0[r2]) - vector::from(result.0[r]) * result.0[r2][c]).0;
