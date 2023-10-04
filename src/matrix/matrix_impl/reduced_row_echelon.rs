@@ -102,9 +102,6 @@ impl<K: Scalar + Default + One> Matrix<K> {
 
 impl<K: Copy + Default + One + PartialEq + Div<Output = K>, const R: usize, const C: usize> matrix<K, R, C> {
 	fn find_best_first_row(&self, row:usize) -> Option<usize> {
-		if row >= R || row >= C {
-			panic!("wrong column or row number in search first row")
-		}
 		let zero = K::default();
 		for (i, vec) in self.0.iter().enumerate().skip(row) {
 			if vec[row] != zero {
@@ -122,7 +119,7 @@ impl<K: Copy + Default + One + PartialEq + Div<Output = K>, const R: usize, cons
 		}
 	}
 
-	fn row_echelon(&self) -> Self {
+	pub fn row_echelon(&self) -> Self {
 		if C == 0 || R == 0 {
 			return *self;
 		}
