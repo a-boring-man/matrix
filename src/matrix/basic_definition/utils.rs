@@ -1,4 +1,5 @@
 use super::{trait_definition::{Scalar, CanDoaDotProduct}, definition::{Matrix, Vector, matrix, vector}};
+use num_traits::identities::One;
 
 // ------------------------------- Utils function --------------------------------
 
@@ -92,17 +93,17 @@ impl<K: Scalar> From<Vec<K>> for Vector<K> {
     }
 }
 
-impl<K, const R: usize, const C: usize> matrix<K, R, C> {
+impl<K: Copy + One + Default, const R: usize, const C: usize> matrix<K, R, C> {
     /// return a identity matrix of type i32 and of size size
-    pub fn identity() -> matrix<i32, R, C> {
-        let mut m = matrix([[0; C]; R]);
+    pub fn identity() -> Self {
+        let mut m = matrix([[K::default(); C]; R]);
         for r in 0..R {
-            for c in 0..C {
-                if c == r {
-                    m.0[r][c] = 1;
-                }
-            }
-        }
+			for c in 0..R {
+				if r == c {
+					m.0[r][c] = K::one();
+				}
+			}
+		}
         m
     }
 }

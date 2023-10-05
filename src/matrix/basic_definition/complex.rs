@@ -1,7 +1,5 @@
 use num_traits::Pow;
-
 use num_traits::One;
-
 use super::trait_definition::CanDoaDotProduct;
 use super::trait_definition::{Complexe, Normable};
 

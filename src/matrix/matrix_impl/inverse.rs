@@ -51,17 +51,7 @@ impl<K: Default + Copy + One + PartialEq + Add<Output = K> + Mul<Output = K> + D
 		if self.determinant() == K::default() {
 			return None;
 		}
-		let mut result = *self;
-		for r in 0..R {
-			for c in 0..R {
-				if r == c {
-					result.0[r][c] = K::one();
-				}
-				else {
-					result.0[r][c] = K::default();
-				}
-			}
-		}
+		let mut result = matrix::identity();
 		let mut copy = *self;
 		let mut r = 0;	
 		for c in 0..R {
