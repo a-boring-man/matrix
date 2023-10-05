@@ -43,11 +43,20 @@ impl<K: Scalar + Default + std::convert::From<i32> + One> Matrix<K> {
 }
 
 impl<K: Default + Copy + One + PartialEq + Add<Output = K> + Mul<Output = K> + Div<Output = K> + Sub<Output = K> + Neg<Output = K>, const R: usize>  matrix<K, R, R> {
+	const NEW_R: usize = 2 * R;
 	pub fn inverse(&self) -> Option<Self> {
-		match self.determinant() {
-			K::default() => {}
-			_ => {}
+		if R == 0 {
+			Some(*self);
 		}
-		Some(*self)
+		let result = K::default();
+		match self.determinant() {
+			result => {return None;}
+			_ => {
+				let augment = |m: &matrix<K, R, R>| -> matrix<K, R, NEW_R> {
+					
+				};
+				Some(*self)
+			}
+		}
 	}
 }
