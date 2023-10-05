@@ -100,8 +100,8 @@ impl<K: Scalar + Default + One> Matrix<K> {
 	}
 }
 
-impl<K: Copy + Default + One + PartialEq + Div<Output = K> + Sub<Output = K> + fmt::Display, const R: usize, const C: usize> matrix<K, R, C> {
-	fn find_best_first_row(&self, row: usize, col: usize) -> Option<usize> {
+impl<K: Copy + Default + One + PartialEq + Div<Output = K> + Sub<Output = K>, const R: usize, const C: usize> matrix<K, R, C> {
+	pub (crate) fn find_best_first_row(&self, row: usize, col: usize) -> Option<usize> {
 		let zero = K::default();
 		for (i, vec) in self.0.iter().enumerate().skip(row) {
 			if vec[col] != zero {
@@ -111,7 +111,7 @@ impl<K: Copy + Default + One + PartialEq + Div<Output = K> + Sub<Output = K> + f
 		None
 	}
 
-	fn row_swap(&mut self, row1: usize, row2: usize) {
+	pub(crate) fn row_swap(&mut self, row1: usize, row2: usize) {
 		for c in 0..C {
 			let tmp = self.0[row2][c];
 			self.0[row2][c] = self.0[row1][c];

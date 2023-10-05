@@ -1,7 +1,7 @@
 use std::ops::{Sub, Mul, Div, Add, Neg};
 use num_traits::One;
 
-use crate::matrix::basic_definition::{trait_definition::Scalar, definition::{Matrix, matrix}, error::MatrixError};
+use crate::matrix::basic_definition::{trait_definition::Scalar, definition::{Matrix, matrix, vector}, error::MatrixError};
 
 impl<K: Scalar + Default + std::convert::From<i32> + One> Matrix<K> {
 	pub fn inverse(&self) -> Result<Matrix<K>, MatrixError> {
@@ -43,20 +43,49 @@ impl<K: Scalar + Default + std::convert::From<i32> + One> Matrix<K> {
 }
 
 impl<K: Default + Copy + One + PartialEq + Add<Output = K> + Mul<Output = K> + Div<Output = K> + Sub<Output = K> + Neg<Output = K>, const R: usize>  matrix<K, R, R> {
-	const NEW_R: usize = 2 * R;
 	pub fn inverse(&self) -> Option<Self> {
 		if R == 0 {
 			Some(*self);
 		}
-		let result = K::default();
-		match self.determinant() {
-			result => {return None;}
-			_ => {
-				let augment = |m: &matrix<K, R, R>| -> matrix<K, R, NEW_R> {
-					
-				};
-				Some(*self)
+		if self.determinant() == K::default() {
+			return None;
+		}
+		let mut result = *self;
+		for r in 0..R {
+			for c in 0..R {
+				if r == c {
+					result.0[r][c] = K::one();
+				}
+				else {
+					result.0[r][c] = K::default();
+				}
 			}
 		}
+		let mut copy = *self;
+		let mut r = 0;	
+		for c in 0..R {
+			if let Some(row1) = copy.find_best_first_row(r, c) {
+				if row1 != r {
+					copy.row_swap(row1, r);
+					result.row_swap(row1, r);
+				}
+				copy.0[r] = (vector::from(copy.0[r]) * (K::one() / copy.0[r][c])).0;
+				result.0[r] = (vector::from(result.0[r]) * (K::one() / copy.0[r][c])).0;
+				for r2 in 0..R {
+					if r2 != r {
+						copy.0[r2] = (vector::from(copy.0[r2]) - vector::from(copy.0[r]) * copy.0[r2][c]).0;
+						result.0[r2] = (vector::from(result.0[r2]) - vector::from(result.0[r]) * copy.0[r2][c]).0;
+					}
+					else {
+						continue;
+					}
+				}	
+				r += 1;
+			}
+			else {
+				continue;
+			}
+		}
+		Some(result)
 	}
 }
