@@ -24,7 +24,6 @@ where
     + PartialEq
 {
 }
-
 pub trait Normable :
     std::iter::Sum + PartialOrd
 {
