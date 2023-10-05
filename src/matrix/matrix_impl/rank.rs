@@ -1,4 +1,5 @@
-use crate::matrix::basic_definition::{trait_definition::Scalar, definition::Matrix};
+use crate::matrix::basic_definition::{trait_definition::Scalar, definition::{Matrix, matrix}};
+use std::ops::{Sub, Div};
 
 use num_traits::identities::One;
 
@@ -15,6 +16,24 @@ impl<K: Scalar + Default + One + for<'a> std::ops::SubAssign<&'a K> + for<'a> st
 					rank += 1;
 					break;
 				}
+			}
+		}
+		rank
+	}
+}
+
+impl<K: Copy + Default + One + PartialEq + Div<Output = K> + Sub<Output = K>, const R: usize, const C: usize> matrix<K, R, C> {
+	pub fn rank(&self) -> u32 {
+		let reduced = self.row_echelon();
+		let mut rank = 0;
+		if R == 0 || C == 0 {
+			return rank;	
+		}
+		let mut r = 0;		
+		for c in 0..C {
+			if reduced.0[r][c] != K::default() {
+				r += 1;
+				rank += 1;
 			}
 		}
 		rank

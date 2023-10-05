@@ -2,7 +2,7 @@
 mod test {
     use assert_approx_eq::assert_approx_eq;
 
-    use crate::matrix::basic_definition::{definition::Matrix, complex::Complex};
+    use crate::matrix::basic_definition::{definition::{Matrix, matrix}, complex::Complex};
 
     #[test]
     fn inverse() {
@@ -19,5 +19,7 @@ mod test {
         let result = m3.inverse().unwrap();
         result.iter().zip(expected_result.iter()).for_each(|(a, b)| assert_approx_eq!((*a).0 as f32, (*b).0 as f32, 1e-2));
         result.iter().zip(expected_result.iter()).for_each(|(a, b)| assert_approx_eq!((*a).1 as f32, (*b).1 as f32, 1e-2));
+        let m1 = matrix([[2.0, 0.0], [0., 2.]]);
+        assert_eq!(matrix([[0.5, 0.], [0., 0.5]]), m1.inverse().unwrap());
     }
 }

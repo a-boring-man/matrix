@@ -1,3 +1,4 @@
+use core::fmt;
 use std::ops::{Sub, Mul, Div, Add, Neg};
 use num_traits::One;
 
@@ -42,7 +43,7 @@ impl<K: Scalar + Default + std::convert::From<i32> + One> Matrix<K> {
 	}
 }
 
-impl<K: Default + Copy + One + PartialEq + Add<Output = K> + Mul<Output = K> + Div<Output = K> + Sub<Output = K> + Neg<Output = K>, const R: usize>  matrix<K, R, R> {
+impl<K: Default + Copy + One + PartialEq + Add<Output = K> + Mul<Output = K> + Div<Output = K> + Sub<Output = K> + Neg<Output = K> + fmt::Display, const R: usize>  matrix<K, R, R> {
 	pub fn inverse(&self) -> Option<Self> {
 		if R == 0 {
 			Some(*self);
@@ -69,12 +70,14 @@ impl<K: Default + Copy + One + PartialEq + Add<Output = K> + Mul<Output = K> + D
 					copy.row_swap(row1, r);
 					result.row_swap(row1, r);
 				}
-				copy.0[r] = (vector::from(copy.0[r]) * (K::one() / copy.0[r][c])).0;
+				println!("{}, {}", result, copy);
 				result.0[r] = (vector::from(result.0[r]) * (K::one() / copy.0[r][c])).0;
+				copy.0[r] = (vector::from(copy.0[r]) * (K::one() / copy.0[r][c])).0;
+				println!("{}, {}", result, copy);
 				for r2 in 0..R {
 					if r2 != r {
-						copy.0[r2] = (vector::from(copy.0[r2]) - vector::from(copy.0[r]) * copy.0[r2][c]).0;
 						result.0[r2] = (vector::from(result.0[r2]) - vector::from(result.0[r]) * copy.0[r2][c]).0;
+						copy.0[r2] = (vector::from(copy.0[r2]) - vector::from(copy.0[r]) * copy.0[r2][c]).0;
 					}
 					else {
 						continue;
