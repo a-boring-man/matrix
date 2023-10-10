@@ -167,27 +167,25 @@ mod tests {
         let m2 = matrix([[5, 6], [7, 8]]);
         assert!(m1 + m2 == matrix([[6, 8], [10, 12]]));
 
-        let ma = matrix([[2, 4, 6], [8, 10, 12], [14, 16, 18]]);
+        let ma = matrix([[2, -4, 6], [8, 10, 12], [14, 16, 18]]);
         let mb = matrix([[1, 3, 5], [7, 9, 11], [13, 15, 17]]);
-        assert!(ma + mb == matrix([[3, 7, 11], [15, 19, 23], [27, 31, 35]]));
+        assert!(ma + mb == matrix([[3, -1, 11], [15, 19, 23], [27, 31, 35]]));
 
-        let a = matrix([[2, 3], [1, 4]]);
-        let b = matrix([[5, 1], [2, 6]]);
-        assert!(a + b == matrix([[7, 4], [3, 10]]));
+        let a = matrix([[2., 3.], [1., 4.]]);
+        let b = matrix([[5., 1.], [2., 6.]]);
+        assert!(a + b == matrix([[7., 4.], [3., 10.]]));
 
-        let x = matrix([[0, 1], [1, 0]]);
-        let y = matrix([[1, 0], [0, 1]]);
-        assert!(x + y == matrix([[1, 1], [1, 1]]));
+        let x = matrix([[Complex(0., 1.), Complex(1., 0.)], [Complex(0., 0.), Complex(1., 1.)]]);
+        let y = matrix([[Complex(2., 0.), Complex(0., 3.)], [Complex(3., 4.), Complex(1., 2.)]]);
+        assert!(x + y == matrix([[Complex(2., 1.), Complex(1., 3.)], [Complex(3., 4.), Complex(2., 3.)]]));
 
-        let p = matrix([[1, 2, 3], [4, 5, 6]]);
-        let q = matrix([[6, 5, 4], [3, 2, 1]]);
-        assert!(p + q == matrix([[7, 7, 7], [7, 7, 7]]));
+        let p = vector([1, 2, 3]);
+        let q = vector([6, 5, 4]);
+        assert!(p + q == vector([7, 7, 7]));
 
-        let test = matrix([[0; 0], [0; 0]]);
-        let test2 = matrix([[0; 0], [0; 0]]);
-        println!("coucou");
-        println!("{}", test + test2);
-        println!("salut");
+        let heu = vector([Complex(0., 2.), Complex(-4., 3.4)]);
+        let salut = vector([Complex(2., 1.), Complex(3., 1.)]);
+        assert_eq!(heu + salut, vector([Complex(2., 3.), Complex(-1., 4.4)]));
     }
 
     #[test]
