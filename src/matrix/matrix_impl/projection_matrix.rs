@@ -5,14 +5,14 @@ impl<K: Scalar> Matrix<K> {
 		// |	(h/w)*1/tan(fov/2)				0					0							0 |
 		// |					 0	 1/tan(fov/2)					0							0 |
 		// |					 0				0	   far/(far-near)    -(far*near)/(far - near) |
-		// |					 0				0					1							0 |
+		// |					 0				0				   -1							0 |
 
 		let mut data = vec![0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., -1., 0.];
 		let fovr = fov.to_radians();
 		data[0] = 1. / ((fovr / 2.).tan() * ratio);
 		data[5] = 1. / ((fovr / 2.).tan());
 		data[10] = far / (near - far);
-		data[11] = (far * near) / (far - near);
+		data[11] = -(far * near) / (far - near);
 		Matrix { data , col: 4, row: 4 }
 	}
 }
