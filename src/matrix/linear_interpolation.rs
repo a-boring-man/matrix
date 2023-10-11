@@ -14,6 +14,8 @@ impl<K: Scalar + Display> Vector<K> {
 	}
 }
 
-pub fn _lerp<V: Sub<Output = V> + Mul<K, Output = V> + Add<Output = V> + Clone, K: Scalar>(o1: V, o2: V, p: K) -> V {
-	o1.clone() + (o2 - o1) * p
+pub fn _lerp
+	<V: Sub<Output = V> + Mul<K, Output = V> + Add<Output = V> + Copy, K: Scalar>
+	(v1: V, v2: V, p: K) -> V {
+	v1 + (v2 - v1) * p
 }

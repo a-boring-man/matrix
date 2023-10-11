@@ -16,7 +16,8 @@ impl<K: Scalar> Vector<K> {
     }
 }
 
-pub fn _linear_combination<K : Default + Copy + Add<Output = K> + Mul<Output = K>, const L: usize, const N: usize>
+pub fn _linear_combination
+    <K : Default + Copy + Add<Output = K> + Mul<Output = K>, const L: usize, const N: usize>
     (vec: [vector<K, L>; N], coef: [K; N]) -> vector<K, L> {
         
     let mut result = vector::<K, L>::new();
