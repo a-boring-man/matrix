@@ -154,7 +154,6 @@ impl<K: Add<Output = K> + Copy, const L: usize> AddAssign for vector<K, L> {
         self.iter_mut().zip(rhs.iter()).for_each(|(v1, v2)| *v1 = *v1 + *v2);
     }
 }
-
 impl<K: Default + Copy + Add<Output = K>, const L: usize> Add for vector<K, L> {
     type Output = Self;
 
