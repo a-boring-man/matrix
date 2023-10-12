@@ -2,7 +2,7 @@
 mod test {
     use assert_approx_eq::assert_approx_eq;
 
-    use crate::matrix::basic_definition::{definition::{Matrix, Vector, matrix}, complex::Complex};
+    use crate::matrix::basic_definition::{definition::{Matrix, Vector, matrix, vector}, complex::Complex};
 	#[test]
 	fn matrix_matrix_multiplication() {
 		let m1: matrix<f64, 5, 3> = matrix([[3303. , 45345. , 34. ], [4.542, 0.254, 453. ], [37. , 453. , 65. ], [6. , 766. , 54. ], [452. , 354. , 65. ]]);
@@ -29,11 +29,11 @@ mod test {
 
 	#[test]
 	fn matrix_vector_multiplication() {
-		let m1 = Matrix::from((vec![1, 2, 3, 4], 2, 2));
-		let v1 = Vector::from(vec![4, 2]);
-		let v2 = Vector::from(vec![Complex( 1.,  3.), Complex( 4.,  -3.5)]);
-		let m2 = Matrix::from((vec![Complex( 2.,  0.), Complex( 0.,  0.), Complex( 0.,  0.), Complex( 2.,  0.)], 2, 2));
-		assert_eq!(Vector::from(vec![8, 20]), m1.mul_vec(&v1));
-		assert_eq!(Vector::from(vec![Complex( 2.,  6.), Complex( 8.,  -7.)]), m2.mul_vec(&v2));
+		let m1 = matrix([[1, 2], [3, 4]]);
+		let v1 = vector([4, 2]);
+		let v2 = vector([Complex( 1.,  3.), Complex( 4.,  -3.5)]);
+		let m2 = matrix([[Complex( 2.,  0.), Complex( 0.,  0.)], [Complex( 0.,  0.), Complex( 2.,  0.)]]);
+		assert_eq!(vector([8, 20]), m1 * v1);
+		assert_eq!(vector([Complex( 2.,  6.), Complex( 8.,  -7.)]), m2 * v2);
 	}
 }
