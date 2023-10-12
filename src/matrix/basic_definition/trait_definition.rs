@@ -32,7 +32,7 @@ pub trait Normable :
     fn square_root(&self) -> Self;
 }
 
-impl Normable for f64 {
+/* impl Normable for f64 {
     fn norm(&self) -> Self {
         self.abs()
     }
@@ -58,7 +58,7 @@ impl Normable for f32 {
     fn square_root(&self) -> Self {
         self.sqrt()
     }
-}
+} */
 
 pub trait Complexe {
     fn conjugate(&self) -> Self;
