@@ -19,6 +19,6 @@ mod test {
 		assert_approx_eq!(2. as f64, v2.dot(v2));
 		assert_approx_eq!(9. as f64, v3.dot(v4));
 		assert_eq!(9, v5.dot(v6));
-		assert_eq!(Complex(16., 54.), c1.dot(c2));
+		assert_eq!(Complex(16., 54.), c1.complex_dot(c2));
 	}
 }

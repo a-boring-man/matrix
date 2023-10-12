@@ -1,4 +1,4 @@
-use std::ops::{AddAssign, Mul, Add};
+use std::{ops::{AddAssign, Mul, Add}, fmt::Display};
 
 use crate::matrix::basic_definition::{trait_definition::{Scalar, Complexe}, definition::{Matrix, Vector, vector, matrix}};
 
@@ -39,7 +39,7 @@ impl<K: Scalar + Default + AddAssign> Matrix<K> {
 	}
 }
 
-impl<K: Copy + Default + Complexe + Add<Output = K> + Mul<Output = K>, const R: usize, const C: usize> Mul<vector<K, C>> for matrix<K, R, C> {
+impl<K: Copy + Default + Display + Complexe + Add<Output = K> + Mul<Output = K>, const R: usize, const C: usize> Mul<vector<K, C>> for matrix<K, R, C> {
 	type Output = vector<K, R>;
 
 	fn mul(self, rhs: vector<K, C>) -> Self::Output {
@@ -51,7 +51,7 @@ impl<K: Copy + Default + Complexe + Add<Output = K> + Mul<Output = K>, const R: 
 	}
 }
 
-impl<K: Copy + Default + Complexe + Add<Output = K> + Mul<Output = K>, const R: usize, const C: usize, const C2: usize> Mul<matrix<K, C, C2>> for matrix<K, R, C> {
+impl<K: Copy + Default + Display + Complexe + Add<Output = K> + Mul<Output = K>, const R: usize, const C: usize, const C2: usize> Mul<matrix<K, C, C2>> for matrix<K, R, C> {
 	type Output = matrix<K, R, C2>;
 
 	fn mul(self, rhs: matrix<K, C, C2>) -> Self::Output {

@@ -4,7 +4,7 @@ use super::trait_definition::CanDoaDotProduct;
 use super::trait_definition::{Complexe, Normable};
 
 #[derive(Copy, Clone, PartialEq, Debug, Default, PartialOrd)]
-pub struct Complex (pub f32,pub f32);
+pub struct Complex (pub f64,pub f64);
 
 impl Complexe for Complex {
 	fn conjugate(&self) -> Self {
@@ -74,12 +74,12 @@ impl One for Complex {
 
 impl std::convert::From<i32> for Complex {
 	fn from(value: i32) -> Self {
-		Complex( value as f32,  0. )
+		Complex( value as f64,  0. )
 	}
 }
 
-impl From<(f32, f32)> for Complex {
-	fn from(value: (f32, f32)) -> Self {
+impl From<(f64, f64)> for Complex {
+	fn from(value: (f64, f64)) -> Self {
 		Complex(value.0, value.1)
 	}
 }
