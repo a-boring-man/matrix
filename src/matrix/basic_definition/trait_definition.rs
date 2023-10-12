@@ -32,6 +32,9 @@ pub trait Normable :
     fn square_root(&self) -> Self;
 }
 
+pub trait Zero {
+    fn close_to_zero(&self) -> bool;
+}
 /* impl Normable for f64 {
     fn norm(&self) -> Self {
         self.abs()

@@ -2,7 +2,7 @@ use core::fmt;
 use std::ops::{Div, Sub};
 use num_traits::identities::One;
 
-use crate::matrix::basic_definition::{trait_definition::Scalar, definition::{Matrix, matrix, vector}};
+use crate::matrix::basic_definition::{trait_definition::{Scalar, Zero}, definition::{Matrix, matrix, vector}};
 
 impl<K: Scalar + Default + One> Matrix<K> {
 
@@ -100,11 +100,11 @@ impl<K: Scalar + Default + One> Matrix<K> {
 	}
 }
 
-impl<K: Copy + Default + One + PartialEq + Div<Output = K> + Sub<Output = K>, const R: usize, const C: usize> matrix<K, R, C> {
+impl<K: Copy + Default + Zero + One + PartialEq + Div<Output = K> + Sub<Output = K>, const R: usize, const C: usize> matrix<K, R, C> {
 	pub (crate) fn find_best_first_row(&self, row: usize, col: usize) -> Option<usize> {
 		let zero = K::default();
 		for (i, vec) in self.0.iter().enumerate().skip(row) {
-			if vec[col] != zero {
+			if !vec[col].close_to_zero() {
 				return Some(i);
 			}
 		}

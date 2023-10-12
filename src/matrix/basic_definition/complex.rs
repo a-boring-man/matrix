@@ -1,6 +1,9 @@
+use std::default;
+
 use num_traits::Pow;
 use num_traits::One;
 use super::trait_definition::CanDoaDotProduct;
+use super::trait_definition::Zero;
 use super::trait_definition::{Complexe, Normable};
 
 #[derive(Copy, Clone, PartialEq, Debug, Default, PartialOrd)]
@@ -54,8 +57,10 @@ impl std::ops::Div for Complex {
 
 	fn div(self, rhs: Self) -> Self::Output {
 		let deno = rhs.norm().0.pow(2);
-		Complex( (self * rhs.conjugate()).0 / deno,
-			 (self * rhs.conjugate()).1 / deno)
+		let salut = Complex( (self * rhs.conjugate()).0 / deno,
+			 (self * rhs.conjugate()).1 / deno);
+		println!("self : {}, other : {}, result : {} ", self, rhs, salut);
+		salut
 	}
 }
 
@@ -69,6 +74,11 @@ impl std::ops::AddAssign for Complex {
 impl One for Complex {
 	fn one() -> Self {
 		Complex( 1.0,  0. )
+	}
+}
+impl Zero for Complex {
+	fn close_to_zero(&self) -> bool {
+		self.0 - <f64>::default() < 1e-6 || self.1 - <f64>::default() < 1e-6
 	}
 }
 

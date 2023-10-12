@@ -24,7 +24,7 @@ impl<K: Copy + One + Default + Add<Output = K>, const R: usize> matrix<K, R, R> 
 		match R {
 			0 => {return K::default();}
 			_ => {
-				self.0.iter().enumerate().fold(self.0[0][0], |acc, (i, vec)| {
+				self.0.iter().enumerate().fold(K::default(), |acc, (i, vec)| {
 					acc + vec[i]
 				})
 			}

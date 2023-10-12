@@ -11,6 +11,7 @@ pub mod basic_definition {
 	pub mod complex;
 	pub mod complexe;
 	pub mod normable;
+	pub mod zero;
 }
 
 pub mod matrix_impl {
