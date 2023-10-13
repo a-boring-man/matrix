@@ -9,10 +9,3 @@ edition = "2021"
 [dependencies]
 assert_approx_eq = "1.1.0"
 num-traits = "0.2.16"
-
-[dev-dependencies]
-# criterion = "0.3.6"
-
-[[bench]]
-name = "benchtest"
-harness = false
