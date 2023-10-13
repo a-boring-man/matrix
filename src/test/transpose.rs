@@ -1,6 +1,6 @@
 #[cfg(test)]
 mod test {
-    use crate::matrix::basic_definition::definition::{Matrix, matrix};
+    use crate::matrix::basic_definition::definition::{matrix};
 
 	#[test]
 	fn transpose() {

@@ -1,6 +1,6 @@
 #[cfg(test)]
 mod test {
-    use crate::matrix::{basic_definition::{definition::{Vector, vector}, complex::Complex}, vector_impl::cross_product::_cross_product};
+    use crate::matrix::{basic_definition::{definition::{vector}, complex::Complex}, vector_impl::cross_product::_cross_product};
 
 	#[test]
 	fn cross_product() {

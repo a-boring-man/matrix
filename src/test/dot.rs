@@ -2,7 +2,7 @@
 mod test {
     use assert_approx_eq::assert_approx_eq;
 
-    use crate::matrix::basic_definition::{definition::{Vector, vector}, complex::Complex};
+    use crate::matrix::basic_definition::{definition::{vector}, complex::Complex};
 
 	#[test]
 	fn dot() {

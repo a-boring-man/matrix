@@ -3,7 +3,7 @@
 mod tests {
     use assert_approx_eq::assert_approx_eq;
 
-    use crate::matrix::basic_definition::{definition::{Matrix, Vector, matrix, vector}, complex::Complex};
+    use crate::matrix::basic_definition::{definition::{matrix, vector}, complex::Complex};
 
 
     #[test]

@@ -1,6 +1,6 @@
 #[cfg(test)]
 mod test {
-    use crate::matrix::basic_definition::{definition::{Matrix, matrix}, complex::Complex};
+    use crate::matrix::basic_definition::{definition::{matrix}, complex::Complex};
 
 	#[test]
 	fn determinant() {

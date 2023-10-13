@@ -2,7 +2,7 @@
 mod test {
     use assert_approx_eq::assert_approx_eq;
 
-    use crate::matrix::basic_definition::{definition::{Matrix, Vector, matrix, vector}, complex::Complex};
+    use crate::matrix::basic_definition::{definition::{matrix, vector}, complex::Complex};
 	#[test]
 	fn matrix_matrix_multiplication() {
 		let m1: matrix<f64, 5, 3> = matrix([[3303. , 45345. , 34. ], [4.542, 0.254, 453. ], [37. , 453. , 65. ], [6. , 766. , 54. ], [452. , 354. , 65. ]]);

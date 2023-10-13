@@ -3,7 +3,7 @@ mod test {
 
 	use assert_approx_eq::assert_approx_eq;
 
-	use crate::matrix::{basic_definition::{definition::{Vector, Matrix, vector}, complex::Complex}, linear_interpolation::_lerp};
+	use crate::matrix::{basic_definition::{definition::{vector}, complex::Complex}, linear_interpolation::_lerp};
 
 	#[test]
 	fn linear_interpolation() {

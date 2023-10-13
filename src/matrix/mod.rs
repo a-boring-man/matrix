@@ -3,7 +3,6 @@ pub mod linear_interpolation;
 
 pub mod basic_definition {
 	pub mod definition;
-	pub mod error;
 	pub mod display;
 	pub mod trait_definition;
 	pub mod utils;

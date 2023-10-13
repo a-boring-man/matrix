@@ -1,6 +1,6 @@
 #[cfg(test)]
 mod tests {
-    use crate::matrix::{basic_definition::{definition::{Vector, vector}, complex::Complex}, vector_impl::linear_combination::_linear_combination};
+    use crate::matrix::{basic_definition::{definition::{vector}, complex::Complex}, vector_impl::linear_combination::_linear_combination};
 
     #[test]
     fn linear_combination() {

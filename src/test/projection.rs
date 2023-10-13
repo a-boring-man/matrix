@@ -1,10 +1,11 @@
 #[cfg(test)]
 mod test {
-    use crate::matrix::basic_definition::definition::Matrix;
+    use crate::matrix::matrix_impl::projection_matrix::_projection;
+
 
 	#[test]
 	fn projection() {
-		let m1 = Matrix::<f32>::projection(90.0, 1., 1.0, 100.0);
+		let m1 = _projection::<f64>(90.0, 1., 1.0, 100.0);
 		println!("projection : {}", m1);
 	}
 }

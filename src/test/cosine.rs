@@ -2,7 +2,7 @@
 mod test {
     use assert_approx_eq::assert_approx_eq;
 
-    use crate::matrix::{basic_definition::{definition::{Vector, vector}, complex::Complex}, vector_impl::cosine::{_angle_cos, _angle_cos_complex}};
+    use crate::matrix::{basic_definition::{definition::{vector}, complex::Complex}, vector_impl::cosine::{_angle_cos, _angle_cos_complex}};
 
 	#[test]
 	fn cosine() {
