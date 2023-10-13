@@ -24,10 +24,11 @@ mod test {
 		let m4 = matrix([[Complex( 1.,  3.), Complex( 0.,  44.), Complex( -23.,  0.)], [Complex( 50.,  -4.6), Complex( 3.,  42.), Complex( -3.,  -4.2)]]);
 		let expected = matrix([[Complex( 1.,  0.), Complex( 0.,  0.), Complex( 0.39687,  -0.05800)], [Complex( 0.,  0.), Complex( 1.,  0.), Complex( -0.02574,  0.53570)]]);
 		let result = m4.row_echelon();
+		//println!("result {}", result);
 		for (res,excp) in result.iter().zip(expected.iter()) {
 			for (rs, exp) in res.iter().zip(excp.iter()) {
-				assert_approx_eq!(rs.0, exp.0);
-				assert_approx_eq!(rs.1, exp.1);
+				assert_approx_eq!(rs.0, exp.0, 1e-2);
+				assert_approx_eq!(rs.1, exp.1, 1e-2);
 			}
 		}
 

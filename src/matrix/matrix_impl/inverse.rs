@@ -1,5 +1,5 @@
 use core::fmt;
-use std::ops::{Sub, Mul, Div, Add, Neg};
+use std::{ops::{Sub, Mul, Div, Add, Neg}, fmt::Debug};
 use num_traits::One;
 
 use crate::matrix::basic_definition::{trait_definition::{Scalar, Zero}, definition::{Matrix, matrix, vector}, error::MatrixError};
@@ -43,7 +43,7 @@ impl<K: Scalar + Default + std::convert::From<i32> + One> Matrix<K> {
 	}
 }
 
-impl<K: Default + Copy + One + Zero + PartialEq + PartialOrd<f64> + Add<Output = K> + Mul<Output = K> + Div<Output = K> + Sub<Output = K> + Neg<Output = K> + fmt::Display, const R: usize>  matrix<K, R, R> {
+impl<K: Default + Copy + Debug + One + Zero + PartialEq + PartialOrd<f64> + Add<Output = K> + Mul<Output = K> + Div<Output = K> + Sub<Output = K> + Neg<Output = K> + fmt::Display, const R: usize>  matrix<K, R, R> {
 	pub fn inverse(&self) -> Option<Self> {
 		if R == 0 {
 			Some(*self);

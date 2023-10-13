@@ -16,7 +16,7 @@ macro_rules! impl_close_zero {
 	(for $($t:ty), +) => {
 		$(impl Zero for $t {
 			fn close_to_zero(&self) -> bool {
-				*self - <$t>::default() < 1e-6
+				(*self - <$t>::default()).abs() < 1e-6
 			}
 		})*
 	};

@@ -59,7 +59,7 @@ impl std::ops::Div for Complex {
 		let deno = rhs.norm().0.pow(2);
 		let salut = Complex( (self * rhs.conjugate()).0 / deno,
 			 (self * rhs.conjugate()).1 / deno);
-		println!("self : {}, other : {}, result : {} ", self, rhs, salut);
+		//println!("self : {}, other : {}, result : {} ", self, rhs, salut);
 		salut
 	}
 }
@@ -78,7 +78,7 @@ impl One for Complex {
 }
 impl Zero for Complex {
 	fn close_to_zero(&self) -> bool {
-		self.0 - <f64>::default() < 1e-6 || self.1 - <f64>::default() < 1e-6
+		(self.0 - <f64>::default()).abs() < 1e-6 || (self.1 - <f64>::default()).abs() < 1e-6
 	}
 }
 
