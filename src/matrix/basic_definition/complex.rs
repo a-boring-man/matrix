@@ -71,6 +71,14 @@ impl std::ops::AddAssign for Complex {
 	}
 }
 
+impl std::ops::Neg for Complex {
+	type Output = Self;
+
+	fn neg(self) -> Self::Output {
+		Complex(-self.0, -self.1)
+	}
+}
+
 impl One for Complex {
 	fn one() -> Self {
 		Complex( 1.0,  0. )

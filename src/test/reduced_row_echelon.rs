@@ -2,7 +2,7 @@
 mod test {
     use assert_approx_eq::assert_approx_eq;
 
-    use crate::matrix::basic_definition::{definition::{Matrix, matrix}, complex::Complex};
+    use crate::matrix::basic_definition::{definition::matrix, complex::Complex};
 
 	#[test]
 	fn reduced_row_echelon() {
