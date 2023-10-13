@@ -82,9 +82,9 @@ impl<K: Default + Copy + Display + One + PartialEq + Mul<Output = K> + Add<Outpu
 				continue;
 			}
 		}
-		println!("copy {}", copy);
+		//println!("copy {}", copy);
 		let mut det = copy.tracex();
-		println!("tracex {}", det);
+		//println!("tracex {}", det);
 		if swap {
 			det = -det;
 		}

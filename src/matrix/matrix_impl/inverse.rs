@@ -43,7 +43,7 @@ impl<K: Scalar + Default + std::convert::From<i32> + One> Matrix<K> {
 	}
 }
 
-impl<K: Default + Copy + Debug + One + Zero + PartialEq + PartialOrd<f64> + Add<Output = K> + Mul<Output = K> + Div<Output = K> + Sub<Output = K> + Neg<Output = K> + fmt::Display, const R: usize>  matrix<K, R, R> {
+impl<K: Default + Copy + Debug + One + Zero + PartialEq + Add<Output = K> + Mul<Output = K> + Div<Output = K> + Sub<Output = K> + Neg<Output = K> + fmt::Display, const R: usize>  matrix<K, R, R> {
 	pub fn inverse(&self) -> Option<Self> {
 		if R == 0 {
 			Some(*self);
