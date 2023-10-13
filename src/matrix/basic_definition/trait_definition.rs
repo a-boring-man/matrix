@@ -23,7 +23,7 @@ where
 {
 }
 pub trait Normable :
-    std::iter::Sum + PartialOrd
+    PartialOrd
 {
     fn norm(&self) -> Self;
     fn square(&self) -> Self;

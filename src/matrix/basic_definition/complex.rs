@@ -58,14 +58,12 @@ impl std::ops::Div for Complex {
 			 (self * rhs.conjugate()).1 / deno)
 	}
 }
-
 impl std::ops::AddAssign for Complex {
 	fn add_assign(&mut self, rhs: Self) {
 		self.0 = self.0 + rhs.0;
 		self.1 = self.1 + rhs.1;
 	}
 }
-
 impl std::ops::Neg for Complex {
 	type Output = Self;
 
@@ -82,26 +80,5 @@ impl One for Complex {
 impl Zero for Complex {
 	fn close_to_zero(&self) -> bool {
 		(self.0 - <f64>::default()).abs() < 1e-6 && (self.1 - <f64>::default()).abs() < 1e-6
-	}
-}
-
-impl std::convert::From<i32> for Complex {
-	fn from(value: i32) -> Self {
-		Complex( value as f64,  0. )
-	}
-}
-
-impl From<(f64, f64)> for Complex {
-	fn from(value: (f64, f64)) -> Self {
-		Complex(value.0, value.1)
-	}
-}
-
-impl std::iter::Sum<Complex> for Complex {
-	fn sum<I: Iterator<Item = Complex>>(iter: I) -> Self
-	where
-		I: Iterator<Item = Self>,
-	{
-		iter.fold(Self::default(), |acc, val| acc + val)
 	}
 }
