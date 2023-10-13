@@ -19,6 +19,7 @@ impl<K: Copy + One + Default, const R: usize> Matrix<K, R, R> {
 }
 
 impl<K: Default + Copy, const R: usize, const C: usize> Default for Matrix<K, R, C> {
+    /// return a Matrix([[K::default(); C]; R])
     fn default() -> Self {
         Self::new()
     }
@@ -43,7 +44,14 @@ impl<K: Default + Copy, const R: usize, const C: usize> Matrix<K, R, C> {
     }
 }
 
+impl<K, const R: usize, const C: usize> From<[[K; C]; R]> for Matrix<K, R, C> {
+    fn from(value: [[K; C]; R]) -> Self {
+        Matrix(value)
+    }
+}
+
 impl<K: Default + Copy, const L: usize> Default for Vector<K, L> {
+    /// return a Vector([K::default(); L])
     fn default() -> Self {
         Self::new()
     }
@@ -53,12 +61,6 @@ impl<K: Default + Copy, const L: usize> Vector<K, L> {
     /// Return a new vector with K::default value
     pub fn new() -> Self {
         Vector([K::default(); L])
-    }
-}
-
-impl<K, const R: usize, const C: usize> From<[[K; C]; R]> for Matrix<K, R, C> {
-    fn from(value: [[K; C]; R]) -> Self {
-        Matrix(value)
     }
 }
 
