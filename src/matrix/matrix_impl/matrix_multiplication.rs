@@ -1,8 +1,8 @@
-use std::{ops::{Mul, Add}, fmt::Display};
+use std::ops::{Mul, Add};
 
 use crate::matrix::basic_definition::definition::{Vector, Matrix};
 
-impl<K: Copy + Default + Display + Add<Output = K> + Mul<Output = K>, const R: usize, const C: usize> Mul<Vector<K, C>> for Matrix<K, R, C> {
+impl<K: Copy + Default + Add<Output = K> + Mul<Output = K>, const R: usize, const C: usize> Mul<Vector<K, C>> for Matrix<K, R, C> {
 	type Output = Vector<K, R>;
 
 	fn mul(self, rhs: Vector<K, C>) -> Self::Output {
@@ -14,7 +14,7 @@ impl<K: Copy + Default + Display + Add<Output = K> + Mul<Output = K>, const R: u
 	}
 }
 
-impl<K: Copy + Default + Display + Add<Output = K> + Mul<Output = K>, const R: usize, const C: usize, const C2: usize> Mul<Matrix<K, C, C2>> for Matrix<K, R, C> {
+impl<K: Copy + Default + Add<Output = K> + Mul<Output = K>, const R: usize, const C: usize, const C2: usize> Mul<Matrix<K, C, C2>> for Matrix<K, R, C> {
 	type Output = Matrix<K, R, C2>;
 
 	fn mul(self, rhs: Matrix<K, C, C2>) -> Self::Output {

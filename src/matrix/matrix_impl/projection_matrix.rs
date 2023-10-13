@@ -1,7 +1,6 @@
 use crate::matrix::basic_definition::definition::Matrix;
 
 pub fn _projection
-	<K>
 	(fov: f64, ratio: f64, near: f64, far: f64) -> Matrix<f64, 4, 4> {
 
 		// |	(h/w)*1/tan(fov/2)				0					0							0 |

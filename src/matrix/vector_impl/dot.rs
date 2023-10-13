@@ -1,8 +1,8 @@
-use std::{ops::{Add, Mul}, fmt::Display};
+use std::ops::{Add, Mul};
 
 use crate::matrix::basic_definition::{trait_definition::Complexe, definition::Vector};
 
-impl<K: Default + Display + Copy + Add<Output = K> + Mul<Output = K>, const L: usize> Vector<K, L> {
+impl<K: Default + Copy + Add<Output = K> + Mul<Output = K>, const L: usize> Vector<K, L> {
 	pub fn dot (&self, other: Self) -> K {
 		let mut result =  K::default();
 		for i in 0..L {
@@ -14,7 +14,7 @@ impl<K: Default + Display + Copy + Add<Output = K> + Mul<Output = K>, const L: u
 		result
 	}
 }
-impl<K: Complexe + Default + Display + Copy + Add<Output = K> + Mul<Output = K>, const L: usize> Vector<K, L> {
+impl<K: Complexe + Default + Copy + Add<Output = K> + Mul<Output = K>, const L: usize> Vector<K, L> {
 	pub fn complex_dot (&self, other: Self) -> K {
 		let mut result =  K::default();
 		for i in 0..L {

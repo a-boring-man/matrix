@@ -4,7 +4,7 @@ use num_traits::identities::One;
 // ------------------------------- Utils function --------------------------------
 
 impl<K: Copy + One + Default, const R: usize> Matrix<K, R, R> {
-    /// return a identity matrix of type i32 and of size size
+    /// return a identity matrix of type K 
     pub fn identity() -> Self {
         let mut m = Matrix([[K::default(); R]; R]);
         for r in 0..R {
@@ -23,6 +23,7 @@ impl<K: Default + Copy, const R: usize, const C: usize> Default for Matrix<K, R,
         Self::new()
     }
 }
+
 impl<K: Default + Copy, const R: usize, const C: usize> Matrix<K, R, C> {
     /// Return a new matrix with K::default value
     pub fn new() -> Self {
@@ -47,6 +48,7 @@ impl<K: Default + Copy, const L: usize> Default for Vector<K, L> {
         Self::new()
     }
 }
+
 impl<K: Default + Copy, const L: usize> Vector<K, L> {
     /// Return a new vector with K::default value
     pub fn new() -> Self {

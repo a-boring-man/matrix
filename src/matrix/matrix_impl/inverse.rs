@@ -1,8 +1,8 @@
 use num_traits::One;
-use std::ops::Neg;
-use crate::matrix::basic_definition::{trait_definition::{Scalar, Zero}, definition::{Matrix, Vector}};
+use std::ops::{Neg, Add, Sub, Mul, Div};
+use crate::matrix::basic_definition::{trait_definition::Zero, definition::{Matrix, Vector}};
 
-impl<K: Scalar + Default + One + Zero + Neg<Output = K>, const R: usize>  Matrix<K, R, R> {
+impl<K: Copy + Default + One + Zero + PartialEq + Add<Output = K> + Sub<Output = K> + Mul<Output = K> + Div<Output = K> + Neg<Output = K>, const R: usize>  Matrix<K, R, R> {
 	pub fn inverse(&self) -> Option<Self> {
 		if self.determinant() == K::default() {
 			return None;
