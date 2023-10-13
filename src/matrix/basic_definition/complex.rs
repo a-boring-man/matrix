@@ -86,7 +86,7 @@ impl One for Complex {
 }
 impl Zero for Complex {
 	fn close_to_zero(&self) -> bool {
-		(self.0 - <f64>::default()).abs() < 1e-6 || (self.1 - <f64>::default()).abs() < 1e-6
+		(self.0 - <f64>::default()).abs() < 1e-6 && (self.1 - <f64>::default()).abs() < 1e-6
 	}
 }
 

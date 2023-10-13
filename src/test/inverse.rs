@@ -9,8 +9,8 @@ mod test {
         let m1 = matrix([[2.0, 0.0], [0.0, 2.0]]);
         assert_eq!(matrix([[0.5, 0.], [0., 0.5]]), m1.inverse().unwrap());
 
-        let m2 = Matrix::<i32>::identity(3);
-        assert_eq!(Matrix::<i32>::identity(3), m2.inverse().unwrap());
+        let m2 = matrix::<i32, 3, 3>::identity();
+        assert_eq!(matrix::<i32, 3, 3>::identity(), m2.inverse().unwrap());
 
         let m3 = matrix([[8., 5., -2.], [4., 7., 20.], [7., 6., 1.]]);
         let expected_result = matrix([[0.649425287, 0.097701149, -0.655172414], [-0.781609195, -0.126436782, 0.965517241], [0.143678161, 0.074712644, -0.206896552]]);
