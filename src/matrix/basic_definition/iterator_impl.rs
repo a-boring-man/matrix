@@ -1,8 +1,8 @@
-use super::definition::{matrix, vector};
+use super::definition::{Matrix, Vector};
 
 // -------------------------------- Iterator --------------------------------
 
-impl<K, const R: usize, const C: usize> matrix<K, R, C> {
+impl<K, const R: usize, const C: usize> Matrix<K, R, C> {
     pub fn iter_mut(&mut self) -> std::slice::IterMut<[K; C]> {
         self.0.iter_mut()
     }
@@ -12,7 +12,7 @@ impl<K, const R: usize, const C: usize> matrix<K, R, C> {
     }
 }
 
-impl<K, const L: usize> vector<K, L> {
+impl<K, const L: usize> Vector<K, L> {
     pub fn iter_mut(&mut self) -> std::slice::IterMut<K> {
         self.0.iter_mut()
     }

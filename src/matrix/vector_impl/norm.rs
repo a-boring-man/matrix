@@ -1,8 +1,8 @@
-use crate::matrix::basic_definition::{trait_definition::{Scalar, Normable}, definition::{vector}};
+use crate::matrix::basic_definition::{trait_definition::Normable, definition::Vector};
 
 use std::ops::Add;
 
-impl<K: Normable + Default + Copy + Add<Output = K>, const L: usize> vector<K, L> {
+impl<K: Normable + Default + Copy + Add<Output = K>, const L: usize> Vector<K, L> {
 	/// Norme 1 return 0 if vector is empty
 	pub fn norm_taxicab(&self) -> K {
 		let mut result: K = K::default();

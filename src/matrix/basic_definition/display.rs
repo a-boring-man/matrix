@@ -1,10 +1,10 @@
-use super::{trait_definition::Scalar, definition::{matrix, vector}, complex::Complex};
+use super::{definition::{Matrix, Vector}, complex::Complex};
 
 use core::fmt;
 
 // ----------------------------------- Display function ---------------------------------
 
-impl<K: fmt::Display, const R: usize, const C: usize> fmt::Display for matrix<K, R, C> {
+impl<K: fmt::Display, const R: usize, const C: usize> fmt::Display for Matrix<K, R, C> {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         write!(f, "[ ")?;
         for r in 0..R {
@@ -33,7 +33,7 @@ impl<K: fmt::Display, const R: usize, const C: usize> fmt::Display for matrix<K,
     }
 }
 
-impl<K: fmt::Display, const L: usize> fmt::Display for vector<K, L> {
+impl<K: fmt::Display, const L: usize> fmt::Display for Vector<K, L> {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         write!(f, "[")?;
         for index in 0..L {

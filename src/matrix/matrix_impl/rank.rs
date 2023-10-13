@@ -1,11 +1,9 @@
-use crate::matrix::basic_definition::{trait_definition::{Scalar, Zero}, definition::{matrix}};
+use crate::matrix::basic_definition::{trait_definition::Zero, definition::Matrix};
 use std::{ops::{Sub, Div}, fmt::{Display, Debug}};
 
 use num_traits::identities::One;
 
-use std::ops::Mul;
-
-impl<K: Copy + Default + Debug + Display + One + Zero + PartialEq + Div<Output = K> + Sub<Output = K>, const R: usize, const C: usize> matrix<K, R, C> {
+impl<K: Copy + Default + Debug + Display + One + Zero + PartialEq + Div<Output = K> + Sub<Output = K>, const R: usize, const C: usize> Matrix<K, R, C> {
 	pub fn rank(&self) -> u32 {
 		let reduced = self.row_echelon();
 		//println!("echelon {}", reduced);

@@ -1,11 +1,11 @@
-use crate::matrix::basic_definition::definition::{matrix, vector};
+use crate::matrix::basic_definition::definition::{Matrix, Vector};
 use num_traits::identities::One;
-use std::{ops::{Mul, Div, Sub, Neg, Add}, fmt::Display};
+use std::ops::{Mul, Div, Sub, Neg, Add};
 
-impl<K: Default + Copy + Display + One + PartialEq + Mul<Output = K> + Add<Output = K> + Div<Output = K> + Sub<Output = K> + Neg<Output = K>, const R: usize> matrix<K, R, R> {
+impl<K: Default + Copy + One + PartialEq + Mul<Output = K> + Add<Output = K> + Div<Output = K> + Sub<Output = K> + Neg<Output = K>, const R: usize> Matrix<K, R, R> {
 
 	pub fn determinant(&self) -> K {
-		let find_first_row = |m: &matrix<K, R, R>, row: usize, col: usize| -> Option<usize> {
+		let find_first_row = |m: &Matrix<K, R, R>, row: usize, col: usize| -> Option<usize> {
 			for (i, vec) in m.0.iter().enumerate().skip(row) {
 				if vec[col] != K::default() {
 					return Some(i);
@@ -14,7 +14,7 @@ impl<K: Default + Copy + Display + One + PartialEq + Mul<Output = K> + Add<Outpu
 			None
 		};
 
-		let row_swap = |m: &mut matrix<K, R, R>, r1: usize, r2: usize| {
+		let row_swap = |m: &mut Matrix<K, R, R>, r1: usize, r2: usize| {
 			for c in 0..R {
 				let tmp: K = m.0[r1][c];
 				m.0[r1][c] = m.0[r2][c];
@@ -33,7 +33,7 @@ impl<K: Default + Copy + Display + One + PartialEq + Mul<Output = K> + Add<Outpu
 				}
 				for r2 in r..R {
 					if r2 != r {
-						copy.0[r2] = (vector::from(copy.0[r2]) - vector::from(copy.0[r]) * (copy.0[r2][c] / copy.0[r][c])).0;
+						copy.0[r2] = (Vector::from(copy.0[r2]) - Vector::from(copy.0[r]) * (copy.0[r2][c] / copy.0[r][c])).0;
 					}
 					else {
 						continue;

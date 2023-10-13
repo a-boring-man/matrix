@@ -54,10 +54,8 @@ impl std::ops::Div for Complex {
 
 	fn div(self, rhs: Self) -> Self::Output {
 		let deno = rhs.norm().0.pow(2);
-		let salut = Complex( (self * rhs.conjugate()).0 / deno,
-			 (self * rhs.conjugate()).1 / deno);
-		//println!("self : {}, other : {}, result : {} ", self, rhs, salut);
-		salut
+		Complex( (self * rhs.conjugate()).0 / deno,
+			 (self * rhs.conjugate()).1 / deno)
 	}
 }
 

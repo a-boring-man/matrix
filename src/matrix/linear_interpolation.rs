@@ -1,6 +1,6 @@
-use std::{fmt::Display, ops::{Sub, Mul, Add}};
+use std::ops::{Sub, Mul, Add};
 
-use super::basic_definition::{trait_definition::Scalar, definition};
+use super::basic_definition::trait_definition::Scalar;
 
 pub fn _lerp
 	<V: Sub<Output = V> + Mul<K, Output = V> + Add<Output = V> + Copy, K: Scalar>

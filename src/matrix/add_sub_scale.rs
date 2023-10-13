@@ -1,8 +1,8 @@
-use std::{fmt::Display, ops::{Add, Sub, Mul, AddAssign}};
+use std::ops::{Add, Sub, Mul, AddAssign};
 
-use super::basic_definition::{trait_definition::Scalar, definition::{matrix, vector}};
+use super::basic_definition::definition::{Matrix, Vector};
 
-impl<K: Add<Output = K> + Copy, const R: usize, const C: usize> AddAssign for matrix<K, R, C> {
+impl<K: Add<Output = K> + Copy, const R: usize, const C: usize> AddAssign for Matrix<K, R, C> {
     
     fn add_assign(&mut self, rhs: Self) {
         self
@@ -16,7 +16,7 @@ impl<K: Add<Output = K> + Copy, const R: usize, const C: usize> AddAssign for ma
         })
     }
 }
-impl<K: Default + Copy + Add<Output = K>, const R: usize, const C: usize> Add for matrix<K, R, C> {
+impl<K: Default + Copy + Add<Output = K>, const R: usize, const C: usize> Add for Matrix<K, R, C> {
     type Output = Self;
 
     fn add(self, rhs: Self) -> Self::Output {
@@ -30,10 +30,10 @@ impl<K: Default + Copy + Add<Output = K>, const R: usize, const C: usize> Add fo
                 }
             }
         }
-        matrix(e)
+        Matrix(e)
     }
 }
-impl<K: Default + Copy + Sub<Output = K>, const R: usize, const C: usize> Sub for matrix<K, R, C> {
+impl<K: Default + Copy + Sub<Output = K>, const R: usize, const C: usize> Sub for Matrix<K, R, C> {
     type Output = Self;
 
     fn sub(self, rhs: Self) -> Self::Output {
@@ -47,10 +47,10 @@ impl<K: Default + Copy + Sub<Output = K>, const R: usize, const C: usize> Sub fo
                 }
             }
         }
-        matrix(e)
+        Matrix(e)
     }
 }
-impl<K: Default + Copy + Mul<Output = K>, const R: usize, const C: usize> Mul<K> for matrix<K, R, C> {
+impl<K: Default + Copy + Mul<Output = K>, const R: usize, const C: usize> Mul<K> for Matrix<K, R, C> {
     type Output = Self;
 
     fn mul(self, rhs: K) -> Self::Output {
@@ -58,16 +58,16 @@ impl<K: Default + Copy + Mul<Output = K>, const R: usize, const C: usize> Mul<K>
         e.iter_mut().zip(self.iter()).for_each(|(erow, selfrow)| erow.iter_mut().zip(selfrow.iter()).for_each(|(e, s)| {
             *e = *s * rhs;
         }));
-        matrix(e)
+        Matrix(e)
     }
 }
 
-impl<K: Add<Output = K> + Copy, const L: usize> AddAssign for vector<K, L> {
+impl<K: Add<Output = K> + Copy, const L: usize> AddAssign for Vector<K, L> {
     fn add_assign(&mut self, rhs: Self) {
         self.iter_mut().zip(rhs.iter()).for_each(|(v1, v2)| *v1 = *v1 + *v2);
     }
 }
-impl<K: Default + Copy + Add<Output = K>, const L: usize> Add for vector<K, L> {
+impl<K: Default + Copy + Add<Output = K>, const L: usize> Add for Vector<K, L> {
     type Output = Self;
 
     fn add(self, rhs: Self) -> Self::Output {
@@ -77,10 +77,10 @@ impl<K: Default + Copy + Add<Output = K>, const L: usize> Add for vector<K, L> {
                 *e.get_unchecked_mut(i) = *self.0.get_unchecked(i) + *rhs.0.get_unchecked(i);
             }
         }
-        vector(e)
+        Vector(e)
     }
 }
-impl<K: Default + Copy + Sub<Output = K>, const L: usize> Sub for vector<K, L> {
+impl<K: Default + Copy + Sub<Output = K>, const L: usize> Sub for Vector<K, L> {
     type Output = Self;
 
     fn sub(self, rhs: Self) -> Self::Output {
@@ -90,15 +90,15 @@ impl<K: Default + Copy + Sub<Output = K>, const L: usize> Sub for vector<K, L> {
                 *e.get_unchecked_mut(i) = *self.0.get_unchecked(i) - *rhs.0.get_unchecked(i);
             }
         }
-        vector(e)
+        Vector(e)
     }
 }
-impl<K: Default + Copy + Mul<Output = K>, const L: usize> Mul<K> for vector<K, L> {
+impl<K: Default + Copy + Mul<Output = K>, const L: usize> Mul<K> for Vector<K, L> {
     type Output = Self;
 
     fn mul(self, rhs: K) -> Self::Output {
         let mut e = [K::default(); L];
         e.iter_mut().zip(self.iter()).for_each(|(e, s)| *e = *s * rhs);
-        vector(e)
+        Vector(e)
     }
 }

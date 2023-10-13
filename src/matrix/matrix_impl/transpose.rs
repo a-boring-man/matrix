@@ -1,13 +1,13 @@
-use crate::matrix::basic_definition::{trait_definition::Scalar, definition::{matrix}};
+use crate::matrix::basic_definition::definition::Matrix;
 
-impl<K: Copy + Default, const R: usize, const C: usize> matrix<K, R, C> {
-	pub fn transpose(&self) -> matrix<K, C, R> {
+impl<K: Copy + Default, const R: usize, const C: usize> Matrix<K, R, C> {
+	pub fn transpose(&self) -> Matrix<K, C, R> {
 		let mut result = [[K::default(); R]; C];
-		for c in 0..C {
-			for r in 0..R {
-				result[c][r] = self.0[r][c];
+		for (c, col) in result.iter_mut().enumerate().take(C) {
+			for (r, row) in col.iter_mut().enumerate().take(R) {
+				*row = self.0[r][c];
 			}
 		}
-		matrix(result)
+		Matrix(result)
 	}
 }
